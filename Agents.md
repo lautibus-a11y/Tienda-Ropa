@@ -50,6 +50,18 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.2.5] - 2026-11-10
+#### Rediseño del Catálogo (Tipo Mercado Libre) + Renombre "Nuestro Catálogo"
+- **Sección renombrada:** `#categorias` ("Nuestras Colecciones") → **"Nuestro Catálogo"**; unificado en nav del header, footer, CTA del hero y links "Ver Catálogo" en las tarjetas.
+- **Eliminado el diseño de Mazo 3D dentro del Catálogo Modal:**
+  - Removidas las cards apiladas con `perspective`/`rotateY`, las flechas laterales y los dots de paginación; eliminado el JS asociado (`catalogDeckPrev`, `catalogDeckNext`, `catalogActiveIdx`, `renderCatalogDots`, cálculo de z-index/profundidad por resize) — menos cpu/gc por render.
+- **Nuevo catálogo estilo Mercado Libre (grilla de publicaciones):**
+  - Grilla responsive `auto-fill minmax(224px)` (2 columnas fijas en móvil), fondo gris ML (#EDEDED), cards blancas con sombras sutiles y hover con elevación.
+  - Cada publicación incluye: imagen cuadrada con `loading="lazy"`, badge (HOT/NEW/TREND), chip `<n>% OFF` calculado contra `originalPrice`, corazón de wishlist (con `preventDefault`, no navega), título clamp 2 líneas, precio en formato ARS con precio tachado + % off inline, cuotas "6 x $… sin interés", "Envío gratis" en verde ML y chips de talles.
+  - Seguro por construcción: los datos se insertan con `textContent` (prevención XSS), render por `DocumentFragment` en un solo reflow.
+- **Navegación correcta:** toda la card es un `<a href="producto.html?id=…">` → toca cualquier prenda y abre la ficha individual de producto. Búsqueda y pills de categoría siguen operativos (filtros + estado vacío verificados).
+- **Validación:** smoke tests 7/7 OK (grilla, links a ficha, búsqueda filtra, estado vacío, wishlist sin navegar), 0 errores de consola; navegación real card → `producto.html` verificada en browser.
+
 ### [1.2.4] - 2026-11-10
 #### Auditoría Integral, Limpieza Profunda y Corrección de Bugs (Protocolo Optimizador Universal)
 - **Posibilidad de Recuperación (Regla 13):** Inicializado repositorio Git con commit de respaldo `0f2b45a` del estado pre-optimización; añadido `.gitignore` (`.DS_Store`, logs) y eliminado el archivo `.DS_Store` sobrante.
