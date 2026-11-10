@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Producto // AURORA Future Urban Fashion</title>
+    <!-- Tailwind estático precompilado (elimina el runtime JIT de cdn.tailwindcss.com en producción) -->
+    <link rel="stylesheet" href="tailwind_producto.css">
+    <!-- Fuentes: preconexión temprana + Inter variable (1 archivo para todos los pesos 300–900) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
+    <style>
+        
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #0A0A0A;
+            overflow-x: hidden;
+        }
+
+        .aurora-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 230, 0, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(200, 200, 255, 0.10) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(245, 247, 250, 1) 100%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .gallery-main-img {
+            transition: transform 0.35s ease;
+        }
+        .gallery-main-container:hover .gallery-main-img {
+            transform: scale(1.08);
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased text-brand-black">
+
+    <div class="aurora-mesh"></div>
+
+    <!-- 1. HEADER Y NAVEGACIÓN -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+            <nav class="glass-nav rounded-3xl px-5 py-3.5 flex items-center justify-between shadow-sm">
+                <!-- Botón Volver + Logo -->
+                <div class="flex items-center space-x-4">
+                    <a href="landing_page_e_commerce.html" class="flex items-center space-x-1.5 text-xs font-bold text-gray-700 hover:text-brand-black bg-black/5 hover:bg-black/10 px-3.5 py-2 rounded-full transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                        <span>Volver al Catálogo</span>
+                    </a>
+                    <a href="landing_page_e_commerce.html" class="text-xl sm:text-2xl font-black tracking-tighter uppercase text-brand-black">
+                        AURORA<span class="text-amber-500">.</span>
+                    </a>
+                </div>
+
+                <!-- Breadcrumb rápido en desktop -->
+                <div class="hidden lg:flex items-center space-x-2 text-xs font-medium text-gray-500" id="header-breadcrumb">
+                    <span>Colección</span>
+                    <span>/</span>
+                    <span id="breadcrumb-category-nav" class="text-gray-800 font-semibold">Prendas</span>
+                </div>
+
+                <!-- Carrito y Wishlist -->
+                <div class="flex items-center space-x-3">
+                    <button id="fav-btn" class="p-2.5 rounded-full hover:bg-black/5 transition-colors relative" aria-label="Favoritos">
+                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <span id="fav-count" class="absolute -top-1 -right-1 w-4 h-4 bg-brand-yellow text-[10px] font-bold text-brand-black rounded-full flex items-center justify-center ring-2 ring-white">0</span>
+                    </button>
+                    <button id="cart-btn" class="flex items-center space-x-2 bg-brand-black text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-md active:scale-95" aria-label="Ver Carrito">
+                        <svg class="w-4 h-4 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="cart-count" class="bg-brand-yellow text-brand-black px-1.5 py-0.5 rounded-full text-xs font-bold">0</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. CONTENIDO PRINCIPAL PRODUCT VIEW -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-20">
+
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center space-x-2 text-xs font-medium text-gray-500 mb-6">
+            <a href="landing_page_e_commerce.html" class="hover:text-brand-black transition-colors">Inicio</a>
+            <span>/</span>
+            <a href="landing_page_e_commerce.html#categorias" id="breadcrumb-category-link" class="hover:text-brand-black transition-colors">Categorías</a>
+            <span>/</span>
+            <span id="breadcrumb-product-name" class="text-gray-900 font-semibold truncate max-w-xs sm:max-w-md">Cargando prenda...</span>
+        </nav>
+
+        <!-- Bloque Principal Ficha de Producto (Mercado Libre Style Pro) -->
+        <div class="glass-panel rounded-[32px] p-6 sm:p-10 shadow-xl mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                
+                <!-- GALERÍA DE IMÁGENES (Columnas 1-7) -->
+                <div class="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 sm:gap-6">
+                    <!-- Tiras de Miniaturas -->
+                    <div class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible shrink-0" id="gallery-thumbnails">
+                        <!-- Miniaturas inyectadas por JS -->
+                    </div>
+
+                    <!-- Imagen Principal Grande con Zoom al Hover -->
+                    <div class="gallery-main-container relative flex-1 h-[420px] sm:h-[580px] rounded-3xl overflow-hidden bg-gray-100 flex items-center justify-center cursor-crosshair border border-gray-100">
+                        <span id="product-badge" class="absolute top-5 left-5 z-20 bg-brand-yellow text-brand-black text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-md">HOT</span>
+                        <button id="product-fav-toggle" onclick="toggleProductWishlist()" class="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-gray-700 hover:text-red-500 shadow-md hover:scale-110 active:scale-95 transition-all" aria-label="Guardar en Favoritos">
+                            <svg id="product-fav-icon" class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                        <img id="main-product-img" src="" alt="Prenda AURORA" class="gallery-main-img w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- COLUMNA COMERCIAL / DETALLES DE COMPRA (Columnas 8-12) -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+                    <div>
+                        <!-- Condición, Ventas y Reseñas -->
+                        <div class="flex items-center space-x-3 text-xs text-gray-500 mb-2">
+                            <span>Nuevo</span>
+                            <span>|</span>
+                            <span>+100 vendidos</span>
+                            <span>|</span>
+                            <div class="flex items-center text-amber-500 font-bold">
+                                <span>★ 4.9</span>
+                                <span class="text-gray-400 font-normal ml-1" id="reviews-count">(84 opiniones)</span>
+                            </div>
+                        </div>
+
+                        <!-- Título del Producto -->
+                        <h1 id="product-title" class="text-2xl sm:text-4xl font-black tracking-tight text-brand-black leading-tight mb-3">
+                            Cargando producto...
+                        </h1>
+
+                        <!-- Bloque de Precios y Descuento -->
+                        <div class="bg-gray-50 rounded-2xl p-4 sm:p-5 border border-gray-100 mb-6">
+                            <div class="flex items-baseline space-x-3">
+                                <span id="product-price" class="text-3xl sm:text-4xl font-black text-brand-black">$0</span>
+                                <span id="product-original-price" class="text-sm font-semibold text-gray-400 line-through">$0</span>
+                                <span class="bg-red-100 text-red-600 text-xs font-black px-2 py-0.5 rounded-md">20% OFF</span>
+                            </div>
+                            
+                            <!-- Beneficios de Financiación -->
+                            <div class="mt-3 space-y-1.5 text-xs">
+                                <p class="text-emerald-700 font-bold flex items-center space-x-1.5">
+                                    <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    <span id="installments-text">en 6 cuotas de $0 sin interés</span>
+                                </p>
+                                <p class="text-gray-600">
+                                    20% de descuento adicional abonando mediante <strong class="text-gray-900">Transferencia Bancaria</strong>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Color / Variante -->
+                        <div class="mb-5">
+                            <span class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Color: <strong id="selected-color-name" class="text-gray-900 font-extrabold">Seleccionar</strong></span>
+                            <div class="flex items-center space-x-2" id="color-options">
+                                <!-- Colores inyectados dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- Selector de Talle Interactivo -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-gray-700">Talle Seleccionado: <strong id="selected-size-label" class="text-brand-black font-extrabold">-</strong></span>
+                                <button onclick="openSizeGuideModal()" class="text-xs font-semibold text-amber-600 hover:text-amber-700 underline">Guía de talles</button>
+                            </div>
+                            <div class="flex flex-wrap gap-2.5" id="size-options">
+                                <!-- Talles inyectados por JS -->
+                            </div>
+                        </div>
+
+                        <!-- Stock Disponible -->
+                        <div class="flex items-center space-x-2 text-xs font-semibold mb-6">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-gray-800">Stock disponible:</span>
+                            <span id="stock-count-text" class="text-emerald-700 font-bold">¡Últimas unidades!</span>
+                        </div>
+
+                        <!-- Selector de Cantidad -->
+                        <div class="flex items-center space-x-4 mb-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-gray-700">Cantidad:</span>
+                            <div class="flex items-center border border-gray-300 rounded-xl bg-white shadow-sm">
+                                <button onclick="changeDetailQty(-1)" class="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded-l-xl font-bold transition-colors">-</button>
+                                <span id="detail-qty" class="px-4 py-1.5 text-xs font-black text-gray-900">1</span>
+                                <button onclick="changeDetailQty(1)" class="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded-r-xl font-bold transition-colors">+</button>
+                            </div>
+                            <span class="text-[11px] text-gray-400" id="stock-units-helper">(4 disponibles)</span>
+                        </div>
+
+                        <!-- Botones de Acción (Comprar Ahora / Agregar al Carrito) -->
+                        <div class="space-y-3">
+                            <button onclick="buyNowCurrentProduct()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-brand-black font-extrabold py-4 rounded-2xl text-sm transition-all shadow-lg active:scale-95 flex items-center justify-center space-x-2">
+                                <span>Comprar Ahora</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                            <button onclick="addCurrentProductToCart()" class="w-full bg-brand-black hover:bg-gray-800 text-white font-bold py-4 rounded-2xl text-sm transition-all shadow-md active:scale-95 flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                <span>Agregar al Carrito</span>
+                            </button>
+                        </div>
+
+                        <!-- Beneficios de Confianza Mercado Libre Style -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 space-y-4 text-xs text-gray-600">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                                <div>
+                                    <p class="font-bold text-gray-900">Envíos Gratis a todo el país</p>
+                                    <p class="text-[11px] text-gray-500">Despacho prioritario en 24hs hábiles con seguimiento online.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                <div>
+                                    <p class="font-bold text-gray-900">Devolución gratis por 30 días</p>
+                                    <p class="text-[11px] text-gray-500">¿No te convenció o no era tu talle? Cambialo o devolvelo sin costo.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <div>
+                                    <p class="font-bold text-gray-900">Garantía Oficial AURORA Studio</p>
+                                    <p class="text-[11px] text-gray-500">Calidad garantizada y materiales premium certificados.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3. DESCRIPCIÓN EDITORIAL Y ESPECIFICACIONES TÉCNICAS -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <div class="lg:col-span-8 glass-panel rounded-[32px] p-8 sm:p-10 space-y-6">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2 block">Diseño & Confección</span>
+                    <h2 class="text-2xl font-black text-brand-black">Descripción Editorial</h2>
+                </div>
+                <p id="product-description" class="text-gray-700 text-sm sm:text-base leading-relaxed font-light">
+                    <!-- Descripción inyectada por JS -->
+                </p>
+
+                <div class="border-t border-gray-100 pt-6">
+                    <h3 class="text-base font-bold text-brand-black mb-4 uppercase tracking-wider text-xs">Especificaciones Técnicas</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <span class="block text-gray-400 font-semibold mb-1">MATERIALIDAD</span>
+                            <span id="detail-material" class="font-medium text-gray-900">-</span>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <span class="block text-gray-400 font-semibold mb-1">CALCE Y CORTE</span>
+                            <span id="detail-fit" class="font-medium text-gray-900">-</span>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <span class="block text-gray-400 font-semibold mb-1">CUIDADOS RECOMENDADOS</span>
+                            <span id="detail-care" class="font-medium text-gray-900">-</span>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <span class="block text-gray-400 font-semibold mb-1">ORIGEN Y SUSTENTABILIDAD</span>
+                            <span id="detail-origin" class="font-medium text-gray-900">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna lateral de ayuda rápida -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="glass-panel rounded-[32px] p-6 text-xs space-y-4">
+                    <h4 class="font-bold uppercase tracking-wider text-gray-900">¿Dudas con tu compra?</h4>
+                    <p class="text-gray-600 leading-relaxed">Nuestros asesores de estilo están disponibles para asistirte con talles, materiales o tiempos de entrega.</p>
+                    <a href="https://wa.me/" target="_blank" class="block w-full text-center bg-gray-100 hover:bg-brand-black hover:text-white text-brand-black py-3 rounded-xl font-bold transition-colors">
+                        Consultar por WhatsApp
+                    </a>
+                </div>
+                <div class="glass-panel rounded-[32px] p-6 text-xs text-gray-500 space-y-2">
+                    <p class="font-bold text-gray-800">Código de Artículo:</p>
+                    <p id="product-sku" class="font-mono text-gray-600 text-xs">AURORA-ART-000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. PRODUCTOS RELACIONADOS -->
+        <section class="mt-20">
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-1 block">Completá el look</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Piezas Relacionadas</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="related-products-grid">
+                <!-- Productos relacionados inyectados por JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-black text-white pt-16 pb-12 rounded-t-[40px] mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 border-t border-white/10 pt-8">
+                <p>&copy; 2026 AURORA Fashion Studio. Todos los derechos reservados.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="landing_page_e_commerce.html" class="hover:text-white transition-colors">Volver a la tienda</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+                    <a href="#" class="hover:text-white transition-colors">Términos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL GUÍA DE TALLES -->
+    <div id="size-guide-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white w-full max-w-xl rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b pb-4 mb-4">
+                <h3 class="font-black text-lg text-brand-black">Guía de Talles y Medidas</h3>
+                <button onclick="closeSizeGuideModal()" class="p-1 rounded-full hover:bg-gray-100 text-gray-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="overflow-x-auto text-xs">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b bg-gray-50 text-gray-700">
+                            <th class="p-2.5 font-bold">Talle</th>
+                            <th class="p-2.5 font-bold">Pecho (cm)</th>
+                            <th class="p-2.5 font-bold">Cintura (cm)</th>
+                            <th class="p-2.5 font-bold">Cadera (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr><td class="p-2.5 font-bold">XS</td><td class="p-2.5">82-86</td><td class="p-2.5">62-66</td><td class="p-2.5">88-92</td></tr>
+                        <tr><td class="p-2.5 font-bold">S</td><td class="p-2.5">86-90</td><td class="p-2.5">66-70</td><td class="p-2.5">92-96</td></tr>
+                        <tr><td class="p-2.5 font-bold">M</td><td class="p-2.5">90-96</td><td class="p-2.5">70-76</td><td class="p-2.5">96-102</td></tr>
+                        <tr><td class="p-2.5 font-bold">L</td><td class="p-2.5">96-102</td><td class="p-2.5">76-82</td><td class="p-2.5">102-108</td></tr>
+                        <tr><td class="p-2.5 font-bold">XL</td><td class="p-2.5">102-110</td><td class="p-2.5">82-90</td><td class="p-2.5">108-116</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-[11px] text-gray-400 mt-4">Medidas anatómicas en centímetros. Recomendamos elegir tu talle habitual para un corte fiel al modelo.</p>
+        </div>
+    </div>
+
+    <!-- DRAWER LATERAL DE CARRITO (Slide-over Off-canvas Compartido) -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+            <div class="flex items-center space-x-3">
+                <svg class="w-6 h-6 text-brand-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <h3 class="text-lg font-black text-brand-black tracking-tight">Tu Carrito</h3>
+                <span id="drawer-cart-count" class="bg-brand-yellow text-brand-black text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+            </div>
+            <button id="close-drawer-btn" class="p-2 rounded-full hover:bg-gray-200 transition-colors text-gray-600" aria-label="Cerrar carrito">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+        <div id="cart-empty-state" class="hidden flex-1 flex-col items-center justify-center p-8 text-center">
+            <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4 text-gray-400">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-1">Tu carrito está vacío</h4>
+            <p class="text-xs text-gray-500 mb-6 max-w-xs">Explorá nuestras colecciones y descubrí piezas urbanas de edición limitada.</p>
+            <a href="landing_page_e_commerce.html" class="bg-brand-black text-white px-6 py-3 rounded-2xl text-xs font-bold hover:bg-gray-800 transition-colors inline-block">
+                Explorar Catálogo
+            </a>
+        </div>
+
+        <div id="cart-footer" class="border-t border-gray-100 p-6 bg-gray-50 space-y-4">
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="font-semibold text-gray-900">$0</span>
+                </div>
+                <div class="flex justify-between text-gray-600 text-xs">
+                    <span>Envío</span>
+                    <span class="text-green-600 font-bold">¡GRATIS!</span>
+                </div>
+                <div class="border-t border-gray-200 pt-2 flex justify-between text-base font-black text-gray-900">
+                    <span>Total Estimado</span>
+                    <span id="cart-total" class="text-brand-black">$0</span>
+                </div>
+            </div>
+            <button onclick="checkoutCart()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-brand-black font-extrabold py-4 rounded-2xl text-sm transition-all shadow-lg active:scale-95 flex items-center justify-center space-x-2">
+                <span>Finalizar Compra</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+            <p class="text-[11px] text-center text-gray-400">Transacciones seguras SSL con garantía oficial AURORA.</p>
+        </div>
+    </aside>
+
+    <!-- Notificación Toast Flotante -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 bg-brand-black text-white px-6 py-3.5 rounded-2xl shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 pointer-events-none">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-yellow animate-ping"></span>
+        <span id="toast-text" class="text-sm font-semibold">Producto agregado al carrito</span>
+    </div>
+
+    <!-- SCRIPT DE DATOS Y COMPORTAMIENTO NATIVO -->
+    <script src="products_data.js"></script>
+    <script>
+        let currentProduct = null;
+        let selectedSize = null;
+        let selectedQty = 1;
+        let selectedColor = "";
+
+        let CART = getStoredCart();
+        let WISHLIST = getStoredWishlist();
+
+        function initApp() {
+            initProductPage();
+            initCartUI();
+            initDrawerEvents();
+            initKeyboardShortcuts();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+
+        function getProductIdFromURL() {
+            try {
+                if (typeof URLSearchParams !== 'undefined') {
+                    const params = new URLSearchParams(window.location.search);
+                    const id = params.get('id');
+                    if (id) return id;
+                }
+            } catch (e) {}
+            const match = (window.location.search || '').match(/[?&]id=([^&]+)/);
+            return match ? decodeURIComponent(match[1]) : "chaq-01";
+        }
+
+        function initProductPage() {
+            const productId = getProductIdFromURL();
+            currentProduct = PRODUCTS_DATA.find(p => p.id === productId) || PRODUCTS_DATA[0];
+
+            // Título de la pestaña
+            document.getElementById('page-title').textContent = `${currentProduct.name} // AURORA Studio`;
+
+            // Breadcrumbs
+            document.getElementById('breadcrumb-category-nav').textContent = currentProduct.category;
+            document.getElementById('breadcrumb-category-link').textContent = currentProduct.category;
+            document.getElementById('breadcrumb-category-link').href = `landing_page_e_commerce.html#destacados`;
+            document.getElementById('breadcrumb-product-name').textContent = currentProduct.name;
+
+            // Galería de Imágenes
+            const mainImg = document.getElementById('main-product-img');
+            mainImg.src = currentProduct.images[0] || "https://placehold.co/800x1000/F0F0F0/0A0A0A?text=Aurora";
+            mainImg.alt = currentProduct.name;
+
+            const thumbnailsContainer = document.getElementById('gallery-thumbnails');
+            thumbnailsContainer.innerHTML = "";
+            currentProduct.images.forEach((imgUrl, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = `w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 transition-all shrink-0 ${idx === 0 ? 'border-brand-yellow shadow-md scale-95' : 'border-transparent opacity-70 hover:opacity-100'}`;
+                thumb.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name}" class="w-full h-full object-cover">`;
+                thumb.addEventListener('click', () => {
+                    mainImg.src = imgUrl;
+                    Array.from(thumbnailsContainer.children).forEach(c => {
+                        c.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent opacity-70 hover:opacity-100 transition-all shrink-0";
+                    });
+                    thumb.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-brand-yellow shadow-md scale-95 transition-all shrink-0";
+                });
+                thumbnailsContainer.appendChild(thumb);
+            });
+
+            // Badge
+            document.getElementById('product-badge').textContent = currentProduct.badge;
+
+            // Info principal
+            document.getElementById('product-title').textContent = currentProduct.name;
+            document.getElementById('reviews-count').textContent = `(${currentProduct.reviewsCount} opiniones)`;
+            document.getElementById('product-price').textContent = formatMoney(currentProduct.price);
+            document.getElementById('product-original-price').textContent = formatMoney(currentProduct.originalPrice);
+
+            const installmentAmount = Math.round(currentProduct.price / 6);
+            document.getElementById('installments-text').textContent = `en 6 cuotas de ${formatMoney(installmentAmount)} sin interés`;
+
+            // Colores
+            const colorContainer = document.getElementById('color-options');
+            colorContainer.innerHTML = "";
+            selectedColor = currentProduct.colors[0] || "Default";
+            document.getElementById('selected-color-name').textContent = selectedColor;
+
+            currentProduct.colors.forEach((col, idx) => {
+                const colorBtn = document.createElement('button');
+                colorBtn.className = `px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'bg-brand-black text-white border-brand-black shadow-sm' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'}`;
+                colorBtn.textContent = col;
+                colorBtn.addEventListener('click', () => {
+                    selectedColor = col;
+                    document.getElementById('selected-color-name').textContent = col;
+                    Array.from(colorContainer.children).forEach(b => {
+                        b.className = "px-3.5 py-1.5 rounded-xl border text-xs font-bold bg-white text-gray-700 border-gray-200 hover:border-gray-400 transition-all";
+                    });
+                    colorBtn.className = "px-3.5 py-1.5 rounded-xl border text-xs font-bold bg-brand-black text-white border-brand-black shadow-sm transition-all";
+                });
+                colorContainer.appendChild(colorBtn);
+            });
+
+            // Talles
+            const sizeContainer = document.getElementById('size-options');
+            sizeContainer.innerHTML = "";
+            selectedSize = currentProduct.sizes[0] || "M";
+            document.getElementById('selected-size-label').textContent = selectedSize;
+
+            currentProduct.sizes.forEach((s, idx) => {
+                const sizeBtn = document.createElement('button');
+                sizeBtn.className = `w-12 h-11 rounded-xl border font-bold text-xs transition-all flex items-center justify-center ${idx === 0 ? 'bg-brand-black text-white border-brand-black shadow-sm scale-105' : 'bg-white text-gray-800 border-gray-200 hover:border-gray-900'}`;
+                sizeBtn.textContent = s;
+                sizeBtn.addEventListener('click', () => {
+                    selectedSize = s;
+                    document.getElementById('selected-size-label').textContent = s;
+                    Array.from(sizeContainer.children).forEach(b => {
+                        b.className = "w-12 h-11 rounded-xl border font-bold text-xs bg-white text-gray-800 border-gray-200 hover:border-gray-900 transition-all flex items-center justify-center";
+                    });
+                    sizeBtn.className = "w-12 h-11 rounded-xl border font-bold text-xs bg-brand-black text-white border-brand-black shadow-sm scale-105 transition-all flex items-center justify-center";
+                });
+                sizeContainer.appendChild(sizeBtn);
+            });
+
+            // Stock
+            document.getElementById('stock-count-text').textContent = `¡Últimas ${currentProduct.stock} unidades disponibles!`;
+            document.getElementById('stock-units-helper').textContent = `(${currentProduct.stock} disponibles)`;
+
+            // Descripción y Especificaciones
+            document.getElementById('product-description').textContent = currentProduct.description;
+            document.getElementById('detail-material').textContent = currentProduct.details.material;
+            document.getElementById('detail-fit').textContent = currentProduct.details.fit;
+            document.getElementById('detail-care').textContent = currentProduct.details.care;
+            document.getElementById('detail-origin').textContent = currentProduct.details.origin;
+            document.getElementById('product-sku').textContent = `AURORA-${currentProduct.id.toUpperCase()}-2026`;
+
+            // Wishlist badge
+            updateWishlistUI();
+
+            // Renderizar productos relacionados
+            renderRelatedProducts();
+        }
+
+        function changeDetailQty(delta) {
+            selectedQty += delta;
+            if (selectedQty < 1) selectedQty = 1;
+            if (selectedQty > currentProduct.stock) selectedQty = currentProduct.stock;
+            document.getElementById('detail-qty').textContent = selectedQty;
+        }
+
+        function addCurrentProductToCart() {
+            if (!currentProduct) return;
+            const existing = CART.find(item => item.id === currentProduct.id && item.size === selectedSize);
+            if (existing) {
+                existing.quantity += selectedQty;
+            } else {
+                CART.push({
+                    id: currentProduct.id,
+                    quantity: selectedQty,
+                    size: selectedSize
+                });
+            }
+            saveStoredCart(CART);
+            initCartUI();
+            showNotification(`¡${currentProduct.name} (Talle ${selectedSize}) agregado al carrito!`);
+            openCartDrawer();
+        }
+
+        function buyNowCurrentProduct() {
+            addCurrentProductToCart();
+            setTimeout(() => {
+                checkoutCart();
+            }, 300);
+        }
+
+        // Renderizado de productos relacionados
+        function renderRelatedProducts() {
+            const relatedGrid = document.getElementById('related-products-grid');
+            if (!relatedGrid) return;
+            relatedGrid.innerHTML = "";
+
+            const related = PRODUCTS_DATA
+                .filter(p => p.id !== currentProduct.id)
+                .slice(0, 4);
+
+            related.forEach(prod => {
+                const card = document.createElement('a');
+                card.href = `producto.html?id=${prod.id}`;
+                card.className = "bg-white rounded-3xl p-4 border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative w-full h-64 rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                            <span class="absolute top-3 left-3 z-10 bg-brand-yellow text-brand-black text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">${prod.badge}</span>
+                            <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-sm text-brand-black group-hover:text-amber-600 transition-colors line-clamp-1">${prod.name}</h4>
+                        <p class="text-sm font-semibold text-gray-900 mt-1">${formatMoney(prod.price)}</p>
+                        
+                        <!-- Talles visibles directamente -->
+                        <div class="flex items-center space-x-1.5 mt-2.5">
+                            <span class="text-[10px] text-gray-400 font-semibold uppercase">Talles:</span>
+                            <div class="flex flex-wrap gap-1">
+                                ${prod.sizes.map(s => `<span class="px-1.5 py-0.5 rounded-md bg-gray-100 text-gray-700 font-bold text-[10px]">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-900 group-hover:text-amber-600">
+                        <span>Ver Ficha</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                `;
+                relatedGrid.appendChild(card);
+            });
+        }
+
+        // ==========================================================================
+        // CARRITO DRAWER OFF-CANVAS
+        // ==========================================================================
+        function getCartElements() {
+            return {
+                cartDrawer: document.getElementById('cart-drawer'),
+                cartDrawerOverlay: document.getElementById('cart-drawer-overlay'),
+                cartItemsContainer: document.getElementById('cart-items-container'),
+                cartEmptyState: document.getElementById('cart-empty-state'),
+                cartFooter: document.getElementById('cart-footer'),
+                cartCountEl: document.getElementById('cart-count'),
+                drawerCartCountEl: document.getElementById('drawer-cart-count'),
+                cartSubtotalEl: document.getElementById('cart-subtotal'),
+                cartTotalEl: document.getElementById('cart-total')
+            };
+        }
+
+        function openCartDrawer() {
+            const els = getCartElements();
+            renderCartItems();
+            if (els.cartDrawerOverlay) els.cartDrawerOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            if (els.cartDrawer) els.cartDrawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCartDrawer() {
+            const els = getCartElements();
+            if (els.cartDrawerOverlay) els.cartDrawerOverlay.classList.add('opacity-0', 'pointer-events-none');
+            if (els.cartDrawer) els.cartDrawer.classList.add('translate-x-full');
+            document.body.style.overflow = 'auto';
+        }
+
+        function initDrawerEvents() {
+            const els = getCartElements();
+            if (els.cartDrawerOverlay) els.cartDrawerOverlay.addEventListener('click', closeCartDrawer);
+            const closeBtn = document.getElementById('close-drawer-btn');
+            if (closeBtn) closeBtn.addEventListener('click', closeCartDrawer);
+            const cartBtn = document.getElementById('cart-btn');
+            if (cartBtn) cartBtn.addEventListener('click', openCartDrawer);
+        }
+
+        function updateItemQuantity(productId, delta, size) {
+            const item = CART.find(i => i.id === productId && (!size || i.size === size));
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                CART = CART.filter(i => !(i.id === productId && (!size || i.size === size)));
+            }
+            saveStoredCart(CART);
+            initCartUI();
+            renderCartItems();
+        }
+
+        function removeItem(productId, size) {
+            CART = CART.filter(i => !(i.id === productId && (!size || i.size === size)));
+            saveStoredCart(CART);
+            initCartUI();
+            renderCartItems();
+            showNotification('Prenda eliminada del carrito');
+        }
+
+        function initCartUI() {
+            const els = getCartElements();
+            const totalQty = CART.reduce((sum, item) => sum + item.quantity, 0);
+            if (els.cartCountEl) els.cartCountEl.textContent = totalQty;
+            if (els.drawerCartCountEl) els.drawerCartCountEl.textContent = totalQty;
+
+            const subtotal = CART.reduce((sum, item) => {
+                const prod = PRODUCTS_DATA.find(p => p.id === item.id);
+                return sum + (prod ? prod.price * item.quantity : 0);
+            }, 0);
+
+            if (els.cartSubtotalEl) els.cartSubtotalEl.textContent = formatMoney(subtotal);
+            if (els.cartTotalEl) els.cartTotalEl.textContent = formatMoney(subtotal);
+        }
+
+        function renderCartItems() {
+            const els = getCartElements();
+            if (!els.cartItemsContainer) return;
+
+            els.cartItemsContainer.innerHTML = "";
+
+            if (CART.length === 0) {
+                els.cartItemsContainer.classList.add('hidden');
+                if (els.cartEmptyState) {
+                    els.cartEmptyState.classList.remove('hidden');
+                    els.cartEmptyState.classList.add('flex');
+                }
+                if (els.cartFooter) els.cartFooter.classList.add('hidden');
+                return;
+            }
+
+            els.cartItemsContainer.classList.remove('hidden');
+            if (els.cartEmptyState) {
+                els.cartEmptyState.classList.add('hidden');
+                els.cartEmptyState.classList.remove('flex');
+            }
+            if (els.cartFooter) els.cartFooter.classList.remove('hidden');
+
+            CART.forEach(item => {
+                const prod = PRODUCTS_DATA.find(p => p.id === item.id);
+                if (!prod) return;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "flex items-center space-x-4 bg-gray-50 p-3.5 rounded-2xl border border-gray-100";
+
+                itemRow.innerHTML = `
+                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 shrink-0">
+                        <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-xs text-brand-black truncate">${prod.name}</h4>
+                        <div class="flex items-center space-x-2 mt-0.5">
+                            <span class="text-xs font-semibold text-gray-900">${formatMoney(prod.price)}</span>
+                            <span class="text-[10px] font-bold bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded">Talle: ${item.size || 'M'}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <button onclick="updateItemQuantity('${prod.id}', -1, '${item.size || ''}')" class="w-6 h-6 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-bold hover:bg-gray-100 transition-colors">-</button>
+                            <span class="text-xs font-bold text-gray-800">${item.quantity}</span>
+                            <button onclick="updateItemQuantity('${prod.id}', 1, '${item.size || ''}')" class="w-6 h-6 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-bold hover:bg-gray-100 transition-colors">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeItem('${prod.id}', '${item.size || ''}')" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(itemRow);
+            });
+        }
+
+        function checkoutCart() {
+            showNotification('Conectando con pasarela segura...');
+            setTimeout(() => {
+                alert(`¡Compra confirmada por un total de ${cartTotalEl.textContent}! Gracias por elegir AURORA Studio.`);
+                CART = [];
+                saveStoredCart(CART);
+                initCartUI();
+                renderCartItems();
+                closeCartDrawer();
+            }, 700);
+        }
+
+        // ==========================================================================
+        // WISHLIST & NOTIFICACIONES
+        // ==========================================================================
+        function updateWishlistUI() {
+            const favCountEl = document.getElementById('fav-count');
+            if (favCountEl) favCountEl.textContent = WISHLIST.size;
+
+            const favToggle = document.getElementById('product-fav-toggle');
+            if (favToggle && currentProduct) {
+                const isFav = WISHLIST.has(currentProduct.id);
+                favToggle.innerHTML = isFav
+                    ? `<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+                    : `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>`;
+                favToggle.setAttribute('aria-label', isFav ? 'Quitar de Favoritos' : 'Guardar en Favoritos');
+            }
+        }
+
+        function toggleProductWishlist() {
+            if (!currentProduct) return;
+            if (WISHLIST.has(currentProduct.id)) {
+                WISHLIST.delete(currentProduct.id);
+                showNotification('Prenda eliminada de tu wishlist.');
+            } else {
+                WISHLIST.add(currentProduct.id);
+                showNotification('¡Prenda guardada en tu wishlist!');
+            }
+            saveStoredWishlist(WISHLIST);
+            updateWishlistUI();
+        }
+
+        const favBtn = document.getElementById('fav-btn');
+        if (favBtn) {
+            favBtn.addEventListener('click', () => {
+                showNotification(`Tienes ${WISHLIST.size} prendas en tu wishlist.`);
+            });
+        }
+
+        let toastTimeout;
+        function showNotification(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastText = document.getElementById('toast-text');
+            toastText.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Modales y Shortcuts
+        function openSizeGuideModal() {
+            const modal = document.getElementById('size-guide-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSizeGuideModal() {
+            const modal = document.getElementById('size-guide-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+        }
+
+        function initKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeCartDrawer();
+                    closeSizeGuideModal();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
