@@ -90,6 +90,14 @@
             will-change: transform;
         }
 
+        /* Cards del carrusel: sin blur (glass) para liberar GPU en gama baja */
+        .carousel-flat {
+            background: rgba(255, 255, 255, 0.90);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            padding: 1rem; /* taller común de padding compacto (no disponible como utilidad estática congelada) */
+        }
+
         /* Catálogo estilo Mercado Libre (grilla de publicaciones) */
         .catalog-grid {
             display: grid;
@@ -241,23 +249,32 @@
             .catalog-item-img, .catalog-item, .catalog-item-fav { transition: none; }
         }
 
-        /* Lista vertical de categorías (progresiva, sin 3D) */
+        /* Lista vertical de categorías — apilamiento progresivo (scroll stacking) */
         .category-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
             max-width: 56rem;
             margin: 0 auto;
+            padding-bottom: 40vh; /* da recorrido para ver varias tarjetas apiladas */
         }
         .category-card {
-            position: relative;
-            min-height: 280px;
+            position: sticky;
+            top: 96px; /* altura del header flotante + respiro */
+            min-height: 320px;
             border-radius: 36px;
             overflow: hidden;
             background: #0A0A0A;
             display: flex;
             align-items: flex-end;
             background-clip: padding-box;
+            /* Cada tarjeta supera ligeramente el offset de la anterior (efecto pila) */
+        }
+        .category-card:nth-child(1) { top: 96px; }
+        .category-card:nth-child(2) { top: 112px; }
+        .category-card:nth-child(3) { top: 128px; }
+        .category-card:nth-child(4) { top: 144px; }
+        .category-card:nth-child(5) { top: 160px; }
+        .category-card + .category-card {
+            margin-top: 32px;
+            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.25);
         }
         .category-card .cat-img {
             position: absolute;
@@ -267,8 +284,11 @@
             object-fit: cover;
             filter: brightness(.9);
         }
-        @media (min-width: 640px) {
-            .category-card { min-height: 320px; }
+        @media (max-width: 640px) {
+            .category-card {
+                top: 84px !important;
+                border-radius: 24px;
+            }
         }
         @media (prefers-reduced-motion: reduce) {
             .reveal-on-scroll { transition: none; transform: none; opacity: 1; }
@@ -417,14 +437,9 @@
                     <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2 block">Tendencias Globales</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Prendas Destacadas</h2>
                 </div>
-                <div class="flex items-center space-x-3 mt-4 md:mt-0">
-                    <button id="prev-slide" class="p-3 rounded-full glass-panel hover:bg-black/5 transition-colors" aria-label="Anterior">
-                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button id="next-slide" class="p-3 rounded-full glass-panel hover:bg-black/5 transition-colors" aria-label="Siguiente">
-                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
-                </div>
+                <div class="flex items-center mt-4 md:mt-0">
+                <span class="text-xs text-gray-400 font-semibold tracking-wide">Autoplay continuo · deslizá horizontalmente</span>
+            </div>
             </div>
         </div>
 
@@ -433,7 +448,7 @@
             <div id="carousel-track" class="carousel-3d-track flex items-center gap-6 cursor-grab active:cursor-grabbing">
                 
                 <!-- Tarjeta 1 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="0">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="0">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">HOT</div>
                     <a href="producto.html?id=chaq-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" alt="Chaqueta Minimalista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -443,30 +458,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Chaqueta Minimalist Neo</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$145.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">S</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">L</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XL</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=chaq-01" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('chaq-01')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 2 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="1">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="1">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">NEW</div>
                     <a href="producto.html?id=abr-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" alt="Abrigo Oversized" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -476,29 +472,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Abrigo Oversized Tech</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$210.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">L</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XL</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=abr-01" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('abr-01')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 3 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="2">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="2">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">TREND</div>
                     <a href="producto.html?id=vest-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800" alt="Vestido Editorial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -508,29 +486,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Vestido Asimétrico Silk</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$125.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XS</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">S</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=vest-01" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('vest-01')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 4 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="3">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="3">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">LIMITED</div>
                     <a href="producto.html?id=pant-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" alt="Pantalón Cargo Tech" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -540,30 +500,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Pantalón Cargo Tech-Wear</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$98.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">S</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">L</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XL</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=pant-01" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('pant-01')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 5 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="4">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="4">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">DROP</div>
                     <a href="producto.html?id=calz-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800" alt="Sneaker Chunky" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -573,30 +514,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Sneaker Chunky Future 01</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$180.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">39</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">40</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">41</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">42</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=calz-01" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('calz-01')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 6 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="5">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="5">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">ICON</div>
                     <a href="producto.html?id=chaq-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" alt="Blazer Oversized" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -606,30 +528,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Blazer Oversized Sastre</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$165.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XS</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">S</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">L</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=chaq-02" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('chaq-02')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 7 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="6">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="6">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">EXCLUSIVE</div>
                     <a href="producto.html?id=calz-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800" alt="Botineta Minimalist" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -639,30 +542,11 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Botineta Minimalist Leather</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$210.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">37</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">38</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">39</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">40</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=calz-02" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('calz-02')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta 8 -->
-                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] glass-panel p-5 relative group" data-index="7">
+                <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="7">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">ESSENTIAL</div>
                     <a href="producto.html?id=rem-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800" alt="Top Arquitectónico" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
@@ -672,24 +556,6 @@
                             <h3 class="font-bold text-lg text-brand-black group-hover:text-amber-600 transition-colors">Top Arquitectónico Minimal</h3>
                             <p class="text-sm font-semibold text-gray-900 mt-0.5">$38.000</p>
                         </a>
-                        <!-- Talles disponibles visibles -->
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Talles:</span>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">XS</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">S</span>
-                                <span class="px-1.5 py-0.5 rounded-md bg-black/5 text-gray-800 font-extrabold text-[10px]">M</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <a href="producto.html?id=rem-02" class="text-xs font-bold text-brand-black hover:text-amber-600 transition-colors flex items-center space-x-1">
-                            <span>Ver Ficha Individual</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <button onclick="addToCart('rem-02')" class="bg-brand-black hover:bg-brand-yellow hover:text-brand-black text-white p-2.5 rounded-xl transition-all shadow-md" aria-label="Comprar rápido">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </button>
                     </div>
                 </div>
 
@@ -709,7 +575,7 @@
         <div class="category-list">
 
             <!-- Card: Vestidos -->
-            <article class="category-card reveal-on-scroll">
+            <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=900" alt="Vestidos" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
@@ -719,19 +585,16 @@
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
                     <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Vestidos de Autor</h3>
                     <p class="text-xs sm:text-sm text-gray-300 font-light line-clamp-2">Cortes asimétricos, satén de seda pesado y siluetas esculturales inspiradas en la sastrería digital.</p>
-                    <div class="pt-2 flex items-center space-x-3">
+                    <div class="pt-2 flex items-center">
                         <button onclick="openCatalogModal('Vestidos')" class="bg-brand-yellow text-brand-black px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-yellowHover transition-all shadow-md">
                             Ver Catálogo
                         </button>
-                        <a href="producto.html?id=vest-01" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-xl font-semibold text-xs transition-all">
-                            Prenda Destacada →
-                        </a>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Chaquetas & Abrigos -->
-            <article class="category-card reveal-on-scroll">
+            <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=900" alt="Chaquetas" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
@@ -741,19 +604,16 @@
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
                     <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Chaquetas & Abrigos</h3>
                     <p class="text-xs sm:text-sm text-gray-300 font-light line-clamp-2">Sastrería contemporánea, tejidos impermeables técnicos y paños de lana regenerada de alta gama.</p>
-                    <div class="pt-2 flex items-center space-x-3">
+                    <div class="pt-2 flex items-center">
                         <button onclick="openCatalogModal('Chaquetas')" class="bg-brand-yellow text-brand-black px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-yellowHover transition-all shadow-md">
                             Ver Catálogo
                         </button>
-                        <a href="producto.html?id=chaq-01" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-xl font-semibold text-xs transition-all">
-                            Prenda Destacada →
-                        </a>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Pantalones -->
-            <article class="category-card reveal-on-scroll">
+            <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=900" alt="Pantalones" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
@@ -763,19 +623,16 @@
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
                     <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Pantalones & Cargos</h3>
                     <p class="text-xs sm:text-sm text-gray-300 font-light line-clamp-2">Pantalones modulares techwear, calces wide-leg de sastrería y joggers confeccionados en frisa premium.</p>
-                    <div class="pt-2 flex items-center space-x-3">
+                    <div class="pt-2 flex items-center">
                         <button onclick="openCatalogModal('Pantalones')" class="bg-brand-yellow text-brand-black px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-yellowHover transition-all shadow-md">
                             Ver Catálogo
                         </button>
-                        <a href="producto.html?id=pant-01" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-xl font-semibold text-xs transition-all">
-                            Prenda Destacada →
-                        </a>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Remeras & Tops -->
-            <article class="category-card reveal-on-scroll">
+            <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=900" alt="Remeras" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
@@ -785,19 +642,16 @@
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
                     <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Remeras & Tops</h3>
                     <p class="text-xs sm:text-sm text-gray-300 font-light line-clamp-2">Algodón pesado de 240 GSM, siluetas boxy oversized y cortes mock-neck arquitectónicos.</p>
-                    <div class="pt-2 flex items-center space-x-3">
+                    <div class="pt-2 flex items-center">
                         <button onclick="openCatalogModal('Remeras')" class="bg-brand-yellow text-brand-black px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-yellowHover transition-all shadow-md">
                             Ver Catálogo
                         </button>
-                        <a href="producto.html?id=rem-01" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-xl font-semibold text-xs transition-all">
-                            Prenda Destacada →
-                        </a>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Calzado & Sneakers -->
-            <article class="category-card reveal-on-scroll">
+            <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=900" alt="Calzado" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
@@ -807,13 +661,10 @@
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
                     <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Calzado & Sneakers</h3>
                     <p class="text-xs sm:text-sm text-gray-300 font-light line-clamp-2">Suelas escultóricas de plataforma reactiva y botinetas de cuero vacuno pulido con tacón geométrico.</p>
-                    <div class="pt-2 flex items-center space-x-3">
+                    <div class="pt-2 flex items-center">
                         <button onclick="openCatalogModal('Calzado')" class="bg-brand-yellow text-brand-black px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-yellowHover transition-all shadow-md">
                             Ver Catálogo
                         </button>
-                        <a href="producto.html?id=calz-01" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-xl font-semibold text-xs transition-all">
-                            Prenda Destacada →
-                        </a>
                     </div>
                 </div>
             </article>
@@ -1079,14 +930,9 @@
             const N = originalCards.length; // 8 prendas base
             if (N === 0) return;
 
-            // Para garantizar un flujo 100% continuo e infinito sin cortes ni espacios en blanco,
-            // clonamos 4 sets completos contiguos (32 tarjetas en total):
-            // Set 0 (0..7): Buffer izquierdo
-            // Set 1 (8..15): Set principal de navegación
-            // Set 2 (16..23): Buffer derecho inmediato
-            // Set 3 (24..31): Buffer extendido para pantallas ultra anchas
+            // Carrusel ligero: 2 sets (16 tarjetas) con rebobinado modular transparente
             track.innerHTML = '';
-            for (let s = 0; s < 4; s++) {
+            for (let s = 0; s < 2; s++) {
                 originalCards.forEach((card, idx) => {
                     const clone = card.cloneNode(true);
                     clone.dataset.index = idx;
@@ -1100,11 +946,9 @@
             let isAnimating = false;
 
             function updateCarousel(animated = true) {
-                if (animated) {
-                    track.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
-                } else {
-                    track.style.transition = 'none';
-                }
+                track.style.transition = animated
+                    ? 'transform 0.7s cubic-bezier(0.25, 0.72, 0.35, 1)'
+                    : 'none';
 
                 const containerWidth = container.offsetWidth;
                 const cardWidth = allCards[0].offsetWidth || 340;
@@ -1120,21 +964,6 @@
                     // Forzar sincronización instantánea en el reflow del navegador
                     void track.offsetWidth;
                 }
-
-                // Efecto visual 3D Coverflow con escala, profundidad y contraste
-                allCards.forEach((card, idx) => {
-                    if (idx === currentIndex) {
-                        card.style.transform = 'scale(1.06) translateZ(35px)';
-                        card.style.opacity = '1';
-                        card.style.filter = 'drop-shadow(0 25px 35px rgba(0,0,0,0.14))';
-                        card.style.zIndex = '10';
-                    } else {
-                        card.style.transform = 'scale(0.92) translateZ(0px)';
-                        card.style.opacity = '0.70';
-                        card.style.filter = 'none';
-                        card.style.zIndex = '1';
-                    }
-                });
             }
 
             function nextSlide() {
@@ -1150,7 +979,7 @@
                         updateCarousel(false);
                     }
                     isAnimating = false;
-                }, 390);
+                }, 710);
             }
 
             function prevSlide() {
@@ -1165,7 +994,7 @@
                         updateCarousel(false);
                     }
                     isAnimating = false;
-                }, 390);
+                }, 710);
             }
 
             const prevBtn = document.getElementById('prev-slide');
@@ -1206,7 +1035,7 @@
 
             function startAutoplay() {
                 stopAutoplay();
-                autoplayInterval = setInterval(nextSlide, 2500);
+                autoplayInterval = setInterval(nextSlide, 3500);
             }
 
             function stopAutoplay() {

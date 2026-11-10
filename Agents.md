@@ -50,6 +50,24 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.2.6] - 2026-11-10
+#### Carrusel Minimalista, Cards Compactas, Stacking por Scroll y Limpieza Visual
+- **Carrusel en Autoplay (más liviano y suave):**
+  - Eliminados los botones/flechas de navegación y su wiring JS; el carrusel queda autónomo con autoplay (3.5s, intervalo + lento para transición sin brusquedad) y swipe táctil nativo.
+  - Eliminado por completo el loop de style por frame (scale/translateZ/drop-shadow sobre 32 tarjetas): la animación es **solo `translate3d` del track** (compositor GPU), transición suavizada a 0.7s cubic-bezier.
+  - Clones reducidos de 4 sets (32 tarjetas) a **2 sets (16 tarjetas)** con rebobinado modular transparente equivalente: la mitad de nodos DOM, imágenes y capas paint.
+  - Tarjetas sin `glass-panel`: reemplazo del `backdrop-filter: blur` por fondo sólido (`rgba(255,255,255,0.90)` + borde, clase propia `.carousel-flat` con padding propio por no existir `.p-4` en el CSS congelado) → cero blur permanente en la GPU de gama media/baja.
+  - Fijadas las animaciones de imagen (`group-hover:scale-105`) intactas; hint de texto "Autoplay continuo · deslizá horizontalmente" en el encabezado.
+- **Cards más limpias, compactas y uniformes (Destacados):**
+  - Eliminada la fila de chips de talles y el footer "Ver Ficha Individual" + botón de compra rápida: cada card queda = badge + imagen + nombre + precio, peso visual reducido y altura uniforme; link directo a `producto.html?id=…` en imagen y texto.
+- **Sección Nuestro Catálogo — Stacking Cards por scroll:**
+  - `.category-card ahora `position: sticky` con escalonado progresivo de offsets (`top: 96px → 160px` en `nth-child(1..5)`, offset menor en móvil) + sombra de profundidad: cada tarjeta se apila una sobre otra al desplazarse, permanece visible hasta que la siguiente la reemplaza, sin JS (nativo del compositor).
+  - `.category-list` gana `padding-bottom: 40vh` para dar recorrido al apilamiento; se removió la dependencia de reveal (`IntersectionObserver`) de las tarjetas (robustez anti página-en-blanco: prioridad de contenido visible + rendimiento).
+- **Eliminado "Prenda Destacada" completamente (5 instancias):**
+  - Botones secundarios removidos de todas las tarjetas de categoría y `space-x-3` → `flex` para reequilibrar la composición con el único botón "Ver Catálogo" principal.
+- **Validación:** 0 errores de consola; verificado en browser: 16 tarjetas en track, autoplay avanzando (transform animándose solapamente), apilamiento sticky con offsets 96/112/128/144/160px escalonados, cards ML del modal (4 columnas desktop), CPU durante autoplay+scroll = solo tareas del compositor (ningún hot JS).
+- **Nota posterior:** se detectó y corrigió on-the-fly que `.p-4` no estaba en el CSS estático congelado (`.carousel-flat` absorbe el padding); recordatorio documentado: cualquier clase Tailwind nueva requiere regenerar el CSS estático.
+
 ### [1.2.5] - 2026-11-10
 #### Rediseño del Catálogo (Tipo Mercado Libre) + Renombre "Nuestro Catálogo"
 - **Sección renombrada:** `#categorias` ("Nuestras Colecciones") → **"Nuestro Catálogo"**; unificado en nav del header, footer, CTA del hero y links "Ver Catálogo" en las tarjetas.
