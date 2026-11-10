@@ -146,7 +146,7 @@
                         <button id="product-fav-toggle" onclick="toggleProductWishlist()" class="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-gray-700 hover:text-red-500 shadow-md hover:scale-110 active:scale-95 transition-all" aria-label="Guardar en Favoritos">
                             <svg id="product-fav-icon" class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         </button>
-                        <img id="main-product-img" src="" alt="Prenda AURORA" class="gallery-main-img w-full h-full object-cover">
+                        <img id="main-product-img" src="" alt="Prenda AURORA" class="gallery-main-img w-full h-full object-cover" fetchpriority="high" decoding="async">
                     </div>
                 </div>
 
@@ -496,7 +496,7 @@
             currentProduct.images.forEach((imgUrl, idx) => {
                 const thumb = document.createElement('div');
                 thumb.className = `w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 transition-all shrink-0 ${idx === 0 ? 'border-brand-yellow shadow-md scale-95' : 'border-transparent opacity-70 hover:opacity-100'}`;
-                thumb.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name}" class="w-full h-full object-cover">`;
+                thumb.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name}" class="w-full h-full object-cover" loading="lazy" decoding="async">`;
                 thumb.addEventListener('click', () => {
                     mainImg.src = imgUrl;
                     Array.from(thumbnailsContainer.children).forEach(c => {
@@ -631,7 +631,7 @@
                     <div>
                         <div class="relative w-full h-64 rounded-2xl overflow-hidden mb-4 bg-gray-100">
                             <span class="absolute top-3 left-3 z-10 bg-brand-yellow text-brand-black text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">${prod.badge}</span>
-                            <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
                         </div>
                         <h4 class="font-bold text-sm text-brand-black group-hover:text-amber-600 transition-colors line-clamp-1">${prod.name}</h4>
                         <p class="text-sm font-semibold text-gray-900 mt-1">${formatMoney(prod.price)}</p>
@@ -762,7 +762,7 @@
 
                 itemRow.innerHTML = `
                     <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 shrink-0">
-                        <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover">
+                        <img src="${prod.images[0]}" alt="${prod.name}" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="font-bold text-xs text-brand-black truncate">${prod.name}</h4>
@@ -780,14 +780,14 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                 `;
-                cartItemsContainer.appendChild(itemRow);
+                els.cartItemsContainer.appendChild(itemRow);
             });
         }
 
         function checkoutCart() {
             showNotification('Conectando con pasarela segura...');
             setTimeout(() => {
-                alert(`¡Compra confirmada por un total de ${cartTotalEl.textContent}! Gracias por elegir AURORA Studio.`);
+                alert(`¡Compra confirmada por un total de ${getCartElements().cartTotalEl.textContent}! Gracias por elegir AURORA Studio.`);
                 CART = [];
                 saveStoredCart(CART);
                 initCartUI();

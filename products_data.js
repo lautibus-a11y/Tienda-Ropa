@@ -330,55 +330,6 @@ const PRODUCTS_DATA = [
     }
 ];
 
-// Categorías destacadas para la sección 3D Stacked Bento
-const CATEGORIES_DATA = [
-    {
-        id: "cat-vestidos",
-        name: "Vestidos",
-        subtitle: "Cortes Asimétricos & Seda",
-        itemsCount: 6,
-        accent: "from-amber-400 to-yellow-500",
-        img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800",
-        description: "Siluetas fluidas inspiradas en la sastrería digital y la elegancia contemporánea."
-    },
-    {
-        id: "cat-chaquetas",
-        name: "Chaquetas & Abrigos",
-        subtitle: "Sastrería & Techwear",
-        itemsCount: 5,
-        accent: "from-zinc-500 to-neutral-800",
-        img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
-        description: "Prendas de abrigo diseñadas con materiales de protección climática e impacto visual."
-    },
-    {
-        id: "cat-pantalones",
-        name: "Pantalones",
-        subtitle: "Cargos & Wide Leg",
-        itemsCount: 7,
-        accent: "from-amber-500 to-orange-600",
-        img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800",
-        description: "Funcionalidad modular con bolsillos ergonómicos y calces arquitectónicos."
-    },
-    {
-        id: "cat-remeras",
-        name: "Remeras & Tops",
-        subtitle: "Heavyweight Cotton",
-        itemsCount: 8,
-        accent: "from-yellow-400 to-amber-600",
-        img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800",
-        description: "Básicos elevados en algodón orgánico de 240 gramos con terminaciones de alta durabilidad."
-    },
-    {
-        id: "cat-calzado",
-        name: "Calzado & Sneakers",
-        subtitle: "Futurismo Chunky",
-        itemsCount: 4,
-        accent: "from-neutral-700 to-black",
-        img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
-        description: "Calzado de vanguardia con plataformas de amortiguación cinética y cuero natural."
-    }
-];
-
 // ==========================================================================
 // UTILIDADES COMPARTIDAS (Persistencia en LocalStorage & Moneda)
 // ==========================================================================
@@ -428,7 +379,6 @@ const saveStoredWishlist = (wishlistSet) => {
 // Exposición global explícita en window para compatibilidad universal
 if (typeof window !== 'undefined') {
     window.PRODUCTS_DATA = PRODUCTS_DATA;
-    window.CATEGORIES_DATA = CATEGORIES_DATA;
     window.formatMoney = formatMoney;
     window.getStoredCart = getStoredCart;
     window.saveStoredCart = saveStoredCart;

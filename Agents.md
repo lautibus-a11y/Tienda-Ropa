@@ -50,6 +50,27 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.2.4] - 2026-11-10
+#### Auditoría Integral, Limpieza Profunda y Corrección de Bugs (Protocolo Optimizador Universal)
+- **Posibilidad de Recuperación (Regla 13):** Inicializado repositorio Git con commit de respaldo `0f2b45a` del estado pre-optimización; añadido `.gitignore` (`.DS_Store`, logs) y eliminado el archivo `.DS_Store` sobrante.
+- **Código Muerto Confirmado y Eliminado (~2 KB):**
+  - `CATEGORIES_DATA` en `products_data.js` (50 líneas / 2020 bytes): definición y export global que **ninguna página consumía** (residuo del antiguo diseño "Stacked Bento", reemplazado en 1.2.0). Verificada la ausencia de referencias en ambos HTML antes de eliminarla.
+- **Bugs Funcionales Corregidos (Regresiones del Refactor 1.2.1, TDZ residual):**
+  - `landing_page_e_commerce.html` → `renderCartItems()`: línea 1510 usaba la variable suelta `cartItemsContainer` en lugar del getter `getCartElements().cartItemsContainer`, lo que **rompía el renderizado completo del drawer de carrito** con `ReferenceError`. Corregido a `els.cartItemsContainer`.
+  - `landing_page_e_commerce.html` → `checkoutCart()`: referencia suelta a `cartTotalEl` corregida a `getCartElements().cartTotalEl` (la pasarela fallaba al confirmar).
+  - `producto.html` → mismos dos residuos corregidos (`cartItemsContainer`, `cartTotalEl` → `getCartElements()`).
+- **Optimización de Recursos:**
+  - `producto.html`: `loading="lazy" decoding="async"` añadido a las imágenes de thumbnails de galería, items del carrito drawer y cards de "Piezas Relacionadas" (render dinámico que antes descargaba todo Eager).
+  - `<img id="main-product-img">` con `fetchpriority="high" decoding="async"` para mejorar el LCP de la ficha de producto.
+  - Landing y producto: 0 `@keyframes` pesados (solo el ticker de transform), `backdrop-filter` restringido a overlays flotantes, sin listeners de `resize`.
+- **Metodología y Validación:**
+  - Auditoría automatizada de código muerto (funciones, variables, clases CSS y campos de datos vs. referencias reales). Todo lo flaggeado como "sin uso" se verificó vía `onclick` inline antes de descartar falsos positivos.
+  - Smoke test end-to-end en navegador: agregar/modificar/eliminar carrito, render del drawer, apertura del catálogo modal con filtros, ficha de producto, galería y recomendaciones — **todo OK, 0 errores de consola**.
+  - Trace de carga `producto.html`: **0 long tasks** en todo el ciclo de carga.
+  - FASE 8 (paridad visual): comparación numérica de estilos computados (fuente, tamaño, peso, color, border-radius, opacidad) entre la versión del commit `0f2b45a` y la optimizada en header, título de categorías, `.category-card` y footer — **100% idénticos**.
+- **Registro de datos detectados sin consumir (PENDIENTE, decisión del propietario — no eliminado por Regla 13 "no alterar reglas de negocio"):**
+  - `rating` y `freeShipping` de `PRODUCTS_DATA` no son leídos por ningún renderer (la ficha muestra "★ 4.9" hardcodeado). Sumarlos a la UI futura o eliminar los campos.
+
 ### [1.2.3] - 2026-11-10
 #### Rediseño de la Sección Categorías — Lista Vertical Progresiva + Optimización
 - **Eliminado el Deck 3D y las Pills de Tabs:**
