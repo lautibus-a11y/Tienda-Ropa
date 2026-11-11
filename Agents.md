@@ -50,6 +50,21 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.2.7] - 2026-11-11
+#### Carrito Prolijo + Checkout por WhatsApp + Sección "Sobre Nosotros"
+- **Carrito (landing y `producto.html`, sincronizados):**
+  - Ítems rediseñados "prolijos": thumb 64px redondeada, nombre + precio + chip de talle en una fila, controles de cantidad `− / +` y **subtotal por ítem** alineado a la derecha; botón eliminar reubicado absoluto top-right (menos ruido visual).
+  - Botón **"Vaciar"** en el footer del drawer junto a "Finalizar Compra" + nueva función `clearCart()` (vacía `AURORA_CART`, re-renderiza `initCartUI()` + `renderCartItems()` y muestra toast).
+  - **Checkout por WhatsApp:** `checkoutCart()` reescrita — abre `https://wa.me/5491172023171` con el resumen del pedido (cantidad × producto, talle, subtotales y total en formato ARS, mensaje `Hola AURORA!...`). El envío/pago se coordina por chat; nota aclaratoria en el footer del drawer.
+- **Nueva sección "Sobre Nosotros" (`#nosotros`), debajo de "Nuestro Catálogo":**
+  - Dos imágenes con máscara orgánica (`.mask-blob` blob irregular y `.mask-arch` arco redondeado, vía `border-radius` + `overflow:hidden`) + breve descripción del estudio (producción en series cortas, taller propio, confeccionistas locales).
+  - **Contadores animados** (8+ años, 12.500+ clientes, 42+ colecciones): un único `IntersectionObserver` (threshold 0.4, `unobserve` al dispararse), easing easeOutCubic vía `requestAnimationFrame`, formato `es-AR`, respeta `prefers-reduced-motion` (muestra el valor final directo) y fallback sin IO.
+  - **Marquee de logos** ("Confían en nosotros"): 6 marcas duplicadas para loop perfecto, reutiliza `@keyframes ticker` (solo `translate3d`, 60fps), fade en los bordes con `mask-image` lineal, pausa on hover.
+  - **Testimonios destacados:** 3 cards estáticas con estrellas (★ 5/5/4), reseña, foto circular (Unsplash, lazy) + nombre y ciudad.
+  - CSS 100% propio en el `<style>` inline (el CSS congelado no se regenera); imágenes todas `loading="lazy" decoding="async"`.
+  - Entrada "Nosotros" agregada a nav desktop y footer.
+- **Validación:** 0 errores de consola; carrito probado end-to-end (agregar ×2 → drawer con layout prolijo → WhatsApp genera URL con número + ítems + total correctos → Vaciar deja estado vacío con footer oculto); contadores animan a 8 / 12.500 / 42; marquee loop seamless verificado (6+6 idénticos); secciones en orden hero → destacados → categorías → nosotros → editorial. Nota: el drawer "sin deslizar" y los contadores en 0 observados durante las pruebas eran artefactos del tab de prueba sin foco (transiciones/IntersectionObserver throttled) — en navegador con foco todo funciona.
+
 ### [1.2.6] - 2026-11-10
 #### Carrusel Minimalista, Cards Compactas, Stacking por Scroll y Limpieza Visual
 - **Carrusel en Autoplay (más liviano y suave):**

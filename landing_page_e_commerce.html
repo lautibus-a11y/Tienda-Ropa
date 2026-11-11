@@ -90,6 +90,40 @@
             will-change: transform;
         }
 
+        /* ——— Sobre Nosotros ——— */
+        .mask-blob {
+            width: 9rem; height: 11.5rem;
+            border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+            overflow: hidden;
+        }
+        .mask-arch {
+            width: 9rem; height: 14rem;
+            border-radius: 999px 999px 24px 24px;
+            overflow: hidden;
+        }
+        @media (min-width: 640px) {
+            .mask-blob { width: 12rem; height: 15rem; }
+            .mask-arch { width: 12rem; height: 18.5rem; }
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.70);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        }
+        .counter { font-variant-numeric: tabular-nums; }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.70);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        }
+        .logo-marquee { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+        .logo-track { width: max-content; animation: ticker 28s linear infinite; will-change: transform; }
+        .logo-item { font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,0,0,0.35); font-size: 0.95rem; white-space: nowrap; }
+        .logo-track:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+            .logo-track { animation: none; }
+        }
+
         /* Cards del carrusel: sin blur (glass) para liberar GPU en gama baja */
         .carousel-flat {
             background: rgba(255, 255, 255, 0.90);
@@ -344,6 +378,7 @@
                     <a href="#hero" class="hover:text-brand-black transition-colors">Inicio</a>
                     <a href="#destacados" class="hover:text-brand-black transition-colors">Destacados</a>
                     <a href="#categorias" class="hover:text-brand-black transition-colors">Catálogo</a>
+                    <a href="#nosotros" class="hover:text-brand-black transition-colors">Nosotros</a>
                     <a href="#editorial" class="hover:text-brand-black transition-colors">Editorial</a>
                 </div>
 
@@ -671,6 +706,102 @@
         </div>
     </section>
 
+    <!-- 5.5 SOBRE NOSOTROS -->
+    <section id="nosotros" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div class="text-center mb-14">
+            <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2 block">Nuestra Historia</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Sobre Nosotros</h2>
+        </div>
+
+        <!-- Imágenes con máscara + descripción -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div class="flex items-center gap-4 sm:gap-6 justify-center md:justify-start">
+                <div class="mask-blob bg-gray-200 shrink-0">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=560&q=70" alt="Atelier de diseño AURORA" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                </div>
+                <div class="mask-arch bg-gray-200 shrink-0">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=560&q=70" alt="Showroom AURORA" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-4">Vestimos la nueva era urbana</h3>
+                <p class="text-gray-700 text-base sm:text-lg font-light leading-relaxed mb-4">
+                    AURORA nació en Buenos Aires como un estudio de diseño independiente con una obsesión:
+                    prendas de calidad superior, producidas en series cortas y pensadas para durar más de una temporada.
+                </p>
+                <p class="text-gray-700 text-base sm:text-lg font-light leading-relaxed">
+                    Cada colección se diseña y testa en nuestro propio taller, colaborando con confeccionistas locales
+                    y priorizando materiales responsables. Sin intermediarios, sin sobreproducción: moda directa al público.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contadores animados -->
+        <div id="about-counters" class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
+            <div class="stat-card text-center p-8 rounded-[28px]">
+                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="8">0</span><span class="text-brand-yellow">+</span></div>
+                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Años de Experiencia</p>
+            </div>
+            <div class="stat-card text-center p-8 rounded-[28px]">
+                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="12500">0</span><span class="text-brand-yellow">+</span></div>
+                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Clientes Satisfechos</p>
+            </div>
+            <div class="stat-card text-center p-8 rounded-[28px]">
+                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="42">0</span><span class="text-brand-yellow">+</span></div>
+                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Colecciones Lanzadas</p>
+            </div>
+        </div>
+
+        <!-- Marquee de logotipos / socios -->
+        <div class="mt-16">
+            <p class="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Confían en nosotros</p>
+            <div class="logo-marquee overflow-hidden">
+                <div class="logo-track flex items-center">
+                    <span class="logo-item">VOGUE AR</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">LA NACIÓN MODA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">SOMOS TXT</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">DESIGN FACTORY</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">BA DESIGN WEEK</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">MODA BA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">VOGUE AR</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">LA NACIÓN MODA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">SOMOS TXT</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">DESIGN FACTORY</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">BA DESIGN WEEK</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                    <span class="logo-item">MODA BA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonios -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <figure class="testimonial-card p-7 rounded-[28px]">
+                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="5 de 5 estrellas">★★★★★</div>
+                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“La calidad del calce es otra cosa. Compré una chaqueta hace un año y sigue como nueva. Atención por WhatsApp impecable.”</blockquote>
+                <figcaption class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=96&q=70" alt="Foto de Lucía M." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
+                    <div><p class="text-sm font-bold text-brand-black">Lucía M.</p><p class="text-xs text-gray-400">Buenos Aires</p></div>
+                </figcaption>
+            </figure>
+            <figure class="testimonial-card p-7 rounded-[28px]">
+                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="5 de 5 estrellas">★★★★★</div>
+                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“Pedí dos remeras y llegaron en 48hs con envío gratis. Los talles guían perfecto y el precio es justo para lo que ofrecen.”</blockquote>
+                <figcaption class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=96&q=70" alt="Foto de Martín R." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
+                    <div><p class="text-sm font-bold text-brand-black">Martín R.</p><p class="text-xs text-gray-400">Córdoba</p></div>
+                </figcaption>
+            </figure>
+            <figure class="testimonial-card p-7 rounded-[28px]">
+                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="4 de 5 estrellas">★★★★☆</div>
+                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“Diseños que no ves en cualquier lado. Compré para un evento y me preguntaron tres veces de dónde era la campera.”</blockquote>
+                <figcaption class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=96&q=70" alt="Foto de Sofía P." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
+                    <div><p class="text-sm font-bold text-brand-black">Sofía P.</p><p class="text-xs text-gray-400">Rosario</p></div>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
     <!-- SECCIÓN EDITORIAL (Estilo revista de moda digital) -->
     <section id="editorial" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal-on-scroll">
         <div class="glass-panel rounded-[36px] p-8 sm:p-14 relative overflow-hidden">
@@ -723,6 +854,7 @@
                         <li><a href="#hero" class="hover:text-white transition-colors">Inicio</a></li>
                         <li><a href="#destacados" class="hover:text-white transition-colors">Destacados</a></li>
                         <li><a href="#categorias" class="hover:text-white transition-colors">Catálogo</a></li>
+                        <li><a href="#nosotros" class="hover:text-white transition-colors">Nosotros</a></li>
                         <li><a href="#editorial" class="hover:text-white transition-colors">Editorial</a></li>
                     </ul>
                 </div>
@@ -854,11 +986,16 @@
                     <span id="cart-total" class="text-brand-black">$0</span>
                 </div>
             </div>
-            <button onclick="checkoutCart()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-brand-black font-extrabold py-4 rounded-2xl text-sm transition-all shadow-lg active:scale-95 flex items-center justify-center space-x-2">
-                <span>Finalizar Compra</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-            <p class="text-[11px] text-center text-gray-400">Transacciones seguras SSL con garantía de satisfacción de 30 días.</p>
+            <div class="flex items-center gap-2">
+                <button onclick="clearCart()" class="bg-white hover:bg-gray-100 border border-gray-200 text-gray-700 px-4 py-3 rounded-2xl font-bold text-xs transition-colors shrink-0">
+                    Vaciar
+                </button>
+                <button onclick="checkoutCart()" class="flex-1 bg-brand-yellow hover:bg-brand-yellowHover text-brand-black font-extrabold py-4 rounded-2xl text-sm transition-all shadow-lg active:scale-95 flex items-center justify-center space-x-2">
+                    <span>Finalizar Compra</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+            <p class="text-[11px] text-center text-gray-400">Confirmás tu pedido por WhatsApp con envío y pago coordinados.</p>
         </div>
     </aside>
 
@@ -910,6 +1047,42 @@
             initCartEvents();
             initFilterListeners();
             initHeaderButtons();
+            initAboutCounters();
+        }
+
+        // Contadores animados de "Sobre Nosotros" (un solo IntersectionObserver, se desobserva al terminar)
+        function initAboutCounters() {
+            const counters = document.querySelectorAll('#about-counters .counter');
+            if (counters.length === 0) return;
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            const animate = (el) => {
+                const target = parseInt(el.dataset.target, 10) || 0;
+                if (prefersReduced) { el.textContent = target.toLocaleString('es-AR'); return; }
+                const duration = 1600;
+                const start = performance.now();
+                const step = (now) => {
+                    const p = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+                    el.textContent = Math.round(target * eased).toLocaleString('es-AR');
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            };
+
+            if (!('IntersectionObserver' in window)) {
+                counters.forEach(el => el.textContent = (parseInt(el.dataset.target, 10) || 0).toLocaleString('es-AR'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animate(entry.target);
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(el => io.observe(el));
         }
 
         if (document.readyState === 'loading') {
@@ -1413,25 +1586,26 @@
                 if (!prod) return;
 
                 const itemRow = document.createElement('div');
-                itemRow.className = "flex items-center space-x-4 bg-gray-50 p-3.5 rounded-2xl border border-gray-100";
+                itemRow.className = "flex items-start gap-3 bg-gray-50 rounded-2xl border border-gray-100 p-3 relative";
 
                 itemRow.innerHTML = `
                     <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 shrink-0">
                         <img src="${prod.images ? prod.images[0] : prod.img}" alt="${prod.name}" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-bold text-xs text-brand-black truncate">${prod.name}</h4>
-                        <div class="flex items-center space-x-2 mt-0.5">
+                    <div class="flex-1 min-w-0 pr-1">
+                        <h4 class="font-bold text-xs text-brand-black truncate pr-6">${prod.name}</h4>
+                        <div class="flex items-center gap-1.5 mt-1">
                             <span class="text-xs font-semibold text-gray-900">${formatMoney(prod.price)}</span>
                             <span class="text-[10px] font-bold bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded">Talle: ${item.size || 'M'}</span>
                         </div>
-                        <div class="flex items-center space-x-2 mt-2">
-                            <button onclick="updateItemQuantity('${prod.id}', -1, '${item.size || ''}')" class="w-6 h-6 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-bold hover:bg-gray-100 transition-colors" aria-label="Disminuir cantidad">-</button>
-                            <span class="text-xs font-bold text-gray-800">${item.quantity}</span>
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="updateItemQuantity('${prod.id}', -1, '${item.size || ''}')" class="w-6 h-6 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-bold hover:bg-gray-100 transition-colors pointer-events-auto" aria-label="Disminuir cantidad">−</button>
+                            <span class="text-xs font-bold text-gray-800 min-w-4 text-center">${item.quantity}</span>
                             <button onclick="updateItemQuantity('${prod.id}', 1, '${item.size || ''}')" class="w-6 h-6 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-bold hover:bg-gray-100 transition-colors" aria-label="Aumentar cantidad">+</button>
+                            <span class="ml-auto text-xs font-extrabold text-gray-900">${formatMoney(prod.price * item.quantity)}</span>
                         </div>
                     </div>
-                    <button onclick="removeItem('${prod.id}', '${item.size || ''}')" class="p-2 text-gray-400 hover:text-red-500 transition-colors" aria-label="Eliminar producto">
+                    <button onclick="removeItem('${prod.id}', '${item.size || ''}')" class="absolute top-3 right-3 p-1 text-gray-400 hover:text-red-500 transition-colors" aria-label="Eliminar producto">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                 `;
@@ -1439,16 +1613,33 @@
             });
         }
 
+        // Vaciar carrito completo
+        function clearCart() {
+            if (CART.length === 0) return;
+            CART = [];
+            saveStoredCart(CART);
+            initCartUI();
+            renderCartItems();
+            showNotification('Carrito vaciado');
+        }
+
+        // Finalizar compra: redirige a WhatsApp con el resumen del pedido
         function checkoutCart() {
-            showNotification('Redirigiendo a pasarela de pagos segura...');
-            setTimeout(() => {
-                alert(`Orden confirmada por un total de ${getCartElements().cartTotalEl.textContent}. ¡Gracias por elegir AURORA!`);
-                CART = [];
-                saveStoredCart(CART);
-                initCartUI();
-                renderCartItems();
-                closeCartDrawer();
-            }, 800);
+            if (CART.length === 0) return;
+            const WHATSAPP_NUMBER = '5491172023171';
+            const lines = [];
+            let total = 0;
+            CART.forEach(item => {
+                const prod = PRODUCTS_DATA.find(p => p.id === item.id);
+                if (!prod) return;
+                const subtotal = prod.price * item.quantity;
+                total += subtotal;
+                lines.push(`• ${item.quantity}x ${prod.name} (Talle: ${item.size || 'M'}) — ${formatMoney(subtotal)}`);
+            });
+            lines.push('');
+            lines.push(`Total: ${formatMoney(total)}`);
+            const message = encodeURIComponent(`Hola AURORA! Quiero finalizar mi compra 🛍️\n\n${lines.join('\n')}`);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
         }
 
         // ==========================================
