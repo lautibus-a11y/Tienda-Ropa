@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalle de prenda exclusiva AURORA Studio — Sastrería urbana contemporánea, materiales técnicos sostenibles y envío a todo el país.">
+    <meta name="theme-color" content="#0A0A0A">
     <title id="page-title">Producto // AURORA Future Urban Fashion</title>
     <!-- Tailwind estático precompilado (elimina el runtime JIT de cdn.tailwindcss.com en producción) -->
     <link rel="stylesheet" href="tailwind_producto.css">
     <!-- Fuentes: preconexión temprana + Inter variable (1 archivo para todos los pesos 300–900) -->
+    <!-- Optimización de Red y Recursos Críticos -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
@@ -22,6 +27,12 @@
             background-color: #FAFAFA;
             color: #0A0A0A;
             overflow-x: hidden;
+        }
+
+        /* Optimización de Rendering */
+        .cv-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 500px;
         }
 
         .aurora-mesh {
@@ -160,7 +171,7 @@
                             <span>+100 vendidos</span>
                             <span>|</span>
                             <div class="flex items-center text-amber-500 font-bold">
-                                <span>★ 4.9</span>
+                                <span id="product-rating-val">★ 4.9</span>
                                 <span class="text-gray-400 font-normal ml-1" id="reviews-count">(84 opiniones)</span>
                             </div>
                         </div>
@@ -336,7 +347,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-brand-black text-white pt-16 pb-12 rounded-t-[40px] mt-20">
+    <footer class="bg-brand-black text-white pt-16 pb-12 rounded-t-[40px] mt-20 cv-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 border-t border-white/10 pt-8">
                 <p>&copy; 2026 AURORA Fashion Studio. Todos los derechos reservados.</p>
@@ -517,6 +528,9 @@
 
             // Info principal
             document.getElementById('product-title').textContent = currentProduct.name;
+            const ratingVal = currentProduct.rating ? currentProduct.rating.toFixed(1) : "4.9";
+            const ratingEl = document.getElementById('product-rating-val');
+            if (ratingEl) ratingEl.textContent = `★ ${ratingVal}`;
             document.getElementById('reviews-count').textContent = `(${currentProduct.reviewsCount} opiniones)`;
             document.getElementById('product-price').textContent = formatMoney(currentProduct.price);
             document.getElementById('product-original-price').textContent = formatMoney(currentProduct.originalPrice);

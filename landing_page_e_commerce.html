@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AURORA Studio — Tienda online de indumentaria urbana contemporánea. Colección futurista de alta costura, compras en cuotas sin interés y envíos a todo el país.">
+    <meta name="theme-color" content="#0A0A0A">
     <title>AURORA // Future Urban Fashion E-Commerce</title>
     <!-- Tailwind estático precompilado (elimina el runtime JIT de cdn.tailwindcss.com en producción) -->
     <link rel="stylesheet" href="tailwind_landing.css">
     <!-- Fuentes: preconexión temprana + Inter variable (1 archivo para todos los pesos 300–900) -->
+    <!-- Optimización de Red y Recursos Críticos -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
@@ -41,13 +46,7 @@
         }
 
         /* Glassmorphism General */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.04);
-        }
+        
 
         .glass-nav {
             background: rgba(255, 255, 255, 0.82);
@@ -90,38 +89,10 @@
             will-change: transform;
         }
 
-        /* ——— Sobre Nosotros ——— */
-        .mask-blob {
-            width: 9rem; height: 11.5rem;
-            border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
-            overflow: hidden;
-        }
-        .mask-arch {
-            width: 9rem; height: 14rem;
-            border-radius: 999px 999px 24px 24px;
-            overflow: hidden;
-        }
-        @media (min-width: 640px) {
-            .mask-blob { width: 12rem; height: 15rem; }
-            .mask-arch { width: 12rem; height: 18.5rem; }
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.70);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-        }
-        .counter { font-variant-numeric: tabular-nums; }
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.70);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-        }
-        .logo-marquee { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-        .logo-track { width: max-content; animation: ticker 28s linear infinite; will-change: transform; }
-        .logo-item { font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,0,0,0.35); font-size: 0.95rem; white-space: nowrap; }
-        .logo-track:hover { animation-play-state: paused; }
-        @media (prefers-reduced-motion: reduce) {
-            .logo-track { animation: none; }
+        /* ——— Performance & Rendering Optimizations ——— */
+        .cv-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 700px;
         }
 
         /* Cards del carrusel: sin blur (glass) para liberar GPU en gama baja */
@@ -378,8 +349,6 @@
                     <a href="#hero" class="hover:text-brand-black transition-colors">Inicio</a>
                     <a href="#destacados" class="hover:text-brand-black transition-colors">Destacados</a>
                     <a href="#categorias" class="hover:text-brand-black transition-colors">Catálogo</a>
-                    <a href="#nosotros" class="hover:text-brand-black transition-colors">Nosotros</a>
-                    <a href="#editorial" class="hover:text-brand-black transition-colors">Editorial</a>
                 </div>
 
                 <!-- Accesos Rápidos (Buscador, Favoritos, Carrito) -->
@@ -404,7 +373,7 @@
     <section id="hero" class="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div class="absolute inset-0 w-full h-full overflow-hidden z-0 rounded-b-[40px] sm:rounded-b-[60px]">
             <!-- Video Background Autoplay Loop sin sonido con poster de carga rápida -->
-            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1400" class="w-full h-full object-cover filter brightness-90">
+            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800&q=75" class="w-full h-full object-cover filter brightness-90" preload="metadata">
                 <source src="https://assets.mixkit.co/videos/preview/mixkit-models-walking-on-a-catwalk-41584-large.mp4" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
@@ -486,7 +455,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="0">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">HOT</div>
                     <a href="producto.html?id=chaq-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" alt="Chaqueta Minimalista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=500&q=75" alt="Chaqueta Minimalista" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=chaq-01" class="block">
@@ -500,7 +469,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="1">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">NEW</div>
                     <a href="producto.html?id=abr-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" alt="Abrigo Oversized" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500&q=75" alt="Abrigo Oversized" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=abr-01" class="block">
@@ -514,7 +483,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="2">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">TREND</div>
                     <a href="producto.html?id=vest-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800" alt="Vestido Editorial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=500&q=75" alt="Vestido Editorial" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=vest-01" class="block">
@@ -528,7 +497,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="3">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">LIMITED</div>
                     <a href="producto.html?id=pant-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" alt="Pantalón Cargo Tech" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=500&q=75" alt="Pantalón Cargo Tech" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=pant-01" class="block">
@@ -542,7 +511,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="4">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">DROP</div>
                     <a href="producto.html?id=calz-01" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800" alt="Sneaker Chunky" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=500&q=75" alt="Sneaker Chunky" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=calz-01" class="block">
@@ -556,7 +525,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="5">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">ICON</div>
                     <a href="producto.html?id=chaq-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" alt="Blazer Oversized" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500&q=75" alt="Blazer Oversized" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=chaq-02" class="block">
@@ -570,7 +539,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="6">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">EXCLUSIVE</div>
                     <a href="producto.html?id=calz-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800" alt="Botineta Minimalist" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=500&q=75" alt="Botineta Minimalist" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=calz-02" class="block">
@@ -584,7 +553,7 @@
                 <div class="carousel-card shrink-0 w-[280px] sm:w-[340px] rounded-[32px] carousel-flat p-4 relative group" data-index="7">
                     <div class="absolute top-8 left-8 z-20 bg-brand-yellow text-brand-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">ESSENTIAL</div>
                     <a href="producto.html?id=rem-02" class="block relative w-full h-[360px] rounded-[24px] overflow-hidden mb-4 bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800" alt="Top Arquitectónico" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=500&q=75" alt="Top Arquitectónico" width="280" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/F0F0F0/0A0A0A?text=Aurora+Fashion'" loading="lazy" decoding="async">
                     </a>
                     <div>
                         <a href="producto.html?id=rem-02" class="block">
@@ -611,7 +580,7 @@
 
             <!-- Card: Vestidos -->
             <article class="category-card">
-                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=900" alt="Vestidos" class="cat-img" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75" alt="Vestidos" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
                     <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">01 // COLECCIÓN</span>
@@ -630,7 +599,7 @@
 
             <!-- Card: Chaquetas & Abrigos -->
             <article class="category-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=900" alt="Chaquetas" class="cat-img" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75" alt="Chaquetas" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
                     <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">02 // COLECCIÓN</span>
@@ -649,7 +618,7 @@
 
             <!-- Card: Pantalones -->
             <article class="category-card">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=900" alt="Pantalones" class="cat-img" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75" alt="Pantalones" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
                     <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">03 // COLECCIÓN</span>
@@ -668,7 +637,7 @@
 
             <!-- Card: Remeras & Tops -->
             <article class="category-card">
-                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=900" alt="Remeras" class="cat-img" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=650&q=75" alt="Remeras" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
                     <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">04 // COLECCIÓN</span>
@@ -687,7 +656,7 @@
 
             <!-- Card: Calzado & Sneakers -->
             <article class="category-card">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=900" alt="Calzado" class="cat-img" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=650&q=75" alt="Calzado" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
                 <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
                     <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">05 // COLECCIÓN</span>
@@ -706,142 +675,8 @@
         </div>
     </section>
 
-    <!-- 5.5 SOBRE NOSOTROS -->
-    <section id="nosotros" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-        <div class="text-center mb-14">
-            <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2 block">Nuestra Historia</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Sobre Nosotros</h2>
-        </div>
-
-        <!-- Imágenes con máscara + descripción -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div class="flex items-center gap-4 sm:gap-6 justify-center md:justify-start">
-                <div class="mask-blob bg-gray-200 shrink-0">
-                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=560&q=70" alt="Atelier de diseño AURORA" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                </div>
-                <div class="mask-arch bg-gray-200 shrink-0">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=560&q=70" alt="Showroom AURORA" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                </div>
-            </div>
-            <div>
-                <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-4">Vestimos la nueva era urbana</h3>
-                <p class="text-gray-700 text-base sm:text-lg font-light leading-relaxed mb-4">
-                    AURORA nació en Buenos Aires como un estudio de diseño independiente con una obsesión:
-                    prendas de calidad superior, producidas en series cortas y pensadas para durar más de una temporada.
-                </p>
-                <p class="text-gray-700 text-base sm:text-lg font-light leading-relaxed">
-                    Cada colección se diseña y testa en nuestro propio taller, colaborando con confeccionistas locales
-                    y priorizando materiales responsables. Sin intermediarios, sin sobreproducción: moda directa al público.
-                </p>
-            </div>
-        </div>
-
-        <!-- Contadores animados -->
-        <div id="about-counters" class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
-            <div class="stat-card text-center p-8 rounded-[28px]">
-                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="8">0</span><span class="text-brand-yellow">+</span></div>
-                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Años de Experiencia</p>
-            </div>
-            <div class="stat-card text-center p-8 rounded-[28px]">
-                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="12500">0</span><span class="text-brand-yellow">+</span></div>
-                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Clientes Satisfechos</p>
-            </div>
-            <div class="stat-card text-center p-8 rounded-[28px]">
-                <div class="text-5xl font-black tracking-tight text-brand-black"><span class="counter" data-target="42">0</span><span class="text-brand-yellow">+</span></div>
-                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-gray-500">Colecciones Lanzadas</p>
-            </div>
-        </div>
-
-        <!-- Marquee de logotipos / socios -->
-        <div class="mt-16">
-            <p class="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Confían en nosotros</p>
-            <div class="logo-marquee overflow-hidden">
-                <div class="logo-track flex items-center">
-                    <span class="logo-item">VOGUE AR</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">LA NACIÓN MODA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">SOMOS TXT</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">DESIGN FACTORY</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">BA DESIGN WEEK</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">MODA BA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">VOGUE AR</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">LA NACIÓN MODA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">SOMOS TXT</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">DESIGN FACTORY</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">BA DESIGN WEEK</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                    <span class="logo-item">MODA BA</span><span class="w-2 h-2 rounded-full bg-brand-yellow shrink-0"></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonios -->
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <figure class="testimonial-card p-7 rounded-[28px]">
-                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="5 de 5 estrellas">★★★★★</div>
-                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“La calidad del calce es otra cosa. Compré una chaqueta hace un año y sigue como nueva. Atención por WhatsApp impecable.”</blockquote>
-                <figcaption class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=96&q=70" alt="Foto de Lucía M." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
-                    <div><p class="text-sm font-bold text-brand-black">Lucía M.</p><p class="text-xs text-gray-400">Buenos Aires</p></div>
-                </figcaption>
-            </figure>
-            <figure class="testimonial-card p-7 rounded-[28px]">
-                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="5 de 5 estrellas">★★★★★</div>
-                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“Pedí dos remeras y llegaron en 48hs con envío gratis. Los talles guían perfecto y el precio es justo para lo que ofrecen.”</blockquote>
-                <figcaption class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=96&q=70" alt="Foto de Martín R." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
-                    <div><p class="text-sm font-bold text-brand-black">Martín R.</p><p class="text-xs text-gray-400">Córdoba</p></div>
-                </figcaption>
-            </figure>
-            <figure class="testimonial-card p-7 rounded-[28px]">
-                <div class="text-amber-500 text-sm tracking-widest mb-3" aria-label="4 de 5 estrellas">★★★★☆</div>
-                <blockquote class="text-gray-700 text-sm leading-relaxed mb-5">“Diseños que no ves en cualquier lado. Compré para un evento y me preguntaron tres veces de dónde era la campera.”</blockquote>
-                <figcaption class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=96&q=70" alt="Foto de Sofía P." class="w-10 h-10 rounded-full object-cover" loading="lazy" decoding="async">
-                    <div><p class="text-sm font-bold text-brand-black">Sofía P.</p><p class="text-xs text-gray-400">Rosario</p></div>
-                </figcaption>
-            </figure>
-        </div>
-    </section>
-
-    <!-- SECCIÓN EDITORIAL (Estilo revista de moda digital) -->
-    <section id="editorial" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal-on-scroll">
-        <div class="glass-panel rounded-[36px] p-8 sm:p-14 relative overflow-hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-3 block">Editorial Digital</span>
-                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-6">LA ESTÉTICA DE LA NUEVA ERA</h2>
-                    <p class="text-gray-700 text-base sm:text-lg font-light leading-relaxed mb-8">
-                        Cada prenda en AURORA nace de la intersección entre la sastrería clásica y la funcionalidad del futuro. Diseñamos con materiales de bajo impacto ambiental y alta durabilidad para resistir el ritmo dinámico de las metrópolis globales.
-                    </p>
-                    <div class="flex items-center space-x-6">
-                        <div>
-                            <span class="block text-3xl font-black text-brand-black">100%</span>
-                            <span class="text-xs text-gray-500 font-medium">Algodón Orgánico</span>
-                        </div>
-                        <div class="w-px h-10 bg-gray-300"></div>
-                        <div>
-                            <span class="block text-3xl font-black text-brand-black">60 FPS</span>
-                            <span class="text-xs text-gray-500 font-medium">Experiencia Fluida</span>
-                        </div>
-                        <div class="w-px h-10 bg-gray-300"></div>
-                        <div>
-                            <span class="block text-3xl font-black text-brand-black">24/7</span>
-                            <span class="text-xs text-gray-500 font-medium">Soporte Global</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative h-[380px] sm:h-[480px] rounded-[28px] overflow-hidden shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=900" alt="Editorial Look" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    <div class="absolute inset-0 bg-gradient-to-t from-brand-black/40 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider">
-                        Vol. 04 // Lookbook 2026
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- FOOTER -->
-    <footer class="bg-brand-black text-white pt-16 pb-12 rounded-t-[40px] mt-20">
+    <footer class="bg-brand-black text-white pt-16 pb-12 rounded-t-[40px] mt-20 cv-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
                 <div>
@@ -854,8 +689,6 @@
                         <li><a href="#hero" class="hover:text-white transition-colors">Inicio</a></li>
                         <li><a href="#destacados" class="hover:text-white transition-colors">Destacados</a></li>
                         <li><a href="#categorias" class="hover:text-white transition-colors">Catálogo</a></li>
-                        <li><a href="#nosotros" class="hover:text-white transition-colors">Nosotros</a></li>
-                        <li><a href="#editorial" class="hover:text-white transition-colors">Editorial</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1047,42 +880,6 @@
             initCartEvents();
             initFilterListeners();
             initHeaderButtons();
-            initAboutCounters();
-        }
-
-        // Contadores animados de "Sobre Nosotros" (un solo IntersectionObserver, se desobserva al terminar)
-        function initAboutCounters() {
-            const counters = document.querySelectorAll('#about-counters .counter');
-            if (counters.length === 0) return;
-            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            const animate = (el) => {
-                const target = parseInt(el.dataset.target, 10) || 0;
-                if (prefersReduced) { el.textContent = target.toLocaleString('es-AR'); return; }
-                const duration = 1600;
-                const start = performance.now();
-                const step = (now) => {
-                    const p = Math.min((now - start) / duration, 1);
-                    const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-                    el.textContent = Math.round(target * eased).toLocaleString('es-AR');
-                    if (p < 1) requestAnimationFrame(step);
-                };
-                requestAnimationFrame(step);
-            };
-
-            if (!('IntersectionObserver' in window)) {
-                counters.forEach(el => el.textContent = (parseInt(el.dataset.target, 10) || 0).toLocaleString('es-AR'));
-                return;
-            }
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animate(entry.target);
-                        io.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.4 });
-            counters.forEach(el => io.observe(el));
         }
 
         if (document.readyState === 'loading') {
@@ -1170,22 +967,7 @@
                 }, 710);
             }
 
-            const prevBtn = document.getElementById('prev-slide');
-            const nextBtn = document.getElementById('next-slide');
 
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    nextSlide();
-                    resetAutoplay();
-                });
-            }
-
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                    prevSlide();
-                    resetAutoplay();
-                });
-            }
 
             // Soporte Touch Swipe Nativo con umbral sensible
             let touchStartX = 0;
@@ -1223,6 +1005,15 @@
             // Pausa al posar el cursor y reanudación al salir
             container.addEventListener('mouseenter', stopAutoplay);
             container.addEventListener('mouseleave', startAutoplay);
+
+            // Ahorro de CPU y batería cuando la pestaña queda en segundo plano
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    stopAutoplay();
+                } else {
+                    startAutoplay();
+                }
+            });
 
             startAutoplay();
 
@@ -1307,9 +1098,13 @@
         function initFilterListeners() {
             const searchInput = document.getElementById('filter-search');
             if (searchInput) {
+                let searchDebounceTimer;
                 searchInput.addEventListener('input', (e) => {
-                    activeFilters.search = e.target.value.toLowerCase().trim();
-                    updateCatalogDisplay();
+                    clearTimeout(searchDebounceTimer);
+                    searchDebounceTimer = setTimeout(() => {
+                        activeFilters.search = e.target.value.toLowerCase().trim();
+                        updateCatalogDisplay();
+                    }, 150);
                 });
             }
 
@@ -1504,22 +1299,7 @@
             if (closeBtn) closeBtn.addEventListener('click', closeCartDrawer);
         }
 
-        function addToCart(productId, size = "M") {
-            const product = PRODUCTS_DATA.find(p => p.id === productId);
-            if (!product) return;
-
-            const existingItem = CART.find(item => item.id === productId && (!size || item.size === size));
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                CART.push({ id: productId, quantity: 1, size: size || (product.sizes ? product.sizes[0] : "M") });
-            }
-
-            saveStoredCart(CART);
-            initCartUI();
-            openCartDrawer();
-            showNotification(`¡${product.name} agregado al carrito!`);
-        }
+        
 
         function updateItemQuantity(productId, delta, size) {
             const item = CART.find(i => i.id === productId && (!size || i.size === size));
