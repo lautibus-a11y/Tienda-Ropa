@@ -50,6 +50,15 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.5.0] - 2026-11-26
+#### Preparación y Compatibilidad para Deploy en Vercel
+- **Solución al Error 404 de Vercel (Root Entrypoint):**
+  - Renombrado el archivo raíz `landing_page_e_commerce.html` &rarr; `index.html`. Vercel sirve automáticamente `index.html` como la raíz `/`, resolviendo de forma nativa el error 404 al visitar el dominio.
+  - Actualizados todos los enlaces y redirecciones internas en `producto.html` (`landing_page_e_commerce.html` &rarr; `index.html`).
+- **Configuración de Servidor Estático (`vercel.json`):**
+  - Creado `vercel.json` con `cleanUrls: true` (permite acceder a `/producto` sin necesidad de la extensión `.html`).
+  - Agregados encabezados de seguridad HTTP (`X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`) y directivas de caché optimizadas para archivos estáticos CSS/JS.
+
 ### [1.4.0] - 2026-11-23
 #### Auditoría Técnica Integral y Optimización Senior de Rendimiento WPO
 - **Depuración de Código Muerto y Recursos Huérfanos:**
