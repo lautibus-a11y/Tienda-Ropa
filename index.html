@@ -49,10 +49,10 @@
         
 
         .glass-nav {
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border: none;
         }
 
         /* Marquesina Infinita Ticker Tape */
@@ -336,31 +336,31 @@
     <!-- 1. HEADER Y NAVBAR FLOTANTE -->
     <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-            <nav class="glass-nav rounded-3xl px-5 py-3.5 flex items-center justify-between shadow-sm">
+            <nav class="glass-nav px-5 py-3.5 flex items-center justify-between">
                 <!-- Logo -->
                 <a href="#" class="flex items-center space-x-2 group">
-                    <span class="text-xl sm:text-2xl font-black tracking-tighter uppercase text-brand-black group-hover:scale-105 transition-transform">
-                        AURORA<span class="text-amber-500">.</span>
+                    <span class="text-xl sm:text-2xl font-black tracking-tighter uppercase text-white group-hover:scale-105 transition-transform drop-shadow-sm">
+                        AURORA<span class="text-brand-yellow">.</span>
                     </span>
                 </a>
 
                 <!-- Menú de Navegación Desktop -->
-                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
-                    <a href="#hero" class="hover:text-brand-black transition-colors">Inicio</a>
-                    <a href="#destacados" class="hover:text-brand-black transition-colors">Destacados</a>
-                    <a href="#categorias" class="hover:text-brand-black transition-colors">Catálogo</a>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-200">
+                    <a href="#hero" class="hover:text-white transition-colors">Inicio</a>
+                    <a href="#destacados" class="hover:text-white transition-colors">Destacados</a>
+                    <a href="#categorias" class="hover:text-white transition-colors">Catálogo</a>
                 </div>
 
                 <!-- Accesos Rápidos (Buscador, Favoritos, Carrito) -->
                 <div class="flex items-center space-x-3 sm:space-x-4">
-                    <button id="search-btn" class="p-2.5 rounded-full hover:bg-black/5 transition-colors relative" aria-label="Buscar productos">
-                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <button id="search-btn" class="p-2.5 rounded-full hover:bg-white/10 transition-colors relative text-white" aria-label="Buscar productos">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
-                    <button id="fav-btn" class="p-2.5 rounded-full hover:bg-black/5 transition-colors relative hidden sm:block" aria-label="Favoritos">
-                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <button id="fav-btn" class="p-2.5 rounded-full hover:bg-white/10 transition-colors relative hidden sm:block text-white" aria-label="Favoritos">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         <span id="fav-count" class="absolute -top-1 -right-1 w-4 h-4 bg-brand-yellow text-[10px] font-bold text-brand-black rounded-full flex items-center justify-center ring-2 ring-white">0</span>
                     </button>
-                    <button id="cart-btn" class="flex items-center space-x-2 bg-brand-black text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-md active:scale-95" aria-label="Ver Carrito de Compras">
+                    <button id="cart-btn" class="flex items-center space-x-2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-full text-sm font-semibold transition-all shadow-md active:scale-95" aria-label="Ver Carrito de Compras">
                         <svg class="w-4 h-4 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                         <span id="cart-count" class="bg-brand-yellow text-brand-black px-1.5 py-0.5 rounded-full text-xs font-bold">0</span>
                     </button>
@@ -371,7 +371,7 @@
 
     <!-- 2. SECCIÓN HERO (Video Full Width con Glassmorphism) -->
     <section id="hero" class="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-        <div class="absolute inset-0 w-full h-full overflow-hidden z-0 rounded-b-[40px] sm:rounded-b-[60px]">
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
             <!-- Video Background Playlist Autoplay (Secuencia continua sin placeholders) -->
             <video id="hero-video-1" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover filter brightness-90 transition-opacity duration-1000 opacity-100" preload="auto">
                 <source src="assets/Video%20Hero/1.mp4" type="video/mp4">
@@ -387,17 +387,13 @@
         <div class="relative z-10 max-w-5xl mx-auto text-center text-white px-4 mt-12 sm:mt-0">
             <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 mb-6 text-xs sm:text-sm font-medium tracking-wide">
                 <span class="w-2 h-2 rounded-full bg-brand-yellow animate-pulse"></span>
-                <span>Urban Collection 2026 // Edición Limitada</span>
+                <span>Colección Urbana 2026</span>
             </div>
             
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.08] mb-6 drop-shadow-sm">
                 FUTURISTIC <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-amber-200">EDITORIAL</span> COMMERCE
             </h1>
             
-            <p class="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gray-200 font-light mb-10 leading-relaxed">
-                Prendas de alta gama con cortes arquitectónicos, texturas inteligentes y diseño minimalista adaptado al movimiento urbano actual.
-            </p>
-
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                 <a href="#destacados" class="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellowHover text-brand-black px-8 py-4 rounded-2xl font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-xl text-center">
                     Explorar Colección
