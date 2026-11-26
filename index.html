@@ -582,8 +582,7 @@
             <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75" alt="Vestidos" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
-                <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
-                    <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">01 // COLECCIÓN</span>
+                <div class="absolute top-6 right-6 text-white">
                     <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">6 Piezas</span>
                 </div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
@@ -601,8 +600,7 @@
             <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75" alt="Chaquetas" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
-                <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
-                    <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">02 // COLECCIÓN</span>
+                <div class="absolute top-6 right-6 text-white">
                     <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">5 Piezas</span>
                 </div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
@@ -620,8 +618,7 @@
             <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75" alt="Pantalones" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
-                <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
-                    <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">03 // COLECCIÓN</span>
+                <div class="absolute top-6 right-6 text-white">
                     <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">7 Piezas</span>
                 </div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
@@ -639,8 +636,7 @@
             <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=650&q=75" alt="Remeras" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
-                <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
-                    <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">04 // COLECCIÓN</span>
+                <div class="absolute top-6 right-6 text-white">
                     <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">8 Piezas</span>
                 </div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
@@ -658,8 +654,7 @@
             <article class="category-card">
                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=650&q=75" alt="Calzado" width="560" height="320" class="cat-img" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/40 to-transparent"></div>
-                <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-white">
-                    <span class="bg-brand-yellow text-brand-black text-[11px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">05 // COLECCIÓN</span>
+                <div class="absolute top-6 right-6 text-white">
                     <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">4 Piezas</span>
                 </div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
@@ -900,9 +895,9 @@
             const N = originalCards.length; // 8 prendas base
             if (N === 0) return;
 
-            // Carrusel ligero: 2 sets (16 tarjetas) con rebobinado modular transparente
+            // Carrusel infinito continuo: 3 sets (24 tarjetas) con rebobinado modular transparente
             track.innerHTML = '';
-            for (let s = 0; s < 2; s++) {
+            for (let s = 0; s < 3; s++) {
                 originalCards.forEach((card, idx) => {
                     const clone = card.cloneNode(true);
                     clone.dataset.index = idx;
