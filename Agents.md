@@ -50,6 +50,26 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.6.0] - 2026-11-26
+#### Integración de Videos Propios en Hero (Playlist Continua Autoplay)
+- **Reemplazo de Placeholders Externos en Hero:**
+  - Eliminados los videos externos de demostración (Mixkit) y posters estáticos externos de Unsplash en el Hero.
+  - Integrada la secuencia ordenada de videos locales: `assets/Video Hero/1.mp4` y `assets/Video Hero/2.mp4`.
+- **Reproducción Continua Seamless con Crossfade:**
+  - Implementada arquitectura de doble buffer de video superpuesto (`#hero-video-1` y `#hero-video-2`) con transición suave de opacidad (CSS `transition: opacity 1000ms`).
+  - Control de eventos `ended`: reproduce el video 1 &rarr; pasa al video 2 &rarr; vuelve al video 1 de manera ininterrumpida con reinicio de `currentTime`.
+  - Integrado control de ahorro de batería y rendimiento con `visibilitychange` (pausa ambos videos si la pestaña está oculta o minimizada).
+- **Estructura de Contenedor MP4:**
+  - Ambos archivos MP4 cuentan con el átomo `moov` al inicio (`faststart`), permitiendo inicio inmediato de streaming progresivo sin espera de descarga completa.
+
+### [1.5.1] - 2026-11-26
+#### Limpieza Visual en Catálogo y Carrusel Infinito Mejorado
+- **Sección Nuestro Catálogo:**
+  - Eliminados los badges llamativos (`01 // COLECCIÓN` .. `05 // COLECCIÓN`) de las tarjetas de categorías, reduciendo el ruido visual y distracciones innecesarias.
+  - El contador de piezas se posicionó limpiamente en la esquina superior derecha (`top-6 right-6`).
+- **Sección Prendas Destacadas (Carrusel):**
+  - Actualizado el buffer de clonado a 3 sets (24 tarjetas) garantizando un loop **autoplay infinito continuo** y seamless sin saltos ni espacios vacíos, manteniendo la animación GPU fluida a 60 FPS y el evento `visibilitychange`.
+
 ### [1.5.0] - 2026-11-26
 #### Preparación y Compatibilidad para Deploy en Vercel
 - **Solución al Error 404 de Vercel (Root Entrypoint):**

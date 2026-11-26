@@ -372,10 +372,12 @@
     <!-- 2. SECCIÓN HERO (Video Full Width con Glassmorphism) -->
     <section id="hero" class="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div class="absolute inset-0 w-full h-full overflow-hidden z-0 rounded-b-[40px] sm:rounded-b-[60px]">
-            <!-- Video Background Autoplay Loop sin sonido con poster de carga rápida -->
-            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800&q=75" class="w-full h-full object-cover filter brightness-90" preload="metadata">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-models-walking-on-a-catwalk-41584-large.mp4" type="video/mp4">
-                Tu navegador no soporta video HTML5.
+            <!-- Video Background Playlist Autoplay (Secuencia continua sin placeholders) -->
+            <video id="hero-video-1" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover filter brightness-90 transition-opacity duration-1000 opacity-100" preload="auto">
+                <source src="assets/Video%20Hero/1.mp4" type="video/mp4">
+            </video>
+            <video id="hero-video-2" muted playsinline class="absolute inset-0 w-full h-full object-cover filter brightness-90 transition-opacity duration-1000 opacity-0 pointer-events-none" preload="auto">
+                <source src="assets/Video%20Hero/2.mp4" type="video/mp4">
             </video>
             <!-- Overlay degradado oscuro para contraste -->
             <div class="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-brand-black/30 to-transparent"></div>
@@ -875,6 +877,7 @@
             initCartEvents();
             initFilterListeners();
             initHeaderButtons();
+            initHeroVideoPlaylist();
         }
 
         if (document.readyState === 'loading') {
@@ -886,6 +889,67 @@
         // ==========================================
         // 3. CARRUSEL 3D COVERFLOW (Centrado Absoluto, Bucle Infinito Sin Espacios Vacíos & 60 FPS)
         // ==========================================
+
+        // ==========================================
+        // 2.1 PLAYLIST HERO VIDEOS (Autoplay continuo ordenado 1 -> 2 -> 1)
+        // ==========================================
+        function initHeroVideoPlaylist() {
+            const v1 = document.getElementById('hero-video-1');
+            const v2 = document.getElementById('hero-video-2');
+            if (!v1 || !v2) return;
+
+            // Asegurar reproducción con sonido silenciado (política estricta de navegadores)
+            v1.muted = true;
+            v2.muted = true;
+
+            const playSafe = (v) => {
+                const promise = v.play();
+                if (promise !== undefined) {
+                    promise.catch(() => {
+                        // Reintento silencioso en caso de bloqueo inicial de autoplay
+                        v.muted = true;
+                        v.play().catch(() => {});
+                    });
+                }
+            };
+
+            playSafe(v1);
+
+            // Al terminar el video 1: transición fluida hacia el video 2
+            v1.addEventListener('ended', () => {
+                v2.currentTime = 0;
+                playSafe(v2);
+                v2.classList.remove('opacity-0', 'pointer-events-none');
+                v2.classList.add('opacity-100');
+                v1.classList.remove('opacity-100');
+                v1.classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            // Al terminar el video 2: transición fluida de vuelta al video 1
+            v2.addEventListener('ended', () => {
+                v1.currentTime = 0;
+                playSafe(v1);
+                v1.classList.remove('opacity-0', 'pointer-events-none');
+                v1.classList.add('opacity-100');
+                v2.classList.remove('opacity-100');
+                v2.classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            // Pausar reproducción cuando la pestaña esté en segundo plano para ahorrar recursos
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    v1.pause();
+                    v2.pause();
+                } else {
+                    if (v2.classList.contains('opacity-100')) {
+                        playSafe(v2);
+                    } else {
+                        playSafe(v1);
+                    }
+                }
+            });
+        }
+
         function init3DCarousel() {
             const container = document.getElementById('carousel-container') || document.querySelector('.carousel-3d-container');
             const track = document.getElementById('carousel-track');
