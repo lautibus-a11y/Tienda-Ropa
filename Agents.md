@@ -50,6 +50,20 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.6.2] - 2026-11-27
+#### Expansión de Artículos Mockup por Categoría y Contadores Dinámicos
+- **Catálogo (`products_data.js`):**
+  - Agregados 12 artículos mockup distribuidos en todas las categorías (`chaq-03`, `chaq-04`, `abr-02`, `abr-03`, `abr-04`, `vest-03`, `vest-04`, `pant-04`, `rem-03`, `rem-04`, `calz-03`, `calz-04`), alcanzando 24 prendas totales (4 por cada una de las 6 categorías: `Chaquetas`, `Abrigos`, `Vestidos`, `Pantalones`, `Remeras`, `Calzado`).
+- **Sincronización de Tarjetas de Categorías (`index.html`):**
+  - Agregada función `updateCategoryCardCounts()` con atributos `data-cat-count` para calcular en tiempo real la cantidad real de piezas de `PRODUCTS_DATA` en cada tarjeta de `#categorias`.
+
+### [1.6.1] - 2026-11-27
+#### Limpieza de Textos en Hero y Prendas Destacadas
+- **Sección Hero:**
+  - Eliminado el título principal `FUTURISTIC EDITORIAL COMMERCE` (`<h1>`), dejando el badge de colección y los botones CTA sobre el video de fondo.
+- **Sección Prendas Destacadas:**
+  - Eliminado el texto auxiliar `Autoplay continuo · deslizá horizontalmente` del encabezado del carrusel.
+
 ### [1.6.0] - 2026-11-26
 #### Integración de Videos Propios en Hero (Playlist Continua Autoplay)
 - **Reemplazo de Placeholders Externos en Hero:**

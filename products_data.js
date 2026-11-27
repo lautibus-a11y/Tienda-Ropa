@@ -327,6 +327,330 @@ const PRODUCTS_DATA = [
             "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75",
             "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&q=80&w=650&q=75"
         ]
+    },
+    {
+        id: "chaq-03",
+        name: "Bomber Modular Ripstop",
+        category: "Chaquetas",
+        price: 158000,
+        originalPrice: 189000,
+        badge: "NEW",
+        stock: 5,
+        rating: 4.8,
+        reviewsCount: 29,
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Obsidian Black", "Graphite"],
+        freeShipping: true,
+        installments: true,
+        description: "Chaqueta bomber de silueta volumétrica confeccionada en nylon ripstop antidesgarro con bolsillos utilitarios ocultos y cierres metálicos anodizados.",
+        details: {
+            material: "100% Nylon Ripstop técnico con repelencia al viento y lluvia leve",
+            fit: "Boxy Cropped con puños acanalados",
+            care: "Lavar a máquina en agua fría ciclo suave",
+            origin: "Buenos Aires, Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "chaq-04",
+        name: "Cazadora Cropped Shell",
+        category: "Chaquetas",
+        price: 139000,
+        originalPrice: 162000,
+        badge: "TREND",
+        stock: 4,
+        rating: 4.9,
+        reviewsCount: 46,
+        sizes: ["XS", "S", "M", "L"],
+        colors: ["Bone White", "Carbon"],
+        freeShipping: true,
+        installments: true,
+        description: "Cazadora corta de corte arquitectónico con cuello alto protector, costuras selladas y ajuste elástico en cintura para layering urbano.",
+        details: {
+            material: "Microfibra técnica tricapa transpirable",
+            fit: "Cropped Estructurado",
+            care: "Limpiar con paño húmedo o lavado delicado en frío",
+            origin: "Diseño de autor AURORA Studio"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "abr-02",
+        name: "Trench Impermeable Urban",
+        category: "Abrigos",
+        price: 228000,
+        originalPrice: 265000,
+        badge: "NEW",
+        stock: 3,
+        rating: 4.9,
+        reviewsCount: 31,
+        sizes: ["S", "M", "L"],
+        colors: ["Stone Sand", "Noir"],
+        freeShipping: true,
+        installments: true,
+        description: "Trench largo minimalista con solapa storm-flap, cinto desmontable con hebilla metálica mate y abertura trasera para movilidad fluida.",
+        details: {
+            material: "Gabardina técnica de algodón orgánico con membrana hidrófuga",
+            fit: "Relaxed Longline hasta debajo de la rodilla",
+            care: "Limpieza en seco recomendada",
+            origin: "Buenos Aires, Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "abr-03",
+        name: "Parka Térmica Aislante",
+        category: "Abrigos",
+        price: 240000,
+        originalPrice: 280000,
+        badge: "LIMITED",
+        stock: 2,
+        rating: 5.0,
+        reviewsCount: 19,
+        sizes: ["M", "L", "XL"],
+        colors: ["Matte Olive", "Pitch Black"],
+        freeShipping: true,
+        installments: true,
+        description: "Parka de alto rendimiento térmico con relleno sintético ultraliviano, capucha ergonómica ajustable y bolsillos internos forrados.",
+        details: {
+            material: "Exterior Poliamida matte + relleno aislante ecológico",
+            fit: "Oversized Técnico para clima frío extremo",
+            care: "Lavar en frío sin centrifugado agresivo",
+            origin: "Edición Limitada AURORA Studio"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "abr-04",
+        name: "Tapado Doble Faz Wool",
+        category: "Abrigos",
+        price: 255000,
+        originalPrice: 295000,
+        badge: "EXCLUSIVE",
+        stock: 3,
+        rating: 4.8,
+        reviewsCount: 24,
+        sizes: ["XS", "S", "M", "L"],
+        colors: ["Charcoal", "Espresso"],
+        freeShipping: true,
+        installments: false,
+        description: "Tapado sastrero confeccionado en paño doble faz cosido a mano, con hombros limpios y caída recta atemporal.",
+        details: {
+            material: "80% Lana merino peinada, 20% Poliamida de refuerzo",
+            fit: "Straight Tailored Fit",
+            care: "Tintorería especializada únicamente",
+            origin: "Confección artesanal en Buenos Aires"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "vest-03",
+        name: "Vestido Blazer Estructurado",
+        category: "Vestidos",
+        price: 154000,
+        originalPrice: 180000,
+        badge: "ICON",
+        stock: 4,
+        rating: 4.9,
+        reviewsCount: 53,
+        sizes: ["XS", "S", "M", "L"],
+        colors: ["Pure Black", "Ivory"],
+        freeShipping: true,
+        installments: true,
+        description: "Vestido sastrero cruzado inspirado en la sastrería masculina, con hombreras sutiles, solapa limpia y forrería satinada integral.",
+        details: {
+            material: "Crepé sastrero pesado con elastano de recuperación",
+            fit: "Tailored Mini estructurado",
+            care: "Limpieza en seco profesional",
+            origin: "Industria Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "vest-04",
+        name: "Vestido Cut-Out Ribbed",
+        category: "Vestidos",
+        price: 112000,
+        originalPrice: 132000,
+        badge: "NEW",
+        stock: 6,
+        rating: 4.7,
+        reviewsCount: 41,
+        sizes: ["XS", "S", "M"],
+        colors: ["Onyx", "Slate"],
+        freeShipping: false,
+        installments: true,
+        description: "Vestido midi en morley técnico acanalado con abertura geométrica en cintura y cuello cerrado minimalista.",
+        details: {
+            material: "90% Modal sustentable, 10% Elastano",
+            fit: "Bodycon estilizado con largo midi",
+            care: "Lavar a mano con agua fría, secar en plano",
+            origin: "Confección local sustentable"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "pant-04",
+        name: "Pantalón Parachute Nylon",
+        category: "Pantalones",
+        price: 94000,
+        originalPrice: 110000,
+        badge: "TREND",
+        stock: 6,
+        rating: 4.8,
+        reviewsCount: 64,
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Phantom Black", "Ash Grey"],
+        freeShipping: true,
+        installments: true,
+        description: "Pantalón parachute ultra liviano con pinzas articuladas en rodillas y cordones elásticos con tancas en cintura y botamanga.",
+        details: {
+            material: "Nylon Taslan arrugado de secado rápido",
+            fit: "Baggy Wide regulable",
+            care: "Lavar con agua fría, no usar plancha",
+            origin: "Buenos Aires, Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "rem-03",
+        name: "Remera Boxy Acid Wash",
+        category: "Remeras",
+        price: 49000,
+        originalPrice: 58000,
+        badge: "DROP",
+        stock: 9,
+        rating: 4.9,
+        reviewsCount: 77,
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Washed Charcoal", "Chalk"],
+        freeShipping: false,
+        installments: true,
+        description: "Remera boxy fit en jersey de 260 GSM con proceso artesanal de lavado mineral que otorga una textura única a cada prenda.",
+        details: {
+            material: "100% Algodón peinado Heavyweight 260 GSM",
+            fit: "Boxy Oversized con hombros caídos",
+            care: "Lavar por separado con agua fría del revés",
+            origin: "Buenos Aires, Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "rem-04",
+        name: "Longsleeve Segunda Piel",
+        category: "Remeras",
+        price: 54000,
+        originalPrice: 64000,
+        badge: "ESSENTIAL",
+        stock: 7,
+        rating: 4.8,
+        reviewsCount: 45,
+        sizes: ["XS", "S", "M", "L"],
+        colors: ["Noir", "Titanium"],
+        freeShipping: false,
+        installments: true,
+        description: "Remera manga larga de compresión ligera con costuras flatlock visibles y aberturas ergonómicas para pulgares en puños.",
+        details: {
+            material: "88% Poliamida reciclada, 12% Elastano stretch 4-way",
+            fit: "Second-Skin Fitted",
+            care: "Lavar en ciclo delicado sin suavizante",
+            origin: "Confección nacional"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "calz-03",
+        name: "Runner Tech Monolith",
+        category: "Calzado",
+        price: 195000,
+        originalPrice: 229000,
+        badge: "NEW",
+        stock: 4,
+        rating: 4.9,
+        reviewsCount: 36,
+        sizes: ["39", "40", "41", "42", "43", "44"],
+        colors: ["All Black", "Silver / Ash"],
+        freeShipping: true,
+        installments: true,
+        description: "Zapatilla técnica de inspiración running futurista con jaula de soporte TPU termosellada, cordones quick-lace y entresuela de doble densidad.",
+        details: {
+            material: "Mesh balístico respirable + refuerzos sintéticos termosellados",
+            fit: "Calce ergonómico estándar",
+            care: "Limpiar con cepillo suave y agua jabonosa neutra",
+            origin: "AURORA Footwear Lab"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=650&q=75"
+        ]
+    },
+    {
+        id: "calz-04",
+        name: "Borcego Plataforma Tactical",
+        category: "Calzado",
+        price: 225000,
+        originalPrice: 260000,
+        badge: "LIMITED",
+        stock: 3,
+        rating: 5.0,
+        reviewsCount: 28,
+        sizes: ["36", "37", "38", "39", "40", "41"],
+        colors: ["Matte Leather Black"],
+        freeShipping: true,
+        installments: true,
+        description: "Bota táctica urbana en cuero vacuno mate hidrofugado con cierre lateral YKK, ojalillos metálicos y suela track dentada de 5cm.",
+        details: {
+            material: "100% Cuero vacuno plena flor + base de caucho TR antideslizante",
+            fit: "Horma amplia confortable",
+            care: "Nutrir con crema neutra para cuero",
+            origin: "Artesanal - Hecho en Argentina"
+        },
+        images: [
+            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=650&q=75",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=650&q=75"
+        ]
     }
 ];
 
