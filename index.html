@@ -1226,11 +1226,15 @@
         }
         .hero-rotating-word {
             display: inline-block;
-            transition: opacity 0.26s ease, transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+            transition: clip-path 0.42s cubic-bezier(0.65, 0, 0.35, 1),
+                        -webkit-clip-path 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: clip-path;
         }
-        .hero-rotating-word.is-switching {
-            opacity: 0;
-            transform: translate3d(0, 6px, 0);
+        .hero-rotating-word.is-closed {
+            -webkit-clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 100% 0 0);
         }
         @media (prefers-reduced-motion: reduce) {
             .hero-rotating-word { transition: none; }
@@ -2507,23 +2511,27 @@
 
             const words = ['Femenina', 'Masculina'];
             let index = 0;
-            let swapTimer;
+            let closeTimer;
 
             setInterval(() => {
                 if (document.hidden) return;
+
+                // Sin movimiento: solo se reemplaza el texto.
                 if (reduced) {
                     index = (index + 1) % words.length;
                     word.textContent = words[index];
                     return;
                 }
-                word.classList.add('is-switching');
-                clearTimeout(swapTimer);
-                swapTimer = setTimeout(() => {
+
+                // 1) cerrar de derecha a izquierda, 2) cambiar el texto, 3) desplegar de izquierda a derecha.
+                word.classList.add('is-closed');
+                clearTimeout(closeTimer);
+                closeTimer = setTimeout(() => {
                     index = (index + 1) % words.length;
                     word.textContent = words[index];
-                    word.classList.remove('is-switching');
-                }, 260);
-            }, 2600);
+                    word.classList.remove('is-closed');
+                }, 440);
+            }, 3400);
         }
 
         function initPromoVideo() {

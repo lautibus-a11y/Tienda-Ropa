@@ -50,6 +50,13 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.8] - 2026-11-28
+#### Animación de Despliegue/Cierre en el Título Rotativo del Hero
+- **`index.html`:** reemplazado el fade vertical (`opacity` + `translate3d`) por una apertura tipo cortina en `.hero-rotating-word` mediante `clip-path: inset(...)` con `will-change` y transición GPU de 420 ms:
+  - Cierre: `inset(0 0 0 0)` → `inset(0 100% 0 0)` (se repliega de derecha a izquierda).
+  - Apertura: al quitar `.is-closed`, vuelve a `inset(0 0 0 0)` desplegándose de izquierda a derecha con la nueva palabra.
+- `initHeroRotatingTitle()` espera 440 ms al cierre, intercambia `Femenina` / `Masculina` y reabre; el ciclo se extendió a 3400 ms para dejar leer cada estado. Con `prefers-reduced-motion` el texto cambia sin animación.
+
 ### [1.8.7] - 2026-11-28
 #### Hero + Marquesina a Primera Vista en Móvil y Título Rotativo "Femenina / Masculina"
 - **Viewport inicial mobile (`index.html`):**
