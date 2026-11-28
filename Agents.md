@@ -50,6 +50,15 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.5] - 2026-11-28
+#### Infinite Logo Carousels entre Ofertas y Sobre Nosotros + Remoción de Flechas del Carrusel
+- **Remoción de controles del carrusel (`index.html`):**
+  - Eliminados los botones `#carousel-prev` / `#carousel-next`, el bloque CSS `.carousel-nav*` y su wiring en `init3DCarousel()` (incorporados en 1.8.4). *Prendas Destacadas* vuelve a operar solo con autoplay de 1800 ms y swipe táctil, sin flechas visibles.
+- **Nueva sección de marquesinas de logos (`index.html`):**
+  - Creada `.logo-marquee-section` entre `#ofertas-semana` y `#nosotros` con dos filas infinitas: `.logo-marquee-track--left` (`translate3d(0 → -50%)`) y `.logo-marquee-track--right` (`translate3d(-50% → 0)`), cada una con el set duplicado para un loop seamless.
+  - Animación GPU lineal de 32 s en `transform`, pausa al hacer hover, máscara de desvanecimiento lateral y respeto a `prefers-reduced-motion` (sin animación).
+  - Placeholders `TU MARCA 01…08` y `TU LOGO 01…08` preparados para reemplazarse por `<img src="assets/images/logos/…">`; estilo grayscale con `max-height: 38px` y `object-fit: contain`.
+
 ### [1.8.4] - 2026-11-28
 #### Unificación de Espaciados entre Catálogo / CTA / Sobre Nosotros y Flechas del Carrusel
 - **Espaciado `#categorias` → `#ofertas-semana` (`index.html`):**
