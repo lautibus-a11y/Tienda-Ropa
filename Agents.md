@@ -50,6 +50,31 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.6.5] - 2026-11-28
+#### Restauración del Carrusel Autoplay Original en Prendas Destacadas
+- **Sección Prendas Destacadas (`index.html`):**
+  - Revertido el cambio `[1.6.3]` del carrusel, restaurando `init3DCarousel()` y los estilos originales `.carousel-3d-container` / `.carousel-3d-track` / `.carousel-card` con autoplay por pasos cada 3.5s, centrado absoluto, 3 sets (24 tarjetas), swipe táctil y pausa por hover/`visibilitychange`.
+  - Se conservan intactas las nuevas secciones `#nosotros` (con Circular Progress Bars) y `#contacto` (con Mapa y Pin Saltando).
+
+### [1.6.4] - 2026-11-28
+#### Secciones "Sobre Nosotros" (con Circular Progress Bars) y "Contacto" (con Mapa y Pin Saltando)
+- **Sección Sobre Nosotros (`#nosotros` en `index.html`):**
+  - Ubicada debajo de `#categorias` ("Nuestro Catálogo"), con composición de 2 columnas (imagen editorial del taller + historia de **AURORA Studio** y pilares de marca).
+  - Debajo de la historia, incorporada una grilla de 4 **Circular Progress Bars** SVG (`98% Satisfacción`, `100% Producción Local`, `85% Materiales Nobles`, `96% Entregas a Tiempo`) animados suavemente al entrar en viewport (`initCircularProgressBars()` con `IntersectionObserver` + `requestAnimationFrame` easeOutCubic y soporte para `prefers-reduced-motion`).
+- **Sección Contacto (`#contacto` en `index.html`):**
+  - Ubicada debajo de `#nosotros`, con tarjeta de información de contacto completa: **Redes Sociales** (Instagram, TikTok, WhatsApp, X con `rel="noopener noreferrer"`), **Número** (`+54 9 11 7202-3171`), **Mail** (`hola@aurorastudio.com.ar`) y **Ubicación** (`Av. Santa Fe 3253, Palermo, CABA`).
+  - Integrado mapa interactivo de Google Maps (`loading="lazy"`) con un **ícono de ubicación saltando** (animación GPU `@keyframes pinBounce` y sombra pulsante `@keyframes pinShadow` a 60 FPS, con `pointer-events: none` para no bloquear el mapa) y acceso directo a Google Maps.
+- **Navegación (`index.html`):**
+  - Enlazadas las secciones `#nosotros` y `#contacto` en el menú del header y del footer. Todo el CSS se encapsuló inline para mantener independencia del bundle congelado `tailwind_landing.css`.
+
+### [1.6.3] - 2026-11-28
+#### Infinite Carousel Continuo en Prendas Destacadas
+- **Sección Prendas Destacadas (`index.html`):**
+  - Reemplazado el carrusel de pasos discretos (`init3DCarousel` / `setInterval` cada 3.5s) por un **Infinite Carousel** de desplazamiento continuo y fluido a 60 FPS (`initInfiniteCarousel` con `requestAnimationFrame` delta-time y `translate3d` en GPU).
+  - Bucle modular matemáticamente seamless con 3 sets (24 tarjetas) y medición exacta de `setWidth` (`offsetLeft` entre sets) con ajuste proporcional en `resize` sin saltos ni huecos.
+  - Interacción completa: desaceleración/pausa suave al hacer hover (solo mouse), arrastre fluido con mouse/touch (Pointer Events) con inercia natural y prevención de clicks accidentales, y soporte de gesto horizontal en trackpads sin interferir con el scroll vertical móvil.
+  - Optimización y accesibilidad: pausa automática fuera del viewport (`IntersectionObserver`) y en pestañas ocultas (`visibilitychange`), respeto a `prefers-reduced-motion`, clones marcados con `aria-hidden="true"` y `tabindex="-1"`, y pausa al enfocar tarjetas con teclado.
+
 ### [1.6.2] - 2026-11-27
 #### Expansión de Artículos Mockup por Categoría y Contadores Dinámicos
 - **Catálogo (`products_data.js`):**
