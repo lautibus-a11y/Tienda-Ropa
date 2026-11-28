@@ -50,6 +50,11 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.9.1] - 2026-11-28
+#### Marquesina Bajo el Hero Más Alta en Móvil
+- **`index.html`:** agregada la clase `.hero-ticker` con `padding: 1.25rem 0` en móvil (banda de ~56 px, antes ~44 px) y `0.875rem 0` en desktop para conservar el tamaño original.
+- La variable `--hero-ticker-h: 56px` se usa en `min-height: calc(100svh - var(--hero-ticker-h))` del hero, manteniendo que **hero + marquesina ocupen exactamente el primer viewport** y que *Prendas Destacadas* no asome al entrar.
+
 ### [1.9.0] - 2026-11-28
 #### Rediseño UX/UI del Drawer de Carrito y Fix del Desborde de Imágenes
 - **Causa del recorte (`index.html` y `producto.html`):** el CSS estático congelado no incluía utilities clave usadas en el carrito (`h-16`, `w-16`, `min-w-0`, `gap-3`, `space-y-*`, `truncate`, `pr-6`, `right-3`, `bg-gray-200`, etc.). Las miniaturas se renderizaban a su tamaño original (~949 × 1097 px) y rompían el layout del drawer.
