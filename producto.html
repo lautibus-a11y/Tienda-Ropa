@@ -509,19 +509,24 @@
 
             const thumbnailsContainer = document.getElementById('gallery-thumbnails');
             thumbnailsContainer.innerHTML = "";
-            currentProduct.images.forEach((imgUrl, idx) => {
-                const thumb = document.createElement('div');
-                thumb.className = `w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 transition-all shrink-0 ${idx === 0 ? 'border-brand-yellow shadow-md scale-95' : 'border-transparent opacity-70 hover:opacity-100'}`;
-                thumb.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name}" class="w-full h-full object-cover" loading="lazy" decoding="async">`;
-                thumb.addEventListener('click', () => {
-                    mainImg.src = imgUrl;
-                    Array.from(thumbnailsContainer.children).forEach(c => {
-                        c.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent opacity-70 hover:opacity-100 transition-all shrink-0";
+            if (currentProduct.images.length <= 1) {
+                thumbnailsContainer.style.display = 'none';
+            } else {
+                thumbnailsContainer.style.display = '';
+                currentProduct.images.forEach((imgUrl, idx) => {
+                    const thumb = document.createElement('div');
+                    thumb.className = `w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 transition-all shrink-0 ${idx === 0 ? 'border-brand-yellow shadow-md scale-95' : 'border-transparent opacity-70 hover:opacity-100'}`;
+                    thumb.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name}" class="w-full h-full object-cover" loading="lazy" decoding="async">`;
+                    thumb.addEventListener('click', () => {
+                        mainImg.src = imgUrl;
+                        Array.from(thumbnailsContainer.children).forEach(c => {
+                            c.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent opacity-70 hover:opacity-100 transition-all shrink-0";
+                        });
+                        thumb.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-brand-yellow shadow-md scale-95 transition-all shrink-0";
                     });
-                    thumb.className = "w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden cursor-pointer border-2 border-brand-yellow shadow-md scale-95 transition-all shrink-0";
+                    thumbnailsContainer.appendChild(thumb);
                 });
-                thumbnailsContainer.appendChild(thumb);
-            });
+            }
 
             // Badge
             document.getElementById('product-badge').textContent = currentProduct.badge;

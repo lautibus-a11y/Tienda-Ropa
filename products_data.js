@@ -26,9 +26,7 @@ const PRODUCTS_DATA = [
             origin: "Fabricado éticamente en Buenos Aires, Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/chaq-01.jpg"
         ]
     },
     {
@@ -53,9 +51,7 @@ const PRODUCTS_DATA = [
             origin: "Diseño de autor exclusivo AURORA"
         },
         images: [
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/abr-01.jpg"
         ]
     },
     {
@@ -80,9 +76,7 @@ const PRODUCTS_DATA = [
             origin: "Confección artesanal de alta gama"
         },
         images: [
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/vest-01.jpg"
         ]
     },
     {
@@ -107,9 +101,7 @@ const PRODUCTS_DATA = [
             origin: "Industria Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/pant-01.jpg"
         ]
     },
     {
@@ -134,9 +126,7 @@ const PRODUCTS_DATA = [
             origin: "Edición Limitada AURORA Studio"
         },
         images: [
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/calz-01.jpg"
         ]
     },
     {
@@ -161,9 +151,7 @@ const PRODUCTS_DATA = [
             origin: "Fabricación nacional"
         },
         images: [
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/chaq-02.jpg"
         ]
     },
     {
@@ -242,9 +230,7 @@ const PRODUCTS_DATA = [
             origin: "Buenos Aires, Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/rem-01.jpg"
         ]
     },
     {
@@ -269,9 +255,7 @@ const PRODUCTS_DATA = [
             origin: "Industria Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/pant-02.jpg"
         ]
     },
     {
@@ -296,9 +280,7 @@ const PRODUCTS_DATA = [
             origin: "Buenos Aires, Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/vest-02.jpg"
         ]
     },
     {
@@ -323,9 +305,7 @@ const PRODUCTS_DATA = [
             origin: "Hecho en Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=650&q=75",
-            "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&q=80&w=650&q=75"
+            "assets/images/products/pant-03.jpg"
         ]
     },
     {
@@ -350,9 +330,7 @@ const PRODUCTS_DATA = [
             origin: "Buenos Aires, Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75"
+            "assets/images/products/chaq-03.jpg"
         ]
     },
     {
@@ -404,9 +382,7 @@ const PRODUCTS_DATA = [
             origin: "Buenos Aires, Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75"
+            "assets/images/products/abr-02.jpg"
         ]
     },
     {
@@ -431,9 +407,7 @@ const PRODUCTS_DATA = [
             origin: "Edición Limitada AURORA Studio"
         },
         images: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75"
+            "assets/images/products/abr-03.jpg"
         ]
     },
     {
@@ -485,9 +459,7 @@ const PRODUCTS_DATA = [
             origin: "Industria Argentina"
         },
         images: [
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=650&q=75",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=650&q=75"
+            "assets/images/products/vest-03.jpg"
         ]
     },
     {

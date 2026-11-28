@@ -50,6 +50,35 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.6.9] - 2026-11-28
+#### Generación e Integración de Imágenes Editoriales Propias (14 Prendas + 5 Categorías)
+- **Nuevos Assets Locales (`assets/images/products/*.jpg`):**
+  - Generadas y optimizadas (800×1071 px, JPEG calidad 84, ~47–90 KB c/u) 14 fotografías editoriales acordes a la descripción exacta de cada prenda: `chaq-01`, `chaq-02`, `chaq-03`, `abr-01`, `abr-02`, `abr-03`, `vest-01`, `vest-02`, `vest-03`, `pant-01`, `pant-02`, `pant-03`, `rem-01`, `calz-01`.
+- **Integración (`products_data.js`, `index.html`, `producto.html`):**
+  - Reemplazadas las URLs mockup de Unsplash de los 14 productos en `products_data.js`, de las 6 tarjetas correspondientes en `#destacados` y de las 5 tarjetas de categorías en `#categorias` (`index.html`).
+  - En `producto.html`, la tira `#gallery-thumbnails` se oculta automáticamente cuando la prenda tiene una sola imagen para mantener la galería limpia.
+- **Pendientes por límite de cuota del generador (`RESOURCE_EXHAUSTED`, reinicio ~5h):**
+  - 10 productos restantes (`chaq-04`, `abr-04`, `vest-04`, `pant-04`, `rem-02`, `rem-03`, `rem-04`, `calz-02`, `calz-03`, `calz-04`) y las 2 fotos del collage de `#nosotros` (`about-showroom`, `about-atelier`).
+
+### [1.6.8] - 2026-11-28
+#### Collage Editorial de 2 Fotos Superpuestas en "Sobre Nosotros" y Mejora UX/UI en "Contacto"
+- **Sección Sobre Nosotros (`#nosotros` en `index.html`):**
+  - Reemplazada la imagen única por una composición editorial de **2 fotos superpuestas** (`.about-photo-main` + `.about-photo-overlap`) enlazadas por un **marco unificador** (`.about-collage-frame`, borde `#0A0A0A` + filete dorado sutil `#FFD700`).
+- **Sección Contacto (`#contacto` en `index.html`):**
+  - Removida la animación de rebote (`.pin-bounce-sm`) del ícono de Ubicación en la tarjeta de datos, dejando el pin saltando exclusivamente sobre el mapa interactivo.
+  - Mejoras UX/UI: indicador de horario/disponibilidad en encabezado, filas interactivas con feedback hover en íconos, botones rápidos de copiado al portapapeles (`copyContactText()`) para teléfono y mail con confirmación toast, enlace directo `Cómo llegar →`, grilla equilibrada 2×2 de redes sociales con handles y badge de zona en el mapa.
+
+### [1.6.7] - 2026-11-28
+#### Remoción de Porcentajes Numéricos en Barras de Progreso de "Sobre Nosotros"
+- **Sección Sobre Nosotros (`#nosotros` en `index.html`):**
+  - Eliminados los números/porcentajes visibles (`.progress-percent`) de las 4 barras de progreso horizontales y su actualización en `initProgressBars()`, dejando únicamente el título y la barra animada limpia.
+
+### [1.6.6] - 2026-11-28
+#### Barras de Progreso Clásicas debajo del Texto de "Sobre Nosotros"
+- **Sección Sobre Nosotros (`#nosotros` en `index.html`):**
+  - Reemplazados los 4 Circular Progress Bars SVG por **barras de progreso clásicas horizontales** (`.about-progress-list` / `.progress-item` / `.progress-bar-fill`), ubicadas directamente debajo del texto descriptivo dentro de la columna de contenido.
+  - Animación GPU a 60 FPS mediante `transform: scaleX(...)` (`transform-origin: left center`, sin layout reflow) y contador porcentual con `initProgressBars()` (`IntersectionObserver` + `requestAnimationFrame` easeOutCubic + `prefers-reduced-motion`).
+
 ### [1.6.5] - 2026-11-28
 #### Restauración del Carrusel Autoplay Original en Prendas Destacadas
 - **Sección Prendas Destacadas (`index.html`):**
