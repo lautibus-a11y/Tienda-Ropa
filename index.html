@@ -194,6 +194,52 @@
             transform: scale3d(1.06, 1.06, 1);
         }
 
+        /* Controles del carrusel: flechas apiladas verticalmente (← arriba / → abajo) */
+        #destacados {
+            position: relative;
+        }
+        .carousel-nav {
+            position: absolute;
+            right: clamp(0.75rem, 3vw, 2.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .carousel-nav-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(10, 10, 10, 0.82);
+            color: #FFD700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+            transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .carousel-nav-btn:hover {
+            background: #FFD700;
+            color: #0A0A0A;
+            transform: scale3d(1.06, 1.06, 1);
+        }
+        .carousel-nav-btn:focus-visible {
+            outline: 2px solid #FFD700;
+            outline-offset: 3px;
+        }
+        @media (max-width: 640px) {
+            .carousel-nav-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .carousel-nav-btn { transition: none; }
+        }
+
         /* Catálogo estilo Mercado Libre (grilla de publicaciones) */
         .catalog-grid {
             display: grid;
@@ -349,7 +395,15 @@
         .category-list {
             max-width: 56rem;
             margin: 0 auto;
-            padding-bottom: 40vh; /* da recorrido para ver varias tarjetas apiladas */
+            padding-bottom: 6rem; /* recorrido suficiente para el apilado sin dejar un vacío grande */
+        }
+        #categorias {
+            padding-bottom: 2.5rem !important;
+        }
+        @media (min-width: 640px) {
+            #categorias {
+                padding-bottom: 3rem !important;
+            }
         }
         .category-card {
             position: sticky;
@@ -385,6 +439,9 @@
             .category-card {
                 top: 84px !important;
                 border-radius: 24px;
+            }
+            .category-list {
+                padding-bottom: 3.5rem;
             }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -1019,20 +1076,18 @@
                 radial-gradient(circle at 20% 25%, rgba(255, 215, 0, 0.16) 0%, transparent 45%),
                 radial-gradient(circle at 82% 78%, rgba(255, 215, 0, 0.10) 0%, transparent 50%),
                 #0A0A0A;
-            margin: 1.5rem 0 3rem;
+            margin: 0; /* continuidad visual: catálogo → CTA → Sobre Nosotros sin franjas */
             padding: 3.25rem 1.25rem;
         }
         @media (min-width: 640px) {
             .promo-video-cta {
                 min-height: 460px;
-                margin-bottom: 4.5rem;
                 padding: 4.5rem 2rem;
             }
         }
         @media (min-width: 1024px) {
             .promo-video-cta {
                 min-height: 520px;
-                margin-bottom: 5.5rem;
             }
         }
         .promo-video-bg {
@@ -1783,6 +1838,16 @@
                 </div>
 
             </div>
+        </div>
+
+        <!-- Controles del carrusel: una flecha abajo de la otra (anterior / siguiente) -->
+        <div class="carousel-nav" aria-label="Controles del carrusel de prendas destacadas">
+            <button type="button" id="carousel-prev" class="carousel-nav-btn" aria-label="Ver prenda anterior">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button type="button" id="carousel-next" class="carousel-nav-btn" aria-label="Ver prenda siguiente">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
         </div>
     </section>
 
@@ -2686,6 +2751,22 @@
             function resetAutoplay() {
                 stopAutoplay();
                 startAutoplay();
+            }
+
+            // Controles manuales (flechas apiladas): reinician el autoplay tras cada click
+            const prevBtn = document.getElementById('carousel-prev');
+            const nextBtn = document.getElementById('carousel-next');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    resetAutoplay();
+                    prevSlide();
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    resetAutoplay();
+                    nextSlide();
+                });
             }
 
             // Pausa al posar el cursor y reanudación al salir

@@ -50,6 +50,16 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.4] - 2026-11-28
+#### Unificación de Espaciados entre Catálogo / CTA / Sobre Nosotros y Flechas del Carrusel
+- **Espaciado `#categorias` → `#ofertas-semana` (`index.html`):**
+  - Reducido el recorrido de apilado de `.category-list` de `40vh` a `6rem` (`3.5rem` en móvil) y el padding inferior de `#categorias` a `2.5rem` / `3rem` en tablet-desktop. El stacking sticky se mantiene, pero se elimina el gran vacío posterior a la última tarjeta.
+- **Espaciado `#ofertas-semana` → `#nosotros` (`index.html`):**
+  - `.promo-video-cta` pasa a `margin: 0`, removiendo los márgenes inferiores de `3rem` / `4.5rem` / `5.5rem`. El bloque negro del CTA queda contiguo al hero oscuro de Sobre Nosotros, sin franja blanca intermedia.
+- **Controles del carrusel de Prendas Destacadas (`index.html`):**
+  - Agregados los botones `#carousel-prev` y `#carousel-next` (chevrons izquierda/derecha) apilados verticalmente —uno abajo del otro— en `.carousel-nav`, con estilo circular negro + dorado de marca, foco visible y soporte `prefers-reduced-motion`.
+  - Conectados a `prevSlide()` / `nextSlide()` dentro de `init3DCarousel()`, reiniciando el autoplay de 1800ms tras cada interacción. El swipe táctil y la pausa por hover/visibilidad siguen intactos.
+
 ### [1.8.3] - 2026-11-28
 #### Limpieza del CTA de Ofertas, Nota de Métricas y Handle Ficticio en Redes
 - **CTA full-width de ofertas (`index.html`):**
