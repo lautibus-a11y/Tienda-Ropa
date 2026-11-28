@@ -50,6 +50,14 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.7] - 2026-11-28
+#### Hero + Marquesina a Primera Vista en Móvil y Título Rotativo "Femenina / Masculina"
+- **Viewport inicial mobile (`index.html`):**
+  - `#hero` pasa a `min-height: calc(100svh - 46px)` (con fallback `100vh`), de modo que el hero más la marquesina (`py-3.5`, ~46px) ocupen exactamente la primera pantalla. *Prendas Destacadas* deja de asomar al entrar.
+- **Título del hero (`index.html`):**
+  - Restaurado el `<h1>` con `Indumentaria <span class="highlight-box hero-rotating-word">Femenina</span>`: la palabra dentro del recuadro amarillo rectangular rota a `Masculina` cada 2600 ms mediante `initHeroRotatingTitle()`.
+  - El cambio usa `opacity` + `translate3d` en GPU (260 ms), se omite con pestaña oculta y, bajo `prefers-reduced-motion`, se reemplaza el texto sin animación.
+
 ### [1.8.6] - 2026-11-28
 #### Video Propio Integrado en el CTA de Ofertas
 - **`index.html`:** actualizado el `<source>` del video full-width de `#ofertas-semana` para apuntar a `assets/Video%20CTA/Video_CTA.mp4` (archivo provisto por el propietario, ~6,2 MB), reemplazando la ruta anterior `assets/Video Promo/ofertas.mp4` que no existía.

@@ -1212,6 +1212,29 @@
             align-items: flex-end !important;
             padding-bottom: 4.5rem !important;
         }
+        .hero-title {
+            font-size: clamp(1.6rem, 6vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.035em;
+            line-height: 1.08;
+            margin: 0 0 1.25rem;
+            color: #FFFFFF;
+        }
+        .hero-title .highlight-box {
+            border-radius: 6px;
+            padding: 0.08em 0.42em;
+        }
+        .hero-rotating-word {
+            display: inline-block;
+            transition: opacity 0.26s ease, transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-rotating-word.is-switching {
+            opacity: 0;
+            transform: translate3d(0, 6px, 0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-rotating-word { transition: none; }
+        }
         .eyebrow-with-box {
             display: inline-flex;
             align-items: center;
@@ -1513,7 +1536,9 @@
                 padding: 0.6rem 0.5rem !important;
             }
             #hero {
-                min-height: 88svh;
+                /* Hero + marquesina ocupan exactamente el primer viewport (ticker ~46px) */
+                min-height: calc(100vh - 46px);
+                min-height: calc(100svh - 46px);
                 padding: 5.5rem 1rem 2.75rem !important;
             }
             #hero > div.relative {
@@ -1677,6 +1702,7 @@
 
         <!-- Contenido Inferior Hero (deja libre el centro del video) -->
         <div class="relative z-10 max-w-5xl mx-auto text-center text-white px-4">
+            <h1 class="hero-title">Indumentaria <span id="hero-rotating-word" class="highlight-box hero-rotating-word">Femenina</span></h1>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                 <a href="#destacados" class="hero-cta-btn w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellowHover text-brand-black px-8 py-4 rounded-2xl font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-xl text-center" style="--hero-i: 0;">
                     Explorar Destacadas
@@ -2439,6 +2465,7 @@
             initFilterListeners();
             initHeaderButtons();
             initHeroVideoPlaylist();
+            initHeroRotatingTitle();
             initPromoVideo();
             initSiteMotion();
         }
@@ -2471,6 +2498,32 @@
                 col.style.setProperty('--stagger', String(i));
                 motionObs.observe(col);
             });
+        }
+
+        function initHeroRotatingTitle() {
+            const word = document.getElementById('hero-rotating-word');
+            if (!word) return;
+            const reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+            const words = ['Femenina', 'Masculina'];
+            let index = 0;
+            let swapTimer;
+
+            setInterval(() => {
+                if (document.hidden) return;
+                if (reduced) {
+                    index = (index + 1) % words.length;
+                    word.textContent = words[index];
+                    return;
+                }
+                word.classList.add('is-switching');
+                clearTimeout(swapTimer);
+                swapTimer = setTimeout(() => {
+                    index = (index + 1) % words.length;
+                    word.textContent = words[index];
+                    word.classList.remove('is-switching');
+                }, 260);
+            }, 2600);
         }
 
         function initPromoVideo() {
