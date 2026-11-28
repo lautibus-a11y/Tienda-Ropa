@@ -1342,27 +1342,14 @@
             opacity: 1;
         }
 
-        /* Entrada suave de cards de categoría al entrar al catálogo (sin romper position: sticky) */
+        /* Entrada suave de cards de categoría: SOLO opacidad en la card sticky (sin transform).
+           El zoom se aplica a la imagen hija para no romper position: sticky ni provocar parpadeos. */
         @keyframes catCardEnter {
-            from {
-                opacity: 0;
-                transform: translate3d(0, 32px, 0) scale3d(0.975, 0.975, 1);
-            }
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-        @keyframes catCardTap {
-            0% { transform: scale3d(1, 1, 1); }
-            45% { transform: scale3d(0.98, 0.98, 1); }
-            100% { transform: scale3d(1, 1, 1); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .category-card.is-entering {
-            animation: catCardEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        .category-card.is-tapped {
-            animation: catCardTap 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: catCardEnter 0.45s ease both;
         }
 
         /* Animación de entrada del modal de catálogo y cascada de prendas */
@@ -1453,6 +1440,8 @@
         }
         .category-card.is-entering .cat-img {
             animation: catImgSettle 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         @keyframes heartPop {
@@ -1510,7 +1499,6 @@
             #hero .hero-cta-btn,
             .category-card.is-entering,
             .category-card.is-entering .cat-img,
-            .category-card.is-tapped,
             .catalog-item.is-stagger-in,
             .catalog-item-fav.is-fav,
             .cart-row-enter,
@@ -2630,16 +2618,9 @@
 
             const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            // Pulso sutil al hacer click en cualquier card de categoría
+            // Limpieza de la animación de entrada (sin pulso sobre la card sticky)
             cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    if (prefersReduced) return;
-                    card.classList.remove('is-tapped');
-                    void card.offsetWidth;
-                    card.classList.add('is-tapped');
-                });
                 card.addEventListener('animationend', (e) => {
-                    if (e.animationName === 'catCardTap') card.classList.remove('is-tapped');
                     if (e.animationName === 'catCardEnter') card.classList.remove('is-entering');
                 });
             });

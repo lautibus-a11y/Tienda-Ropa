@@ -50,6 +50,12 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.9] - 2026-11-28
+#### Fix de Parpadeo en las Cards Sticky de "Nuestro Catálogo"
+- **`index.html`:** eliminado el `transform` (`translate3d` + `scale3d`) de `@keyframes catCardEnter`; la card ahora solo anima `opacity` (0.45 s), evitando que el `position: sticky` se recalcule y parpadee durante la entrada.
+- Removido el pulso `catCardTap` y su listener de click sobre `.category-card` (transform sobre el elemento sticky). La microinteracción táctil de esas cards se retira para priorizar estabilidad del apilado.
+- El efecto de “ampliación” se conserva en la imagen hija (`.cat-img` con `catImgSettle`), con `backface-visibility: hidden` y `will-change: transform` solo durante la animación. Se limpió también la referencia `.is-tapped` del bloque `prefers-reduced-motion`.
+
 ### [1.8.8] - 2026-11-28
 #### Animación de Despliegue/Cierre en el Título Rotativo del Hero
 - **`index.html`:** reemplazado el fade vertical (`opacity` + `translate3d`) por una apertura tipo cortina en `.hero-rotating-word` mediante `clip-path: inset(...)` con `will-change` y transición GPU de 420 ms:
