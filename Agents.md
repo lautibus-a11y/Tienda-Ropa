@@ -50,6 +50,11 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.6] - 2026-11-28
+#### Video Propio Integrado en el CTA de Ofertas
+- **`index.html`:** actualizado el `<source>` del video full-width de `#ofertas-semana` para apuntar a `assets/Video%20CTA/Video_CTA.mp4` (archivo provisto por el propietario, ~6,2 MB), reemplazando la ruta anterior `assets/Video Promo/ofertas.mp4` que no existía.
+- El MP4 tiene el átomo `moov` al inicio, por lo que reproduce en streaming progresivo sin esperar la descarga completa. `initPromoVideo()` mantiene el fade-in al cargar, autoplay solo al entrar en viewport y pausa al salir o al ocultar la pestaña.
+
 ### [1.8.5] - 2026-11-28
 #### Infinite Logo Carousels entre Ofertas y Sobre Nosotros + Remoción de Flechas del Carrusel
 - **Remoción de controles del carrusel (`index.html`):**
