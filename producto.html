@@ -22,11 +22,16 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html {
+            scroll-padding-top: 76px;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FAFAFA;
             color: #0A0A0A;
             overflow-x: hidden;
+            max-width: 100%;
         }
 
         /* Optimización de Rendering */
@@ -70,6 +75,87 @@
             transform: scale(1.08);
         }
 
+        /* Animación de entrada de ficha de producto (60 FPS GPU) */
+        @keyframes productEnter {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 22px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        main > nav {
+            animation: productEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        main > .glass-panel {
+            animation: productEnter 0.58s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+        }
+        main > .grid {
+            animation: productEnter 0.62s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            main > nav, main > .glass-panel, main > .grid { animation: none !important; opacity: 1 !important; transform: none !important; }
+        }
+
+        /* ——— Mobile-First Spacing & Layout Refinements ——— */
+        .back-label-long { display: none; }
+        @media (min-width: 480px) {
+            .back-label-long { display: inline; }
+        }
+        @media (max-width: 639px) {
+            header > div {
+                padding: 0.65rem 0.85rem 0 !important;
+            }
+            header nav.glass-nav {
+                padding: 0.6rem 0.85rem !important;
+                border-radius: 20px !important;
+            }
+            main {
+                padding: 5.5rem 0.85rem 3rem !important;
+            }
+            main > nav {
+                margin-bottom: 1rem !important;
+            }
+            main .glass-panel {
+                padding: 1.1rem !important;
+                border-radius: 24px !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .gallery-main-container {
+                height: 360px !important;
+                border-radius: 20px !important;
+            }
+            #related-products-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.75rem !important;
+            }
+            main > section.mt-20 {
+                margin-top: 2.5rem !important;
+            }
+            footer {
+                margin-top: 2.5rem !important;
+                padding-top: 2.25rem !important;
+                padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+                border-top-left-radius: 28px !important;
+                border-top-right-radius: 28px !important;
+            }
+            #cart-items-container {
+                padding: 1rem !important;
+            }
+            #cart-footer {
+                padding: 1rem 1rem max(1.15rem, env(safe-area-inset-bottom)) !important;
+            }
+            #toast-notification {
+                left: 1rem !important;
+                right: 1rem !important;
+                bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+                justify-content: center;
+                padding: 0.8rem 1rem !important;
+            }
+        }
+
         /* Scrollbar personalizado */
         ::-webkit-scrollbar {
             width: 6px;
@@ -97,9 +183,9 @@
             <nav class="glass-nav rounded-3xl px-5 py-3.5 flex items-center justify-between shadow-sm">
                 <!-- Botón Volver + Logo -->
                 <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex items-center space-x-1.5 text-xs font-bold text-gray-700 hover:text-brand-black bg-black/5 hover:bg-black/10 px-3.5 py-2 rounded-full transition-all">
+                    <a href="index.html" class="flex items-center space-x-1.5 text-xs font-bold text-gray-700 hover:text-brand-black bg-black/5 hover:bg-black/10 px-3 py-2 rounded-full transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
-                        <span>Volver al Catálogo</span>
+                        <span>Volver<span class="back-label-long"> al Catálogo</span></span>
                     </a>
                     <a href="index.html" class="text-xl sm:text-2xl font-black tracking-tighter uppercase text-brand-black">
                         AURORA<span class="text-amber-500">.</span>
@@ -285,7 +371,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
             <div class="lg:col-span-8 glass-panel rounded-[32px] p-8 sm:p-10 space-y-6">
                 <div>
-                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2 block">Diseño & Confección</span>
+                    <span class="text-xs font-bold tracking-widest uppercase mb-2 block" style="color: #52525B;">Diseño & Confección</span>
                     <h2 class="text-2xl font-black text-brand-black">Descripción Editorial</h2>
                 </div>
                 <p id="product-description" class="text-gray-700 text-sm sm:text-base leading-relaxed font-light">
@@ -335,7 +421,7 @@
         <section class="mt-20">
             <div class="flex items-end justify-between mb-8">
                 <div>
-                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-1 block">Completá el look</span>
+                    <span class="text-xs font-bold tracking-widest uppercase mb-1 block" style="color: #52525B;">Completá el look</span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Piezas Relacionadas</h2>
                 </div>
             </div>

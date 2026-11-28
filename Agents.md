@@ -50,6 +50,54 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.7.5] - 2026-11-28
+#### Posición Inferior de CTAs en Hero, Resaltes Amarillos y Círculo Negro en "Ver"
+- **Hero (`#hero` en `index.html`):**
+  - Reubicados los botones CTA hacia la zona inferior (`align-items: flex-end`, `padding-bottom: 4.5rem` desktop / `2.75rem` móvil) para liberar el centro del video.
+- **Resaltes rectangulares amarillos (`index.html`):**
+  - Agregada clase `.highlight-box` (`#FFD700` sobre `#0A0A0A`) en la palabra `Tendencias` de `#destacados` (preservando *Text Word Reveal*) y en `AURORA Studio` dentro de la descripción de `#nosotros`.
+- **Botón `Ver` en Prendas Destacadas (`index.html`):**
+  - Transformado el indicador `.carousel-card-cta` de las 8 cards en un contenedor circular negro (`38×38px`, `border-radius: 9999px`) con texto `Ver` centrado y transición hover a amarillo `#FFD700`.
+
+### [1.7.4] - 2026-11-28
+#### Subtítulos Superiores Neutros y Rediseño Full-Bleed de Cards en "Prendas Destacadas"
+- **Eliminación de naranja en subtítulos superiores (`index.html` y `producto.html`):**
+  - Unificados todos los subtítulos/eyebrows superiores (`Tendencias Globales`, `Explorá por Categoría`, `03 // Quiénes Somos`, `04 // Conectemos`, `Diseño & Confección` y `Completá el look`) en tono neutro grafito `#52525B`, removiendo `text-amber-600` y `#D97706`.
+- **Cards de Prendas Destacadas (`#destacados` en `index.html`):**
+  - Rediseñadas las 8 tarjetas del carrusel (`.carousel-flat`, `.carousel-card-media`, `.carousel-card-body`) para que la imagen superior cubra de borde a borde la parte superior del card sin márgenes blancos, con el badge en la esquina superior izquierda y un bloque inferior ordenado con título truncado en una línea, precio destacado e indicador `Ver →` (adaptado mobile-first).
+- **Hero (`#hero` en `index.html`):**
+  - Eliminado el badge `Colección Urbana 2026`, dejando únicamente los botones CTA sobre el video.
+
+### [1.7.3] - 2026-11-28
+#### Refinamiento Visual de "Nuestro Catálogo" y Botones "Ver Catálogo"
+- **Encabezado de `#categorias` (`index.html`):**
+  - Reemplazado el eyebrow naranja `02 // Arquitectura Textil` por `Explorá por Categoría` en tono neutro grafito (`.catalog-eyebrow`).
+  - Resaltada la palabra `Catálogo` en el título `Nuestro Catálogo` dentro de un contenedor amarillo rectangular (`.catalog-title-box`, `#FFD700` sobre `#0A0A0A`), manteniendo la animación *Text Word Reveal* intacta, y eliminado el párrafo auxiliar debajo del título.
+- **Botones `Ver Catálogo` (`index.html`):**
+  - Agregado a la derecha dentro de todos los botones `Ver Catálogo` (las 5 tarjetas de categorías y el CTA del Hero) un contenedor circular negro (`.btn-arrow-circle`) con flecha en amarillo de marca (`#FFD700`) en ángulo diagonal 45° (`↗`) y micro-animación hover en GPU.
+
+### [1.7.2] - 2026-11-28
+#### Animaciones Text Word Reveal y Entrada del Catálogo / Cards (60 FPS GPU)
+- **Text Word Reveal (`index.html`):**
+  - Agregada `initTextWordReveal()` con `IntersectionObserver`, enmascarado por palabra (`.word-reveal-mask` / `.word-reveal-item`) y stagger progresivo GPU (`translate3d` + `opacity`, seguro vía `textContent` y `aria-label`) en los encabezados de **Prendas Destacadas** (`#destacados`) y **Nuestro Catálogo** (`#categorias`).
+- **Animación de Entrada en Catálogo y Cards (`index.html` y `producto.html`):**
+  - Entrada suave de las `.category-card` al entrar a `#categorias` (`@keyframes catCardEnter` terminando en `transform: none` para preservar `position: sticky`) + pulso táctil al clickear (`.is-tapped`).
+  - Animación de entrada fluida del modal `#catalog-modal` (`.is-open`: `translate3d` + `scale3d` + `opacity`), sus barras superiores (`@keyframes catalogBarIn`) y cascada escalonada de las cards de producto en `renderCatalogGrid()` (`.is-stagger-in`, `45ms` por card).
+  - En `producto.html`, agregada animación de entrada suave (`@keyframes productEnter`) al abrir la ficha desde cualquier card. Todas las animaciones respetan `prefers-reduced-motion`.
+
+### [1.7.1] - 2026-11-28
+#### Tarjetas Completamente Clickeables en "Nuestro Catálogo"
+- **Sección Nuestro Catálogo (`#categorias` en `index.html`):**
+  - Mantenido intacto el diseño y estilos originales de las 5 `.category-card` y sus botones `Ver Catálogo`, agregando únicamente `cursor: pointer` y `onclick="openCatalogModal(...)"` a cada `<article class="category-card">` (con `event.stopPropagation()` en el `<button>` interior para evitar doble disparo).
+
+### [1.7.0] - 2026-11-28
+#### Carrusel Más Rápido y Optimización Mobile-First de Espaciados y Márgenes
+- **Carrusel de Prendas Destacadas (`index.html`):**
+  - Acelerado el autoplay en `init3DCarousel()`: intervalo reducido de `3500ms` a `1800ms` y duración de transición ajustada de `0.7s` (`710ms`) a `0.42s` (`440ms`) con curva ágil `cubic-bezier(0.22, 0.78, 0.32, 1)`.
+- **Optimización Mobile-First (`index.html` y `producto.html`):**
+  - Estandarizados los espaciados, márgenes, radios y alturas con enfoque mobile-first (`< 640px` compacto y progresión limpia a tablet/desktop) en Header, Hero (`88svh`), Destacados (tarjetas `248px` con peek de vecinas), Catálogo (eliminando el `40vh` vacío en móvil), Sobre Nosotros (collage `360px`, barras compactas), Contacto (tarjeta `1.25rem`, mapa `320px`, redes `1fr` en `< 380px`), Footer, Modal, Drawer de Carrito (con `env(safe-area-inset-bottom)`) y Toast centrado.
+  - En `producto.html`, optimizados header móvil (`Volver` compacto), padding de ficha y galería (`360px` para visibilidad above-the-fold), grilla 2×2 en Piezas Relacionadas y `scroll-padding-top: 76px`.
+
 ### [1.6.9] - 2026-11-28
 #### Generación e Integración de Imágenes Editoriales Propias (14 Prendas + 5 Categorías)
 - **Nuevos Assets Locales (`assets/images/products/*.jpg`):**
