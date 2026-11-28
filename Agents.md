@@ -50,6 +50,17 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.9.0] - 2026-11-28
+#### Rediseño UX/UI del Drawer de Carrito y Fix del Desborde de Imágenes
+- **Causa del recorte (`index.html` y `producto.html`):** el CSS estático congelado no incluía utilities clave usadas en el carrito (`h-16`, `w-16`, `min-w-0`, `gap-3`, `space-y-*`, `truncate`, `pr-6`, `right-3`, `bg-gray-200`, etc.). Las miniaturas se renderizaban a su tamaño original (~949 × 1097 px) y rompían el layout del drawer.
+- **Nuevo sistema visual propio (CSS inline en ambas páginas):**
+  - Drawer `100dvh` con fallback `100vh`, `max-width: 440px`, esquinas redondeadas a la izquierda, overlay con blur y transform GPU (`translate3d`) para abrir/cerrar; `prefers-reduced-motion` respetado.
+  - Header compacto con ícono de carrito amarillo/negro, título, pill de cantidad y botón de cierre accesible; foco automático al abrir y retorno al botón del carrito al cerrar.
+  - Lista scrolleable con `min-height: 0`, `overscroll-behavior: contain` y filas de 64 × 64 px con `object-fit: cover`, nombre truncado, chip de talle, stepper de cantidad y subtotal por ítem alineado.
+  - Footer fijo con resumen (Subtotal / Envío gratis / Total estimado), botones *Vaciar* y *Finalizar compra*, tipografía y espaciados reductivos y `env(safe-area-inset-bottom)`; estado vacío centrado con CTA.
+- **Render seguro (`renderCartItems()` en ambas páginas):** reemplazado `innerHTML` dinámico por construcción DOM con `textContent`; `talle` y `nombre` ya no se interpolan en atributos `onclick` (elimina vector XSS desde `localStorage`). Eventos de cantidad/eliminación enlazados por `addEventListener`.
+- **Sincronización:** markup, CSS y lógica idénticos en landing y ficha de producto; `cart-overlay` / `cart-drawer` ahora usan clases `.is-open` en lugar de utilidades Tailwind ausentes.
+
 ### [1.8.9] - 2026-11-28
 #### Fix de Parpadeo en las Cards Sticky de "Nuestro Catálogo"
 - **`index.html`:** eliminado el `transform` (`translate3d` + `scale3d`) de `@keyframes catCardEnter`; la card ahora solo anima `opacity` (0.45 s), evitando que el `position: sticky` se recalcule y parpadee durante la entrada.
