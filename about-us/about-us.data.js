@@ -114,7 +114,6 @@ window.ABOUT_US_DATA = {
         eyebrow: "Números Que Nos Definen",
         titleLead: "Cifras En",
         titleHighlight: "Perspectiva",
-        demoNotice: "Métricas de referencia editables en about-us.data.js",
         items: [
             { prefix: "+", value: 5, suffix: "", label: "AÑOS DE EXPERIENCIA" },
             { prefix: "+", value: 10, suffix: "K", label: "CLIENTES FELICES" },
@@ -127,11 +126,12 @@ window.ABOUT_US_DATA = {
     community: {
         eyebrow: "Nuestra Comunidad",
         title: "SUMATE A NUESTRO MUNDO.",
-        hashtag: "#AURORASTUDIO",
-        handle: "@aurorastudio.ar",
+        // Cuenta ficticia de demostración: no apunta a un perfil real de Instagram.
+        hashtag: "#AURORASTUDIO_DEMO",
+        handle: "@aurorastudio_demo",
         description: "Nuestra comunidad lleva cada silueta a las calles con identidad propia. Etiquetanos para formar parte del archivo editorial.",
         ctaLabel: "SEGUINOS",
-        ctaHref: "https://instagram.com/aurorastudio.ar",
+        ctaHref: "https://instagram.com/",
         posts: [
             {
                 src: "assets/images/products/chaq-01.jpg",

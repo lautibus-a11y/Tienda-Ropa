@@ -50,6 +50,16 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.3] - 2026-11-28
+#### Limpieza del CTA de Ofertas, Nota de Métricas y Handle Ficticio en Redes
+- **CTA full-width de ofertas (`index.html`):**
+  - Eliminado el eyebrow `Drop Especial · Tiempo Limitado` de `#ofertas-semana` junto con su regla CSS `.promo-eyebrow` (sin usos restantes), dejando el titular `Ofertas de la semana` + `45% OFF` y el botón `Ver Ofertas` intactos.
+- **Métricas en Sobre Nosotros (`about-us/about-us.data.js`):**
+  - Removido `statistics.demoNotice` (`Métricas de referencia editables en about-us.data.js`). La sección `Números Que Nos Definen` muestra únicamente el encabezado y las cuatro cifras; el aviso de hitos de demostración del timeline se conserva.
+- **Redes sociales ficticias (`about-us/about-us.data.js` e `index.html`):**
+  - Reemplazada la cuenta real `#AURORASTUDIO · @aurorastudio.ar` por la identidad ficticia `#AURORASTUDIO_DEMO · @aurorastudio_demo` en `Nuestra Comunidad` y en el pill de Instagram de `Contacto`.
+  - Los enlaces (`community.ctaHref` y el `<a>` del pill) pasan a `https://instagram.com/` genérico para no dirigir a un perfil existente. TikTok y X se mantienen sin modificaciones.
+
 ### [1.8.2] - 2026-11-28
 #### Sección "Sobre Nosotros" 100% en Español y Remoción de "Principios Que Nos Definen" y "Detrás De Cada Pieza"
 - **Traducción completa al español (`about-us/about-us.data.js`, `about-us/about-us.js`):**
