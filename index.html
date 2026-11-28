@@ -8,6 +8,8 @@
     <title>AURORA // Future Urban Fashion E-Commerce</title>
     <!-- Tailwind estático precompilado (elimina el runtime JIT de cdn.tailwindcss.com en producción) -->
     <link rel="stylesheet" href="tailwind_landing.css">
+    <!-- Estilos aislados de la sección Sobre Nosotros (Mobile-First, prefijo .au-*) -->
+    <link rel="stylesheet" href="about-us/about-us.css">
     <!-- Fuentes: preconexión temprana + Inter variable (1 archivo para todos los pesos 300–900) -->
     <!-- Optimización de Red y Recursos Críticos -->
     <link rel="preconnect" href="https://images.unsplash.com">
@@ -17,6 +19,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
     <!-- Fuente de Verdad Compartida y Persistencia -->
     <script src="products_data.js"></script>
+    <!-- Módulo aislado Sobre Nosotros (carga diferida sin bloquear el render inicial) -->
+    <script defer src="about-us/about-us.data.js"></script>
+    <script defer src="about-us/about-us.js"></script>
     <style>
 
         * {
@@ -1001,6 +1006,125 @@
             .about-photo-main img, .about-photo-overlap img, .contact-row, .social-pill, .map-open-btn { transition: none; }
         }
 
+        /* ——— Sección Video CTA Full Width (Ofertas de la Semana 45% OFF) ——— */
+        .promo-video-cta {
+            position: relative;
+            width: 100%;
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 25%, rgba(255, 215, 0, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 82% 78%, rgba(255, 215, 0, 0.10) 0%, transparent 50%),
+                #0A0A0A;
+            margin: 1.5rem 0 3rem;
+            padding: 3.25rem 1.25rem;
+        }
+        @media (min-width: 640px) {
+            .promo-video-cta {
+                min-height: 460px;
+                margin-bottom: 4.5rem;
+                padding: 4.5rem 2rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .promo-video-cta {
+                min-height: 520px;
+                margin-bottom: 5.5rem;
+            }
+        }
+        .promo-video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .promo-video-bg.is-ready {
+            opacity: 1;
+        }
+        .promo-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.72) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .promo-cta-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 56rem;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.15rem;
+        }
+        .promo-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.78);
+        }
+        .promo-title {
+            font-size: clamp(2rem, 5.2vw, 3.75rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.08;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35em;
+        }
+        .promo-off-box {
+            display: inline-block;
+            background: #FFD700;
+            color: #0A0A0A;
+            padding: 0.08em 0.38em;
+            border-radius: 8px;
+            line-height: 1.1;
+        }
+        .promo-btn {
+            margin-top: 0.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            background: #FFD700;
+            color: #0A0A0A;
+            font-size: 0.9rem;
+            font-weight: 800;
+            padding: 0.65rem 0.7rem 0.65rem 1.45rem;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.22s ease;
+        }
+        .promo-btn:hover {
+            background: #FFC700;
+            transform: translate3d(0, -2px, 0);
+        }
+        .promo-btn .btn-arrow-circle {
+            width: 28px;
+            height: 28px;
+        }
+        .promo-btn:hover .btn-arrow-circle svg {
+            transform: translate3d(1.5px, -1.5px, 0);
+        }
+
         /* ——— Posicionamiento inferior de CTAs en Hero & Contenedores Amarillos Rectangulares ——— */
         #hero {
             align-items: flex-end !important;
@@ -1173,12 +1297,115 @@
             animation: catalogItemIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--item-i, 0) * 45ms) both;
             will-change: transform, opacity;
         }
+
+        /* ——— Sistema Global de Animaciones de Entrada y Click (60 FPS GPU) ——— */
+        @keyframes heroCtaIn {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 22px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        #hero .hero-cta-btn {
+            animation: heroCtaIn 0.72s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--hero-i, 0) * 110ms + 120ms) both;
+            will-change: transform, opacity;
+        }
+
+        .site-fade-up {
+            opacity: 0;
+            transform: translate3d(0, 24px, 0);
+            transition:
+                opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger, 0) * 70ms),
+                transform 0.74s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger, 0) * 70ms);
+            will-change: opacity, transform;
+        }
+        .site-fade-up.is-in {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .site-mask-reveal {
+            clip-path: inset(6% 0 0 0);
+            opacity: 0;
+            transition: clip-path 0.82s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.62s ease;
+            will-change: clip-path, opacity;
+        }
+        .site-mask-reveal.is-in {
+            clip-path: inset(0 0 0 0);
+            opacity: 1;
+        }
+
+        @keyframes catImgSettle {
+            from { transform: scale3d(1.06, 1.06, 1); }
+            to { transform: scale3d(1, 1, 1); }
+        }
+        .category-card.is-entering .cat-img {
+            animation: catImgSettle 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes heartPop {
+            0% { transform: scale3d(1, 1, 1); }
+            45% { transform: scale3d(1.26, 1.26, 1); }
+            100% { transform: scale3d(1, 1, 1); }
+        }
+        .catalog-item-fav.is-fav {
+            animation: heartPop 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cartRowIn {
+            from {
+                opacity: 0;
+                transform: translate3d(18px, 0, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .cart-row-enter {
+            animation: cartRowIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--row-i, 0) * 45ms) both;
+        }
+
+        /* Microinteracciones táctiles al hacer click (60 FPS) */
+        .hero-cta-btn:active,
+        .btn-ver-catalogo:active,
+        .promo-btn:active,
+        .catalog-cat-pill:active,
+        .catalog-item:active,
+        .carousel-card:active,
+        .contact-row:active,
+        .social-pill:active,
+        .contact-copy-btn:active,
+        .map-open-btn:active {
+            transform: scale3d(0.97, 0.97, 1) !important;
+        }
+        .contact-copy-btn.is-copied {
+            background: #FFD700 !important;
+            color: #0A0A0A !important;
+            border-color: #FFD700 !important;
+            animation: heartPop 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .word-reveal-item { transform: none; opacity: 1; transition: none; }
             #catalog-modal { transform: none; transition: none; }
+            .site-fade-up, .site-mask-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                clip-path: none !important;
+                transition: none !important;
+            }
+            #hero .hero-cta-btn,
             .category-card.is-entering,
+            .category-card.is-entering .cat-img,
             .category-card.is-tapped,
             .catalog-item.is-stagger-in,
+            .catalog-item-fav.is-fav,
+            .cart-row-enter,
+            .contact-copy-btn.is-copied,
             #catalog-modal.is-open > div:nth-child(1),
             #catalog-modal.is-open > div:nth-child(2) { animation: none !important; opacity: 1 !important; transform: none !important; }
         }
@@ -1369,10 +1596,10 @@
         <!-- Contenido Inferior Hero (deja libre el centro del video) -->
         <div class="relative z-10 max-w-5xl mx-auto text-center text-white px-4">
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-                <a href="#destacados" class="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellowHover text-brand-black px-8 py-4 rounded-2xl font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-xl text-center">
-                    Explorar Colección
+                <a href="#destacados" class="hero-cta-btn w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellowHover text-brand-black px-8 py-4 rounded-2xl font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-xl text-center" style="--hero-i: 0;">
+                    Explorar Destacadas
                 </a>
-                <a href="#categorias" class="btn-ver-catalogo-hero w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/30 px-8 py-4 rounded-2xl font-semibold text-base transition-all text-center">
+                <a href="#categorias" class="hero-cta-btn btn-ver-catalogo-hero w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/30 px-8 py-4 rounded-2xl font-semibold text-base transition-all text-center" style="--hero-i: 1;">
                     <span>Ver Catálogo</span>
                     <span class="btn-arrow-circle" aria-hidden="true">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
@@ -1686,92 +1913,41 @@
         </div>
     </section>
 
-    <!-- 6. SECCIÓN SOBRE NOSOTROS (2 Fotos Superpuestas con Marco + Historia + Progress Bars Clásicas) -->
-    <section id="nosotros" class="about-section reveal-on-scroll cv-auto" aria-labelledby="nosotros-title">
-        <div class="about-grid">
-            <!-- Composición Editorial: 2 Fotos Superpuestas Unidas por un Marco -->
-            <div class="about-collage">
-                <div class="about-collage-frame" aria-hidden="true"></div>
-                <div class="about-photo-main">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=75" alt="Showroom de indumentaria urbana AURORA Studio" width="520" height="650" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/520x650/0A0A0A/FFD700?text=AURORA+Studio'">
-                    <div class="about-media-badge">
-                        <span class="about-media-dot"></span>
-                        <span>Est. 2018 · Buenos Aires</span>
-                    </div>
-                </div>
-                <div class="about-photo-overlap">
-                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=600&q=75" alt="Colección y curaduría textil en el taller de AURORA Studio" width="420" height="525" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/420x525/18181B/FFD700?text=Atelier+AURORA'">
-                </div>
-            </div>
+    <!-- 5.5 SECCIÓN VIDEO CTA FULL WIDTH (Ofertas de la Semana 45% OFF) -->
+    <section id="ofertas-semana" class="promo-video-cta reveal-on-scroll" aria-labelledby="promo-cta-title">
+        <!-- Video Full Width (colocar archivo en assets/Video Promo/ofertas.mp4) -->
+        <video id="promo-cta-video" class="promo-video-bg" autoplay muted loop playsinline preload="metadata">
+            <source src="assets/Video%20Promo/ofertas.mp4" type="video/mp4">
+        </video>
+        <div class="promo-video-overlay" aria-hidden="true"></div>
 
-            <!-- Texto contando quiénes son + Barras de Progreso debajo -->
-            <div>
-                <span class="section-eyebrow">03 // Quiénes Somos</span>
-                <h2 id="nosotros-title" class="section-heading">Sobre Nosotros</h2>
-                <p class="about-lead">
-                    En <strong class="highlight-box highlight-box-inline">AURORA Studio</strong> diseñamos indumentaria urbana contemporánea desde nuestro taller independiente en Buenos Aires, combinando sastrería arquitectónica con textiles técnicos de alto rendimiento.
-                </p>
-                <p class="about-copy">
-                    Nacimos con la convicción de crear prendas atemporales fuera del ritmo descartable del fast-fashion. Trabajamos en series cortas junto a confeccionistas locales, cuidando cada costura, cada moldería y la nobleza de los materiales para que cada pieza se sienta tan bien como se ve.
-                </p>
-                <div class="about-tags">
-                    <span class="about-tag">Taller Propio</span>
-                    <span class="about-tag">Series Cortas</span>
-                    <span class="about-tag">Textiles Nobles</span>
-                    <span class="about-tag">Diseño Argentino</span>
-                </div>
-
-                <!-- Barras de Progreso Clásicas -->
-                <div class="about-progress-list">
-                    <div class="progress-item" data-progress="98">
-                        <div class="progress-head">
-                            <span class="progress-label">Satisfacción de Clientes</span>
-                        </div>
-                        <div class="progress-track" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" aria-label="Satisfacción de Clientes">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-item" data-progress="100">
-                        <div class="progress-head">
-                            <span class="progress-label">Producción Local Independiente</span>
-                        </div>
-                        <div class="progress-track" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Producción Local Independiente">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-item" data-progress="85">
-                        <div class="progress-head">
-                            <span class="progress-label">Materiales Nobles &amp; Textiles Técnicos</span>
-                        </div>
-                        <div class="progress-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Materiales Nobles y Textiles Técnicos">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-item" data-progress="96">
-                        <div class="progress-head">
-                            <span class="progress-label">Entregas a Tiempo en Todo el País</span>
-                        </div>
-                        <div class="progress-track" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100" aria-label="Entregas a Tiempo en Todo el País">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="promo-cta-inner">
+            <span class="promo-eyebrow" data-word-reveal>Drop Especial · Tiempo Limitado</span>
+            <h2 id="promo-cta-title" class="promo-title">
+                <span data-word-reveal data-word-delay="90">Ofertas de la semana</span>
+                <span class="promo-off-box" data-word-reveal data-word-delay="220">45% OFF</span>
+            </h2>
+            <button type="button" onclick="openCatalogModal('ALL')" class="promo-btn site-fade-up" style="--stagger: 2;">
+                <span>Ver Ofertas</span>
+                <span class="btn-arrow-circle" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+                </span>
+            </button>
         </div>
     </section>
+
+    <!-- 6. SECCIÓN SOBRE NOSOTROS (Módulo Editorial Mobile-First Aislado: about-us/*) -->
+    <section id="nosotros" class="au-root" aria-label="Sobre Nosotros — AURORA Studio"></section>
 
     <!-- 7. SECCIÓN CONTACTO (Redes, Teléfono, Mail, Ubicación y Mapa con Pin Saltando) -->
     <section id="contacto" class="contact-section reveal-on-scroll cv-auto" aria-labelledby="contacto-title">
         <div class="contact-header">
             <div class="contact-header-copy">
-                <span class="section-eyebrow">04 // Conectemos</span>
-                <h2 id="contacto-title" class="section-heading">Contacto</h2>
-                <p class="about-copy" style="margin-bottom: 0;">Visitá nuestro showroom, consultá por talles o escribinos directamente por cualquiera de nuestros canales.</p>
+                <span class="section-eyebrow" data-word-reveal>04 // Conectemos</span>
+                <h2 id="contacto-title" class="section-heading" data-word-reveal data-word-delay="90">Contacto</h2>
+                <p class="about-copy site-fade-up" style="margin-bottom: 0; --stagger: 1;">Visitá nuestro showroom, consultá por talles o escribinos directamente por cualquiera de nuestros canales.</p>
             </div>
-            <div class="contact-status-pill">
+            <div class="contact-status-pill site-fade-up" style="--stagger: 2;">
                 <span class="contact-status-dot" aria-hidden="true"></span>
                 <span>Showroom abierto · Lun a Sáb 11 a 20 hs</span>
             </div>
@@ -1782,7 +1958,7 @@
             <div class="contact-info-card">
                 <div class="contact-list">
                     <!-- Número -->
-                    <div class="contact-row">
+                    <div class="contact-row site-fade-up" style="--stagger: 0;">
                         <div class="contact-row-main">
                             <div class="contact-icon-box" aria-hidden="true">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -1793,13 +1969,13 @@
                                 <a href="https://wa.me/5491172023171" target="_blank" rel="noopener noreferrer" class="contact-inline-link">Chatear por WhatsApp &rarr;</a>
                             </div>
                         </div>
-                        <button type="button" class="contact-copy-btn" onclick="copyContactText('+54 9 11 7202-3171', 'Número copiado al portapapeles')" aria-label="Copiar número de teléfono" title="Copiar número">
+                        <button type="button" class="contact-copy-btn" onclick="copyContactText('+54 9 11 7202-3171', 'Número copiado al portapapeles', this)" aria-label="Copiar número de teléfono" title="Copiar número">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         </button>
                     </div>
 
                     <!-- Mail -->
-                    <div class="contact-row">
+                    <div class="contact-row site-fade-up" style="--stagger: 1;">
                         <div class="contact-row-main">
                             <div class="contact-icon-box" aria-hidden="true">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -1810,13 +1986,13 @@
                                 <span class="contact-sub">Respondemos en menos de 24 hs hábiles</span>
                             </div>
                         </div>
-                        <button type="button" class="contact-copy-btn" onclick="copyContactText('hola@aurorastudio.com.ar', 'Mail copiado al portapapeles')" aria-label="Copiar correo electrónico" title="Copiar mail">
+                        <button type="button" class="contact-copy-btn" onclick="copyContactText('hola@aurorastudio.com.ar', 'Mail copiado al portapapeles', this)" aria-label="Copiar correo electrónico" title="Copiar mail">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         </button>
                     </div>
 
                     <!-- Ubicación (ícono estático limpio; el pin saltando vive en el mapa) -->
-                    <div class="contact-row">
+                    <div class="contact-row site-fade-up" style="--stagger: 2;">
                         <div class="contact-row-main">
                             <div class="contact-icon-box" aria-hidden="true">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
@@ -1832,7 +2008,7 @@
                 </div>
 
                 <!-- Redes Sociales -->
-                <div class="contact-socials-box">
+                <div class="contact-socials-box site-fade-up" style="--stagger: 3;">
                     <h3 class="contact-socials-title">Seguinos en Redes</h3>
                     <div class="contact-socials-grid">
                         <a href="https://instagram.com/aurorastudio.ar" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="Instagram de AURORA Studio">
@@ -1876,7 +2052,7 @@
             </div>
 
             <!-- Mapa Interactivo con Pin de Ubicación Saltando -->
-            <div class="contact-map-card">
+            <div class="contact-map-card site-mask-reveal">
                 <div class="map-badge-top">
                     <span class="about-media-dot"></span>
                     <span>Palermo · Buenos Aires</span>
@@ -2126,6 +2302,74 @@
             initFilterListeners();
             initHeaderButtons();
             initHeroVideoPlaylist();
+            initPromoVideo();
+            initSiteMotion();
+        }
+
+        function initSiteMotion() {
+            const nodes = document.querySelectorAll('.site-fade-up, .site-mask-reveal');
+            if (nodes.length === 0) return;
+
+            const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReduced || !('IntersectionObserver' in window)) {
+                nodes.forEach(n => n.classList.add('is-in'));
+                return;
+            }
+
+            const motionObs = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-in');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -30px 0px', threshold: 0.12 });
+
+            nodes.forEach(n => motionObs.observe(n));
+
+            // Stagger suave para las columnas del footer
+            const footerCols = document.querySelectorAll('footer .grid > div');
+            footerCols.forEach((col, i) => {
+                col.classList.add('site-fade-up');
+                col.style.setProperty('--stagger', String(i));
+                motionObs.observe(col);
+            });
+        }
+
+        function initPromoVideo() {
+            const video = document.getElementById('promo-cta-video');
+            if (!video) return;
+            video.muted = true;
+
+            const markReady = () => video.classList.add('is-ready');
+            if (video.readyState >= 2) {
+                markReady();
+            } else {
+                video.addEventListener('loadeddata', markReady, { once: true });
+                video.addEventListener('canplay', markReady, { once: true });
+            }
+
+            const playSafe = () => {
+                if (!video.classList.contains('is-ready')) return;
+                const p = video.play();
+                if (p && p.catch) p.catch(() => {});
+            };
+
+            if ('IntersectionObserver' in window) {
+                const promoObs = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !document.hidden) {
+                        playSafe();
+                    } else {
+                        video.pause();
+                    }
+                }, { rootMargin: '120px 0px' });
+                promoObs.observe(video);
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) video.pause();
+                else playSafe();
+            });
         }
 
         function initTextWordReveal() {
@@ -2826,12 +3070,13 @@
             }
             if (els.cartFooter) els.cartFooter.classList.remove('hidden');
 
-            CART.forEach(item => {
+            CART.forEach((item, idx) => {
                 const prod = PRODUCTS_DATA.find(p => p.id === item.id);
                 if (!prod) return;
 
                 const itemRow = document.createElement('div');
-                itemRow.className = "flex items-start gap-3 bg-gray-50 rounded-2xl border border-gray-100 p-3 relative";
+                itemRow.className = "flex items-start gap-3 bg-gray-50 rounded-2xl border border-gray-100 p-3 relative cart-row-enter";
+                itemRow.style.setProperty('--row-i', String(Math.min(idx, 8)));
 
                 itemRow.innerHTML = `
                     <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 shrink-0">
@@ -2934,7 +3179,13 @@
             }, 3000);
         }
 
-        function copyContactText(text, successMsg) {
+        function copyContactText(text, successMsg, btnEl) {
+            if (btnEl) {
+                btnEl.classList.remove('is-copied');
+                void btnEl.offsetWidth;
+                btnEl.classList.add('is-copied');
+                setTimeout(() => btnEl.classList.remove('is-copied'), 750);
+            }
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text)
                     .then(() => showNotification(successMsg || 'Copiado al portapapeles'))

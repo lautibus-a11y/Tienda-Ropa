@@ -50,6 +50,40 @@ Para prevenir vulnerabilidades comunes (OWASP Top 10):
 
 Cualquier agente de IA o desarrollador que realice modificaciones en el código fuente debe registrar obligatoriamente los cambios realizados en esta sección.
 
+### [1.8.2] - 2026-11-28
+#### Sección "Sobre Nosotros" 100% en Español y Remoción de "Principios Que Nos Definen" y "Detrás De Cada Pieza"
+- **Traducción completa al español (`about-us/about-us.data.js`, `about-us/about-us.js`):**
+  - Traducidos todos los titulares, etiquetas, botones, hitos del recorrido y métricas al español (`DESCUBRÍ NUESTRA HISTORIA`, `MÁS QUE SOLO INDUMENTARIA.`, `Fundada en`, `Nuestro Recorrido`, `EL COMIENZO`, `PRIMERA COLECCIÓN`, `UNA NUEVA IDENTIDAD`, `EL PRÓXIMO CAPÍTULO`, `Números Que Nos Definen`, `AÑOS DE EXPERIENCIA`, `CLIENTES FELICES`, `COLECCIONES`, `PAÍSES`, `Nuestra Comunidad`, `SUMATE A NUESTRO MUNDO.`, `SEGUINOS`, `TU ESTILO. TU IDENTIDAD. TU HISTORIA.`, `EXPLORAR COLECCIÓN`).
+- **Depuración modular (`about-us/*`) y separación visual (`index.html`):**
+  - Eliminados los bloques **Principios Que Nos Definen** (`BrandPhilosophy` / `.au-philosophy`) y **Detrás De Cada Pieza** (`BehindTheBrand` / `.au-behind` / `.au-lightbox`), junto con sus datos y estilos CSS asociados, dejando 6 subsecciones limpias y cohesivas.
+  - Agregada separación inferior mobile-first en `.promo-video-cta` (`3rem` móvil / `4.5rem` tablet / `5.5rem` desktop) para dar respiro visual entre **Ofertas de la semana** y el inicio de **Sobre Nosotros**.
+
+### [1.8.1] - 2026-11-28
+#### Extensión de Animaciones de Entrada y Microinteracciones al Click en Toda la Web
+- **Página Principal (`index.html`):**
+  - Agregada `initSiteMotion()` (`IntersectionObserver` único GPU a 60 FPS) con `.site-fade-up` escalonado y `.site-mask-reveal` (`clip-path`) en **Hero** (`@keyframes heroCtaIn` para los CTAs), **Nuestro Catálogo** (`@keyframes catImgSettle` zoom-out en las fotos al entrar sin alterar `position: sticky`), **Ofertas de la Semana** (*Text Word Reveal* en titular y `45% OFF` + fade-up en botón), **Contacto** (*Text Word Reveal* en encabezado, fade-up escalonado en filas/redes y mask reveal en el mapa), **Footer** (fade-up en columnas) y **Carrito** (`@keyframes cartRowIn` al abrir el drawer).
+  - Microinteracciones al hacer click: feedback táctil `scale3d(0.97)` en botones, cards y pills, `@keyframes heartPop` al marcar favoritos y pulso dorado `.is-copied` en botones de copiado rápido.
+- **Ficha de Producto (`producto.html`):**
+  - Agregada `initProductMotion()` y `applyProductWordReveal()`: *Text Word Reveal* en título de la prenda, `Descripción Editorial` y `Piezas Relacionadas`; *Image Mask Reveal* + zoom-out en `.gallery-main-container` y crossfade suave `.is-swapping` al cambiar miniaturas; fade-up escalonado en especificaciones técnicas y tarjetas relacionadas; pulso táctil al click en talles/colores/cards y `@keyframes heartPop` en favoritos. Todo respeta `prefers-reduced-motion`.
+
+### [1.8.0] - 2026-11-28
+#### Rediseño Modular Editorial Mobile-First de "Sobre Nosotros" (`about-us/*`)
+- **Arquitectura Aislada (`about-us/about-us.data.js`, `about-us/about-us.css`, `about-us/about-us.js`):**
+  - Creada la experiencia completa de **Sobre Nosotros** en 8 componentes modulares (`AboutHero`, `BrandStory`, `BrandTimeline`, `BrandPhilosophy`, `BehindTheBrand` con Lightbox táctil/teclado, `BrandStatistics`, `BrandCommunity` y `AboutCTA`), respetando 100% la identidad visual existente de AURORA Studio (`#FFFFFF`, `#FAFAFA`, `#0A0A0A`, `#52525B`, `#FFD700`, tipografía `'Inter'`, botones con círculo negro + flecha diagonal amarilla) y sin modificar el resto del e-commerce.
+  - Datos completamente editables y desacoplados en `ABOUT_US_DATA` (con avisos explícitos en hitos y estadísticas de demostración).
+  - Enfoque **Mobile-First** (`360px` a `1920px`), `clamp()` en tipografía fluida, imágenes locales optimizadas con dimensiones explícitas y `loading="lazy"`, construcción DOM segura (XSS-safe), animaciones GPU (*Text Word Reveal*, *fade-up*, *image mask reveal*, contadores animados, timeline interactivo, parallax sutil solo en desktop) y soporte completo para `prefers-reduced-motion`.
+- **Integración mínima en `index.html`:**
+  - Enlazados `about-us/about-us.css`, `about-us/about-us.data.js` (`defer`) y `about-us/about-us.js` (`defer`) montando exclusivamente dentro de `<section id="nosotros" class="au-root">`, sin alterar header, hero, destacados, catálogo, ofertas, contacto, carrito ni footer.
+
+### [1.7.6] - 2026-11-28
+#### Botón "Explorar Destacadas", Video CTA Full-Width de Ofertas y Galería Full-Bleed en Ficha de Producto
+- **Hero (`index.html`):**
+  - Renombrado el botón CTA principal de `Explorar Colección` a `Explorar Destacadas`.
+- **Sección Video CTA Full-Width (`#ofertas-semana` en `index.html`):**
+  - Agregada debajo de `#categorias` y antes de `#nosotros` una sección de ancho completo con video de fondo preparado en `assets/Video Promo/ofertas.mp4` (`initPromoVideo()` con fade-in al cargar y pausa automática fuera de viewport/`visibilitychange`), titular `Ofertas de la semana` + badge rectangular amarillo `45% OFF` y botón `Ver Ofertas` que abre el catálogo.
+- **Ficha de Producto (`producto.html`):**
+  - Rediseñada `.product-hero-card` para que la imagen superior cubra de borde a borde la parte superior del card sin márgenes blancos, manteniendo las esquinas inferiores de la imagen redondeadas (`24px` móvil / `28px` tablet-desktop) y el bloque comercial inferior ordenado con su propio padding.
+
 ### [1.7.5] - 2026-11-28
 #### Posición Inferior de CTAs en Hero, Resaltes Amarillos y Círculo Negro en "Ver"
 - **Hero (`#hero` en `index.html`):**

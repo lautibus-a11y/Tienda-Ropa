@@ -1,0 +1,986 @@
+/* ==========================================================================
+   AURORA STUDIO — ABOUT US / SOBRE NOSOTROS (Aislado con prefijo .au-*)
+   Mobile-First desde 360px hasta 1920px · Identidad Visual AURORA Exacta
+   Paleta: #FFFFFF, #FAFAFA, #F4F4F5, #0A0A0A, #18181B, #52525B, #FFD700
+   Tipografía: 'Inter', sans-serif (heredada del sitio)
+   ========================================================================== */
+
+.au-root {
+    --au-black: #0A0A0A;
+    --au-ink: #18181B;
+    --au-muted: #52525B;
+    --au-subtle: #71717A;
+    --au-surface: #FFFFFF;
+    --au-surface-alt: #FAFAFA;
+    --au-surface-soft: #F4F4F5;
+    --au-yellow: #FFD700;
+    --au-yellow-hover: #FFC700;
+    --au-border: rgba(10, 10, 10, 0.09);
+    --au-border-strong: rgba(10, 10, 10, 0.18);
+    --au-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    color: var(--au-black);
+    font-family: 'Inter', sans-serif;
+}
+
+.au-container {
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .au-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .au-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* ——— Tipografía Editorial y Utilidades Compartidas ——— */
+.au-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--au-muted);
+    margin: 0 0 0.75rem;
+}
+
+.au-eyebrow-light {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.au-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: var(--au-yellow);
+    flex-shrink: 0;
+}
+
+.au-title {
+    font-size: clamp(1.85rem, 5.2vw, 3.35rem);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+    color: var(--au-black);
+    margin: 0;
+}
+
+.au-highlight {
+    display: inline-block;
+    background: var(--au-yellow);
+    color: var(--au-black);
+    padding: 0.06em 0.34em;
+    border-radius: 5px;
+    line-height: 1.12;
+}
+
+.au-lead {
+    font-size: clamp(1rem, 2.2vw, 1.18rem);
+    line-height: 1.65;
+    font-weight: 500;
+    color: var(--au-ink);
+    margin: 0;
+}
+
+.au-copy {
+    font-size: clamp(0.9rem, 1.8vw, 0.98rem);
+    line-height: 1.75;
+    color: var(--au-muted);
+    margin: 0;
+}
+
+.au-demo-note {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--au-subtle);
+    border-left: 2px solid var(--au-yellow);
+    padding-left: 0.6rem;
+}
+
+/* Botones fieles a la identidad AURORA (con círculo negro + flecha diagonal amarilla) */
+.au-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    background: var(--au-yellow);
+    color: var(--au-black);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    border-radius: 14px;
+    padding: 0.6rem 0.65rem 0.6rem 1.35rem;
+    min-height: 46px;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+    transition: transform 0.24s var(--au-ease), background-color 0.2s ease, box-shadow 0.24s ease;
+}
+
+.au-btn:hover {
+    background: var(--au-yellow-hover);
+    transform: translate3d(0, -2px, 0);
+}
+
+.au-btn:active {
+    transform: scale3d(0.98, 0.98, 1);
+}
+
+.au-btn:focus-visible {
+    outline: 3px solid var(--au-yellow);
+    outline-offset: 3px;
+}
+
+.au-btn-dark {
+    background: var(--au-black);
+    color: #FFFFFF;
+}
+
+.au-btn-dark:hover {
+    background: #1C1C20;
+}
+
+.au-btn-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 9999px;
+    background: var(--au-black);
+    color: var(--au-yellow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.au-btn-dark .au-btn-circle {
+    background: var(--au-yellow);
+    color: var(--au-black);
+}
+
+.au-btn-circle svg {
+    transition: transform 0.24s var(--au-ease);
+}
+
+.au-btn:hover .au-btn-circle svg {
+    transform: translate3d(1.5px, -1.5px, 0);
+}
+
+/* ——— Animaciones GPU (Text Reveal, Fade-Up, Image Mask Reveal) ——— */
+.au-fade-up {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    transition: opacity 0.72s var(--au-ease), transform 0.78s var(--au-ease);
+    will-change: opacity, transform;
+}
+
+.au-fade-up.is-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.au-word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+}
+
+.au-word-item {
+    display: inline-block;
+    transform: translate3d(0, 112%, 0);
+    opacity: 0;
+    transition:
+        transform 0.7s var(--au-ease) calc(var(--au-w-i, 0) * 75ms),
+        opacity 0.52s ease calc(var(--au-w-i, 0) * 75ms);
+    will-change: transform, opacity;
+}
+
+.au-text-reveal.is-in .au-word-item {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+}
+
+.au-img-reveal {
+    position: relative;
+    overflow: hidden;
+    clip-path: inset(8% 0 0 0);
+    opacity: 0;
+    transition: clip-path 0.85s var(--au-ease), opacity 0.65s ease;
+    will-change: clip-path, opacity;
+}
+
+.au-img-reveal img {
+    transform: scale3d(1.07, 1.07, 1);
+    transition: transform 1s var(--au-ease);
+    will-change: transform;
+}
+
+.au-img-reveal.is-in {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+}
+
+.au-img-reveal.is-in img {
+    transform: scale3d(1, 1, 1);
+}
+
+/* ==========================================================================
+   SECTION 01 — EDITORIAL HERO (Mobile-First)
+   ========================================================================== */
+.au-hero {
+    position: relative;
+    width: 100%;
+    min-height: 82svh;
+    display: flex;
+    align-items: flex-end;
+    background: var(--au-black);
+    overflow: hidden;
+}
+
+.au-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.au-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    filter: brightness(0.84) contrast(1.04);
+}
+
+.au-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.25) 0%,
+        rgba(10, 10, 10, 0.38) 45%,
+        rgba(10, 10, 10, 0.88) 100%
+    );
+}
+
+.au-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 5rem 0 2.5rem;
+    color: #FFFFFF;
+}
+
+.au-hero-brand {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0 0 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.au-hero-title {
+    font-size: clamp(2.35rem, 9.5vw, 5.4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+    color: #FFFFFF;
+    margin: 0 0 1rem;
+    max-width: 14ch;
+}
+
+.au-hero-sub {
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 34rem;
+    margin: 0 0 1.75rem;
+}
+
+.au-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .au-hero {
+        min-height: 86svh;
+    }
+    .au-hero-content {
+        padding: 6rem 0 4rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .au-hero {
+        min-height: 88svh;
+    }
+    .au-hero-img {
+        object-position: center 24%;
+    }
+    .au-hero-content {
+        padding: 7rem 0 4.5rem;
+    }
+}
+
+/* ==========================================================================
+   SECTION 02 — BRAND STORY (Split Asimétrico Desktop / Apilado Mobile)
+   ========================================================================== */
+.au-story {
+    padding: 3.75rem 0;
+    background: var(--au-surface);
+}
+
+.au-story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+}
+
+.au-story-media-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.au-story-photo-primary {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    background: var(--au-surface-soft);
+    border: 1px solid var(--au-border);
+}
+
+.au-story-photo-primary img,
+.au-story-photo-secondary img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.au-story-subrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    align-items: stretch;
+}
+
+.au-story-founded-card {
+    background: var(--au-black);
+    color: #FFFFFF;
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.au-story-founded-label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.au-story-founded-year {
+    font-size: clamp(2.2rem, 7vw, 3.25rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--au-yellow);
+    margin: 0.4rem 0;
+}
+
+.au-story-founded-loc {
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.au-story-photo-secondary {
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    background: var(--au-surface-soft);
+    border: 1px solid var(--au-border);
+}
+
+.au-story-caption {
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.85rem;
+    background: rgba(10, 10, 10, 0.78);
+    color: #FFFFFF;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+}
+
+.au-story-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.au-story-quote {
+    margin: 0.5rem 0 0;
+    padding: 1.15rem 0 1.15rem 1.2rem;
+    border-left: 3px solid var(--au-yellow);
+    font-size: clamp(1.05rem, 2.5vw, 1.32rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+    color: var(--au-black);
+}
+
+@media (min-width: 768px) {
+    .au-story {
+        padding: 5.5rem 0;
+    }
+    .au-story-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 3rem;
+        align-items: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .au-story {
+        padding: 7rem 0;
+    }
+    .au-story-grid {
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 4.5rem;
+    }
+}
+
+/* ==========================================================================
+   SECTION 03 — OUR JOURNEY (Timeline Vertical Mobile / Interactivo Desktop)
+   ========================================================================== */
+.au-journey {
+    padding: 3.75rem 0;
+    background: var(--au-surface-alt);
+    border-top: 1px solid var(--au-border);
+    border-bottom: 1px solid var(--au-border);
+}
+
+.au-section-head {
+    max-width: 42rem;
+    margin-bottom: 2.25rem;
+}
+
+/* Mobile: Timeline Vertical */
+.au-timeline-mobile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--au-border-strong);
+}
+
+.au-tm-step {
+    position: relative;
+    background: var(--au-surface);
+    border: 1px solid var(--au-border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.au-tm-step::before {
+    content: "";
+    position: absolute;
+    left: -1.8rem;
+    top: 1.35rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: var(--au-yellow);
+    border: 2px solid var(--au-black);
+}
+
+.au-tm-media {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    background: var(--au-surface-soft);
+    overflow: hidden;
+}
+
+.au-tm-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    display: block;
+}
+
+.au-tm-body {
+    padding: 1.15rem 1.15rem 1.3rem;
+}
+
+.au-tm-year {
+    display: inline-block;
+    background: var(--au-yellow);
+    color: var(--au-black);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 4px;
+    margin-bottom: 0.55rem;
+}
+
+.au-tm-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.45rem;
+    color: var(--au-black);
+}
+
+/* Desktop: Timeline Horizontal Interactivo */
+.au-timeline-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .au-journey {
+        padding: 6.5rem 0;
+    }
+    .au-section-head {
+        margin-bottom: 3rem;
+    }
+    .au-timeline-mobile {
+        display: none;
+    }
+    .au-timeline-desktop {
+        display: block;
+    }
+    .au-td-rail {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--au-border-strong);
+    }
+    .au-td-progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        height: 3px;
+        width: 25%;
+        background: var(--au-black);
+        transition: transform 0.45s var(--au-ease);
+        will-change: transform;
+    }
+    .au-td-tab {
+        text-align: left;
+        background: transparent;
+        border: none;
+        padding: 0.75rem 0.5rem 0.5rem;
+        cursor: pointer;
+        color: var(--au-subtle);
+        transition: color 0.25s ease;
+    }
+    .au-td-tab:hover,
+    .au-td-tab[aria-selected="true"] {
+        color: var(--au-black);
+    }
+    .au-td-tab:focus-visible {
+        outline: 2px solid var(--au-yellow);
+        outline-offset: 4px;
+    }
+    .au-td-tab-year {
+        display: inline-block;
+        font-size: 1.85rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+        padding: 0.08em 0.25em;
+        border-radius: 5px;
+        transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .au-td-tab[aria-selected="true"] .au-td-tab-year {
+        background: var(--au-yellow);
+        color: var(--au-black);
+    }
+    .au-td-tab-label {
+        display: block;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+    .au-td-stage {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 3.5rem;
+        align-items: center;
+        background: var(--au-surface);
+        border: 1px solid var(--au-border);
+        border-radius: 20px;
+        padding: 2.25rem;
+    }
+    .au-td-stage-media {
+        aspect-ratio: 4 / 5;
+        max-height: 480px;
+        width: 100%;
+        border-radius: 14px;
+        overflow: hidden;
+        background: var(--au-surface-soft);
+    }
+    .au-td-stage-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: opacity 0.38s ease, transform 0.55s var(--au-ease);
+    }
+    .au-td-stage-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: opacity 0.32s ease, transform 0.42s var(--au-ease);
+    }
+    .au-td-stage.is-switching .au-td-stage-content,
+    .au-td-stage.is-switching .au-td-stage-media img {
+        opacity: 0;
+        transform: translate3d(0, 10px, 0);
+    }
+    .au-td-stage-year {
+        font-size: clamp(3rem, 5vw, 4.5rem);
+        font-weight: 900;
+        letter-spacing: -0.05em;
+        line-height: 0.95;
+        color: var(--au-black);
+        margin: 0;
+    }
+    .au-td-stage-title {
+        font-size: 1.5rem;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin: 0;
+    }
+    .au-td-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-top: 1rem;
+    }
+    .au-td-nav-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 9999px;
+        border: 1px solid var(--au-border-strong);
+        background: var(--au-surface);
+        color: var(--au-black);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .au-td-nav-btn:hover {
+        background: var(--au-black);
+        color: var(--au-yellow);
+        border-color: var(--au-black);
+    }
+}
+
+/* ==========================================================================
+   SECCIÓN 04 — NÚMEROS QUE NOS DEFINEN (Grid 2x2 Mobile / 4 cols Desktop)
+   ========================================================================== */
+.au-stats {
+    padding: 3.75rem 0;
+    background: var(--au-black);
+    color: #FFFFFF;
+}
+
+.au-stats .au-title {
+    color: #FFFFFF;
+}
+
+.au-stats .au-demo-note {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.au-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.au-stat-item {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 1.4rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.au-stat-value {
+    display: block;
+    font-size: clamp(2.15rem, 8.5vw, 3.8rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--au-yellow);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.55rem;
+}
+
+.au-stat-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+    .au-stats {
+        padding: 5.5rem 0;
+    }
+    .au-stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+    .au-stat-item {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   SECTION 07 — OUR COMMUNITY (Instagram / UGC · 2 cols Mobile / 6 cols Desktop)
+   ========================================================================== */
+.au-community {
+    padding: 3.75rem 0;
+    background: var(--au-surface);
+}
+
+.au-comm-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.au-comm-hashtag {
+    display: inline-block;
+    background: var(--au-yellow);
+    color: var(--au-black);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    padding: 0.28rem 0.65rem;
+    border-radius: 5px;
+    margin-top: 0.75rem;
+}
+
+.au-comm-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.au-comm-card {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--au-surface-soft);
+    border: 1px solid var(--au-border);
+    display: block;
+    text-decoration: none;
+}
+
+.au-comm-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s var(--au-ease);
+}
+
+@media (hover: hover) {
+    .au-comm-card:hover img {
+        transform: scale3d(1.06, 1.06, 1);
+    }
+}
+
+.au-comm-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 2rem 0.7rem 0.65rem;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.84) 100%);
+    color: #FFFFFF;
+}
+
+.au-comm-handle {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--au-yellow);
+}
+
+.au-comm-look {
+    display: block;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+    .au-community {
+        padding: 5.5rem 0;
+    }
+    .au-comm-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+    }
+    .au-comm-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .au-comm-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}
+
+/* ==========================================================================
+   SECTION 08 — FINAL EDITORIAL CTA (Puente hacia el Catálogo)
+   ========================================================================== */
+.au-cta {
+    position: relative;
+    width: 100%;
+    min-height: 70svh;
+    display: flex;
+    align-items: flex-end;
+    background: var(--au-black);
+    overflow: hidden;
+}
+
+.au-cta-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.au-cta-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    display: block;
+    filter: brightness(0.74);
+}
+
+.au-cta-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.25) 0%,
+        rgba(10, 10, 10, 0.65) 55%,
+        rgba(10, 10, 10, 0.92) 100%
+    );
+}
+
+.au-cta-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 4.5rem 0 3.25rem;
+    color: #FFFFFF;
+}
+
+.au-cta-phrase {
+    font-size: clamp(2.1rem, 8.8vw, 4.8rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin: 0 0 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.14em;
+}
+
+@media (min-width: 768px) {
+    .au-cta {
+        min-height: 74svh;
+        align-items: center;
+    }
+    .au-cta-content {
+        padding: 5.5rem 0;
+    }
+}
+
+/* ==========================================================================
+   ACCESIBILIDAD — prefers-reduced-motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .au-fade-up,
+    .au-word-item,
+    .au-img-reveal,
+    .au-img-reveal img,
+    .au-td-progress,
+    .au-td-stage-content,
+    .au-td-stage-media img,
+    .au-comm-card img,
+    .au-btn,
+    .au-btn-circle svg {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+        clip-path: none !important;
+        opacity: 1 !important;
+    }
+}
